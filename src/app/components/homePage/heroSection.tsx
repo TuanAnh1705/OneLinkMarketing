@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 export default function SectionHero() {
     return (
         // FIX: Giảm padding trên mobile, tăng dần lên desktop
-        <section className="min-h-[85vh] flex items-start px-4 sm:px-8 md:px-16 lg:px-24 pt-24 md:pt-32">
+        <section className="min-h-[85vh] flex items-start px-4 sm:px-8 md:px-16 lg:px-24 pt-24 md:pt-32 bg-white">
             {/* FIX: Thêm items-center để căn giữa 2 cột theo chiều dọc trên desktop */}
             <div className="relative max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
                 
