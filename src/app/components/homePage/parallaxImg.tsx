@@ -21,7 +21,7 @@ export default function ParallaxImage() {
         <div className="-mt-40 md:-mt-60 lg:-mt-80 relative h-screen overflow-hidden">
             <section
                 ref={sectionRef}
-                className="relative h-[120vh] flex items-center justify-center bg-white"
+                className="relative h-[120vh] flex items-center justify-center"
             >
                 {/*
                   FIX: Căn giữa (justify-center) trên mobile

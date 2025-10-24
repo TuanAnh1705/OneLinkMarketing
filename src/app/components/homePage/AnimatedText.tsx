@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 export default function AnimatedText() {
     return (
         // FIX: Giảm padding mobile (px-4) và căn giữa (items-center)
-        <section className="min-h-[50vh] flex items-center justify-center px-4 md:px-16 lg:px-24 bg-white">
+        <section className="min-h-[50vh] flex items-center justify-center px-4 md:px-16 lg:px-24">
             <div className="max-w-7xl w-full mx-auto">
                 <motion.div
                     className="relative w-full"

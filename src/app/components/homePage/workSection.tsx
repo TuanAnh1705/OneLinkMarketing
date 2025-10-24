@@ -22,7 +22,7 @@ export default function SectionWork() {
 
     return (
         // FIX: Responsive padding (px-) và negative margin (-top-)
-        <section ref={section3Ref} className="min-h-[250vh] relative px-4 sm:px-8 md:px-16 lg:px-24 -top-20 md:-top-32 lg:-top-40 bg-white">
+        <section ref={section3Ref} className="min-h-[250vh] relative px-4 sm:px-8 md:px-16 lg:px-24 -top-20 md:-top-32 lg:-top-40">
             <div className="sticky top-0 h-screen flex flex-col items-center justify-center "> {/* Thêm overflow-hidden để tránh lỗi tràn */}
                 
                 {/* CHỮ CHẠY NGANG */}

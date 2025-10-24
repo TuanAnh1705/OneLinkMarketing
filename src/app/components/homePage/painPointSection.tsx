@@ -37,7 +37,7 @@ export default function Page() {
 
     return (
         // FIX: Thêm padding chung cho mobile
-        <main className="min-h-screen px-4 py-12 md:px-8 lg:px-0 lg:py-0 bg-white">
+        <main className="min-h-screen px-4 py-12 md:px-8 lg:px-0 lg:py-0">
             <div className="mx-auto max-w-screen-2xl">
                 {/* Title Section */}
                 <div className="mb-12 lg:mb-20">

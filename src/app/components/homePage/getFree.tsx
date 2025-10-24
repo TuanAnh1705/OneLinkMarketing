@@ -72,7 +72,7 @@ export default function GetAFree() {
     const marqueeItems = Array(8).fill(marqueeText)
 
     return (
-        <section className="relative flex flex-col items-center justify-center h-screen -mt-[70vh] space-y-16 overflow-hidden bg-white/0">
+        <section className="relative flex flex-col items-center justify-center h-screen -mt-[70vh] space-y-16 overflow-hidden">
             {/* ======= Main Button ======= */}
             <motion.div
                 ref={containerRef}
