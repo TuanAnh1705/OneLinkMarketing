@@ -1,8 +1,8 @@
 "use client"
 
-// 1. Import thêm useSpring
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
 import { useRef } from "react"
 
 export default function HeroSection() {
@@ -12,10 +12,8 @@ export default function HeroSection() {
     offset: ["start start", "end start"],
   })
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"])
-
-  // 2. Dùng useSpring để làm mượt giá trị từ useTransform
-  // Bạn có thể điều chỉnh stiffness và damping để thay đổi "độ mượt" và "độ nảy"
+  // (Logic parallax của bạn giữ nguyên)
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-25%", "25%"])
   const smoothImageY = useSpring(imageY, {
     stiffness: 100,
     damping: 30,
@@ -24,7 +22,7 @@ export default function HeroSection() {
 
   return (
     <div className="relative overflow-hidden" ref={containerRef}>
-      {/* --- Curtain Animation --- */}
+      {/* --- Curtain Animation (Giữ nguyên) --- */}
       <motion.div
         initial={{ x: 0 }}
         animate={{ x: "-100%" }}
@@ -39,7 +37,8 @@ export default function HeroSection() {
       />
 
       {/* --- Page Content --- */}
-      <div className="min-h-screen bg-white p-8 md:p-16 relative z-10">
+      {/* THAY ĐỔI: Giảm padding trên mobile từ p-8 xuống p-6 */}
+      <div className="min-h-screen bg-white p-6 md:p-16 relative z-10">
         <svg width="0" height="0" style={{ position: "absolute" }}>
           <defs>
             <linearGradient id="chevronGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -51,8 +50,9 @@ export default function HeroSection() {
 
         <div className="mx-auto max-w-7xl">
           {/* Header with gradient text */}
-          <div className="mb-16">
-            <h1 className="text-center text-6xl md:text-8xl font-bold tracking-wider mb-8">
+          {/* THAY ĐỔI: Giảm margin bottom trên mobile từ mb-16 xuống mb-12 */}
+          <div className="mb-12 md:mb-16">
+            <h1 className="text-center text-4xl md:text-8xl font-bold tracking-wider mb-8">
               <span className="archivo-expanded bg-gradient-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
                 STRATEGY
               </span>
@@ -64,35 +64,51 @@ export default function HeroSection() {
             <div className="h-[1px] w-full bg-gradient-to-r from-[#0074E5] to-[#162660]" />
           </div>
 
-          <div className="grid md:grid-cols-[1fr_1.2fr] gap-8 md:gap-20 mb-24">
-            {/* Left text */}
-            <div className="flex items-start justify-start">
-              <div className="max-w-md">
-                <p className="neulis-alt-regular text-3xl md:text-3xl text-[#444444] leading-relaxed">
-                  Building the <br /> strategic foundation <br /> for your brand&apos;s <br /> long-term
-                  success.
+          {/* --- BỐ CỤC ĐÃ THAY ĐỔI TẠI ĐÂY --- */}
+          {/* THAY ĐỔI: Giảm khoảng cách trên mobile */}
+          <div className="mb-16 md:mb-24 space-y-10 md:space-y-20">
+            {/* Căn giữa khối text */}
+            <div className="flex items-start justify-center">
+              <div className="max-w-3xl text-center">
+                {/* THAY ĐỔI: Giảm cỡ chữ p trên mobile từ text-xl xuống text-lg */}
+                <p className="neulis-alt-regular text-lg md:text-xl text-[#444444] leading-relaxed">
+                  Craft data-driven, actionable roadmaps that navigate market
+                  complexities and position your brand for sustainable,
+                  long-term growth.
                 </p>
               </div>
             </div>
 
-            {/* Right image */}
-            <div className="flex items-center md:sticky md:top-16 md:h-[60vh]">
-              <div className="relative w-full aspect-[16/9] overflow-hidden max-w-[1600px] min-h-[500px]">
-                {/* 3. Sử dụng giá trị đã được làm mượt và bỏ transition */}
-                <motion.div style={{ y: smoothImageY }} className="w-full h-full">
+            {/* Container ảnh */}
+            <div className="flex items-center">
+              {/* Container cha bọc ngoài (giữ tỷ lệ và overflow) */}
+              {/* THAY ĐỔI LỚN NHẤT:
+                - Bỏ `min-h-[500px]` (gây xung đột trên mobile).
+                - Đổi `aspect-[16/7]` (rất rộng) thành `aspect-video` (16/9) trên mobile.
+                - Giữ `aspect-[16/7]` cho desktop (`md:`).
+                - Chuyển `max-w-[1600px]` thành `md:max-w-[1600px]` để mobile `w-full`.
+              */}
+              <div className="relative w-full aspect-video md:aspect-[16/7] overflow-hidden md:max-w-[1600px] mx-auto">
+                {/* (Logic parallax của bạn giữ nguyên) */}
+                <motion.div
+                  style={{ y: smoothImageY }}
+                  className="w-full h-[calc(100%_*_4/3)] relative"
+                >
                   <Image
-                    src="/assets/hero.jpg"
+                    src="/assets/hero.png"
                     alt="Never Stops - Athletes running on track"
                     fill
-                    className="object-contain scale-[1.8] will-change-transform max-w-[800px]"
+                    className="object-cover will-change-transform"
                   />
                 </motion.div>
               </div>
             </div>
           </div>
+          {/* --- KẾT THÚC THAY ĐỔI --- */}
 
           {/* Services section */}
-          <div className="grid md:grid-cols-3 gap-12 md:gap-16">
+          {/* THAY ĐỔI: Giảm gap trên mobile từ gap-12 xuống gap-8 */}
+          <div className="grid md:grid-cols-4 gap-8 md:gap-16">
             {[
               {
                 title: (
@@ -123,39 +139,58 @@ export default function HeroSection() {
                 ),
                 desc: "Crafting a clear, concise, and persuasive message that resonates with your target audience.",
               },
+              {
+                title: (
+                  <>
+                    Go-to-Market
+                    <br />
+                    Roadmap
+                  </>
+                ),
+                desc: "Developing a step-by-step, integrated marketing plan to launch your brand and drive sustainable growth.",
+              },
             ].map((s, i) => (
               <div key={i} className="space-y-4">
                 <div className="border-b border-[#0074E5] pb-3">
-                  <h3 className="archivo-expanded text-xl font-bold text-[#000A1D]">
+                  {/* THAY ĐỔI: Giảm cỡ chữ h3 trên mobile từ text-xl xuống text-lg */}
+                  <h3 className="archivo-expanded text-lg md:text-xl font-bold text-[#000A1D]">
                     {s.title}
                   </h3>
                 </div>
                 <p className="neulis-alt-regular text-[#444444] leading-relaxed text-sm">
                   {s.desc}
                 </p>
-                <button className="flex items-center gap-2 text-[#444444] hover:text-[#0074E5] transition-colors text-sm group">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M15 18L9 12L15 6"
-                      stroke="url(#chevronGradient)"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span className="neulis-alt-regular">Explore more</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M9 18L15 12L9 6"
-                      stroke="url(#chevronGradient)"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
               </div>
             ))}
+          </div>
+
+          {/* --- NÚT MỚI ĐƯỢC THÊM VÀO Ở ĐÂY --- */}
+          {/* THAY ĐỔI: Giảm margin top trên mobile từ mt-16 xuống mt-12 */}
+          <div className="flex justify-center mt-12 md:mt-16">
+            <Link
+              href="/insights"
+              className="flex items-center gap-2 text-[#444444] hover:text-[#0074E5] transition-colors text-sm group"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M15 18L9 12L15 6"
+                  stroke="url(#chevronGradient)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span className="neulis-alt-regular">Explore more</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 18L15 12L9 6"
+                  stroke="url(#chevronGradient)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>

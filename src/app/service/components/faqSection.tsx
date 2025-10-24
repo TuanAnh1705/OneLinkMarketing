@@ -119,7 +119,7 @@ export default function FaqAccordion() {
                     className="overflow-hidden"
                   >
                     <div className="pb-6 pl-24 pr-12">
-                      <p className="neulis-alt-regular font-medium leading-relaxed text-[#444444]">
+                      <p className="neulis-alt-regular font-medium text-xl leading-relaxed text-[#444444]">
                         {item.answer}
                       </p>
                     </div>

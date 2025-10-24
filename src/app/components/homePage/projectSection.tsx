@@ -9,8 +9,9 @@ export default function SectionProjects() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-  const smoothX = useSpring(mouseX, { stiffness: 200, damping: 25 })
-  const smoothY = useSpring(mouseY, { stiffness: 200, damping: 25 })
+  // Đã điều chỉnh stiffness và damping để di chuyển nhanh hơn
+  const smoothX = useSpring(mouseX, { stiffness: 350, damping: 20 }) // Tăng stiffness, giảm damping
+  const smoothY = useSpring(mouseY, { stiffness: 350, damping: 20 }) // Tăng stiffness, giảm damping
 
   const { scrollYProgress } = useScroll({ target: section4Ref, offset: ["start end", "center start"] })
   const buttonOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1])
@@ -27,7 +28,7 @@ export default function SectionProjects() {
     >
       {/* Custom cursor */}
       <motion.div
-        className="fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center rounded-4xl bg-[#FFFFFF] border border-[#444444]/70 text-[#444444] text-sm shadow-lg px-5 py-3"
+        className="fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center rounded-4xl bg-[#FFFFFF] border-none text-[#444444] text-sm shadow-lg px-5 py-3"
         style={{
           x: smoothX,
           y: smoothY,
@@ -35,7 +36,8 @@ export default function SectionProjects() {
           translateY: "-50%",
           scale: hoveredIndex !== null ? 1.1 : 0,
         }}
-        transition={{ type: "spring", stiffness: 250, damping: 20 }}
+        // Bạn cũng có thể điều chỉnh transition cho scale ở đây nếu muốn nó xuất hiện/biến mất nhanh hơn
+        transition={{ type: "spring", stiffness: 300, damping: 25 }} 
       >
         View Project
       </motion.div>

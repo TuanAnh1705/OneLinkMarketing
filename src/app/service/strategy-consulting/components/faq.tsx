@@ -16,33 +16,33 @@ function GradientLine() {
 const faqData = [
   {
     id: "01",
-    question: "How long does a typical project take?",
+    question: "How does a brand audit identify growth opportunities?",
     answer:
-      "Project timelines vary based on scope and complexity, but we always provide a clear timeline upfront.",
+      "A brand audit analyzes your internal branding, external perception, and customer experience to find gaps and inconsistencies. By fixing these, we uncover opportunities to strengthen your market position and attract more customers.",
   },
   {
     id: "02",
-    question: "Can you guarantee specific results?",
+    question: "What's included in your market entry strategy for international markets like the US/UK?",
     answer:
-      "We provide detailed projections and work diligently to meet agreed-upon goals, with transparent reporting throughout the process.",
+      "Our market entry strategy includes competitor analysis, target audience profiling, cultural nuance adaptation, legal compliance checks, and a phased marketing roadmap to ensure a successful launch.",
   },
   {
     id: "03",
-    question: "How are your prices so competitive?",
+    question: "How does your competitor analysis give my business a competitive edge?",
     answer:
-      "Our efficient processes and experienced team allow us to deliver high-quality work at competitive rates without compromising on quality.",
+      "We go beyond surface-level analysis to identify your competitors' weaknesses, untapped customer segments, and ineffective marketing tactics. This allows us to position your brand in a unique space where you can win.",
   },
   {
     id: "04",
-    question: "How do you ensure global quality?",
+    question: "How do you ensure the strategy will deliver a positive marketing ROI?",
     answer:
-      "We maintain strict quality standards across all projects with regular reviews, testing protocols, and continuous improvement practices.",
+      "Every recommendation in our strategy is tied to specific, measurable KPIs (Key Performance Indicators). We build financial models and forecasts to project potential ROI before you invest heavily in execution.",
   },
   {
     id: "05",
-    question: "What types of businesses do you work with?",
+    question: "What's the difference between your strategic consulting and just hiring a marketing manager?",
     answer:
-      "We work with businesses of all sizes across various industries, from startups to enterprise organizations.",
+      "A marketing manager executes day-to-day tasks. Our strategic consulting provides a high-level, data-backed roadmap built by a team of specialists (in research, branding, SEO) that a single manager can then execute effectively. We build the 'what' and 'why' so your team can focus on the 'how'.",
   },
 ]
 
@@ -52,13 +52,13 @@ export default function FaqAccordion() {
     setOpenIndex(openIndex === index ? null : index)
 
   return (
-    <div className="relative w-full z-20">
+    <div className="relative w-full z-20 -top-20">
       <div className="mx-auto max-w-5xl mt-60">
         {/* --- HEADER --- */}
         <div className="relative mb-12">
           <GradientLine />
           <h1 className="archivo-expanded py-12 text-center font-serif text-4xl font-medium tracking-wide text-[#000A1D] md:text-5xl">
-            Learn some common <br/> answers about our projects
+            FAQ’s
           </h1>
           <GradientLine />
         </div>
@@ -119,7 +119,7 @@ export default function FaqAccordion() {
                     className="overflow-hidden"
                   >
                     <div className="pb-6 pl-24 pr-12">
-                      <p className="neulis-alt-regular font-medium leading-relaxed text-[#444444]">
+                      <p className="neulis-alt-regular font-medium leading-relaxed text-xl text-[#444444]">
                         {item.answer}
                       </p>
                     </div>

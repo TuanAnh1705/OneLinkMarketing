@@ -18,7 +18,7 @@ const galleryImageData: GalleryImage[] = [
 	{ src: "/assets/tag4.png", alt: "Image 4", widthClass: "w-[24vw]", heightClass: "h-[60vh]" },
 	{ src: "/assets/tag5.png", alt: "Image 5", widthClass: "w-[35vw]", heightClass: "h-[50vh]" },
 	{ src: "/assets/tag6.png", alt: "Image 6", widthClass: "w-[30vw]", heightClass: "h-[30vh]" },
-	{ src: "/assets/hero.jpg", alt: "Image 7", widthClass: "w-[30vw]", heightClass: "h-[60vh]" },
+	{ src: "/assets/tag1.png", alt: "Image 7", widthClass: "w-[30vw]", heightClass: "h-[60vh]" },
 ]
 
 export function StorySection() {

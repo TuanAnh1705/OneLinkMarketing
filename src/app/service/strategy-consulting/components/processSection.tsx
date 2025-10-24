@@ -16,13 +16,13 @@ const UspItem = ({
     scrollYProgress: MotionValue<number>
 }) => {
     const smoothScroll = useSpring(scrollYProgress, {
-        stiffness: 90,
-        damping: 20,
+        stiffness: 150,
+        damping: 30,
         mass: 0.3,
     })
 
     const delay = index * 0.1
-    const range = 0.3
+    const range = 0.2
 
     const contentTranslateX = useTransform(smoothScroll, [delay, delay + range], ["70vw", "0vw"])
     const contentOpacity = useTransform(smoothScroll, [delay, delay + range * 0.7], [0, 1])
@@ -36,10 +36,10 @@ const UspItem = ({
                 style={{ x: contentTranslateX, opacity: contentOpacity }}
                 className="flex items-start gap-8 py-10"
             >
-                <span className="archivo-expanded text-2xl md:text-3xl font-medium min-w-[60px]">{item.number}</span>
+                <span className="archivo-expanded text-xl md:text-3xl font-medium min-w-[60px]">{item.number}</span>
                 <div className="flex-1 grid md:grid-cols-2 gap-8">
-                    <h3 className="neulis-alt-regular text-2xl md:text-2xl font-semibold">{item.title}</h3>
-                    <p className="neulis-alt-regular text-base md:text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                    <h3 className="neulis-alt-regular text-xl md:text-2xl font-semibold">{item.title}</h3>
+                    <p className="neulis-alt-regular text-sm md:text-sm text-gray-600 leading-relaxed">{item.description}</p>
                 </div>
             </motion.div>
 
@@ -76,24 +76,18 @@ export default function ProcessSection() {
         },
         {
             number: "02",
-            title: "Strategic Clarity",
+            title: "Global Market Insight",
             description:
-                "We provide a clear, actionable roadmap that aligns with your business goals.",
+                "We understand the nuances of US, UK, and AU markets to give you a competitive edge.",
         },
         {
             number: "03",
-            title: "Global Market Insight",
+            title: "Actionable Roadmaps",
             description:
-                "Our team understands the nuances of US, UK, and AU markets to give you a competitive edge.",
+                "We don't just provide reports; we deliver clear, step-by-step roadmaps that align with your business goals.",
         },
         {
             number: "04",
-            title: "Unlocking Your Potential",
-            description:
-                "We help you uncover your unique value proposition to stand out from the crowd.",
-        },
-        {
-            number: "05",
             title: "Holistic Perspective",
             description:
                 "Our strategic approach considers every aspect of your brand and marketing ecosystem.",
@@ -109,22 +103,22 @@ export default function ProcessSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
                     {/* Cột trái */}
                     <div className="lg:col-span-1">
-                        <p className="neulis-alt-regular text-lg md:text-3xl mb-6 font-medium">Our</p>
-                        <h1 className="archivo-expanded text-8xl md:text-9xl font-medium tracking-tighter leading-none translate-y-4 md:translate-y-6">
-                            USP
+                        <p className="neulis-alt-regular text-lg md:text-4xl  font-medium">Our</p>
+                        <h1 className="archivo-expanded text-5xl md:text-7xl font-medium tracking-tighter leading-none ">
+                            Strengths
                         </h1>
                     </div>
 
                     {/* Cột phải */}
                     <div className="lg:col-span-2">
-                        <h2 className="archivo-expanded text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-12">
-                            Why We Are Your <br/> Ideal Partner?
+                        <h2 className="archivo-expanded text-2xl md:text-5xl lg:text-6xl font-medium leading-tight mb-12">
+                            Gain Your Strategic <br/> Advantage
                         </h2>
 
                         <div>
                             {/* Line đầu tiên cũng gradient */}
                             <div
-                                className="h-[0.5px] w-full rounded-full"
+                                className="h-[1px] w-full rounded-full"
                                 style={{ background: "linear-gradient(90deg, #0074E5, #162660)" }}
                             />
                             {uspItems.map((item, index) => (

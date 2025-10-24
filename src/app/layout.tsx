@@ -4,6 +4,10 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./css/globals.css";
 import { ThemeModeScript, ThemeProvider } from 'flowbite-react';
 import customTheme from "@/ultils/theme/custom-theme";
+import Navbar from "./components/homePage/navBar";
+import Footer from "./components/homePage/Footer";
+
+
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -27,7 +31,9 @@ export default function RootLayout({
           sizes="32x20"
         />
 
-        {typeof window !== "undefined" && <ThemeModeScript />}
+        {/* Sửa lỗi này: Bỏ check `typeof window` */}
+        <ThemeModeScript />
+
         <link
           href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@400;500;600;700&display=swap"
           rel="stylesheet"
@@ -35,10 +41,18 @@ export default function RootLayout({
       </head>
       <body className={`${plus_jakarta_sans.className}`}>
         <ThemeProvider theme={customTheme}>
-          {children}
+          {/* Thêm Navbar ở đây */}
+          <Navbar />
+
+          {/* Thêm main và class pt-20 để đẩy nội dung xuống */}
+          <main className="pt-20">
+            {children}
+          </main>
+
+          {/* Thêm Footer ở đây */}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
-
   );
 }

@@ -3,6 +3,7 @@
 // 1. Import thêm useSpring
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
 import { useRef } from "react"
 
 export default function HeroSection() {
@@ -12,10 +13,10 @@ export default function HeroSection() {
     offset: ["start start", "end start"],
   })
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"])
+  // 1. 🔽 THAY ĐỔI: Cập nhật logic transform để khớp với trang SEO
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-25%", "25%"])
 
   // 2. Dùng useSpring để làm mượt giá trị từ useTransform
-  // Bạn có thể điều chỉnh stiffness và damping để thay đổi "độ mượt" và "độ nảy"
   const smoothImageY = useSpring(imageY, {
     stiffness: 100,
     damping: 30,
@@ -39,7 +40,8 @@ export default function HeroSection() {
       />
 
       {/* --- Page Content --- */}
-      <div className="min-h-screen bg-white p-8 md:p-16 relative z-10">
+      {/* THAY ĐỔI: Giảm padding mobile từ p-8 xuống p-6 */}
+      <div className="min-h-screen bg-white p-6 md:p-16 relative z-10">
         <svg width="0" height="0" style={{ position: "absolute" }}>
           <defs>
             <linearGradient id="chevronGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -50,9 +52,11 @@ export default function HeroSection() {
         </svg>
 
         <div className="mx-auto max-w-7xl">
-          {/* Header with gradient text */}
-          <div className="mb-16">
-            <h1 className="text-center text-6xl md:text-8xl font-bold tracking-wider mb-8">
+          {/* Header with gradient text (Nội dung Paid Media) */}
+          {/* THAY ĐỔI: Giảm margin mobile từ mb-16 xuống mb-12 */}
+          <div className="mb-12 md:mb-16">
+            {/* THAY ĐỔI: Tăng cỡ chữ mobile từ 4xl lên 5xl */}
+            <h1 className="text-center text-4xl md:text-8xl font-bold tracking-wider mb-8">
               <span className="archivo-expanded bg-gradient-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
                 PAID MEDIA &
               </span>
@@ -64,98 +68,127 @@ export default function HeroSection() {
             <div className="h-[1px] w-full bg-gradient-to-r from-[#0074E5] to-[#162660]" />
           </div>
 
-          <div className="grid md:grid-cols-[1fr_1.2fr] gap-8 md:gap-20 mb-24">
-            {/* Left text */}
-            <div className="flex items-start justify-start">
-              <div className="max-w-md">
-                <p className="neulis-alt-regular text-3xl md:text-3xl text-[#444444] leading-relaxed">
-                  Building the <br /> strategic foundation <br /> for your brand&apos;s <br /> long-term
-                  success.
+          {/* 🔽 THAY ĐỔI: Chuyển sang bố cục DỌC giống trang SEO */}
+          {/* THAY ĐỔI: Giảm khoảng cách mobile */}
+          <div className="mb-16 md:mb-24 space-y-10 md:space-y-20">
+            {/* Căn giữa khối text */}
+            <div className="flex items-start justify-center">
+              <div className="max-w-3xl text-center">
+                <p className="neulis-alt-regular text-sm md:text-xl text-[#444444] leading-relaxed">
+                  Leverage data-driven advertising to generate immediate leads and achieve a measurable return on your investment.
                 </p>
               </div>
             </div>
 
-            {/* Right image */}
-            <div className="flex items-center md:sticky md:top-16 md:h-[60vh]">
-              <div className="relative w-full aspect-[16/9] overflow-hidden max-w-[1600px] min-h-[500px]">
-                {/* 3. Sử dụng giá trị đã được làm mượt và bỏ transition */}
-                <motion.div style={{ y: smoothImageY }} className="w-full h-full">
+            {/* Cập nhật khối container ảnh và motion.div */}
+            <div className="flex items-center">
+              {/* Container cha bọc ngoài (giữ tỷ lệ và overflow) */}
+              {/* THAY ĐỔI LỚN NHẤT:
+                - Bỏ `min-h-[500px]`
+                - Đổi `aspect-[16/7]` thành `aspect-video` (16/9) trên mobile
+                - Giữ `md:aspect-[16/7]` cho desktop
+                - Chuyển `max-w-[1600px]` thành `md:max-w-[1600px]`
+              */}
+              <div className="relative w-full aspect-video md:aspect-[16/7] overflow-hidden md:max-w-[1600px] mx-auto">
+                {/* Tăng chiều cao lên 133.33% (tức 4/3) để bù vào phần di chuyển */}
+                <motion.div
+                  style={{ y: smoothImageY }}
+                  className="w-full h-[calc(100%_*_4/3)] relative"
+                >
                   <Image
-                    src="/assets/hero.jpg"
+                    src="/assets/75.png" // Giữ ảnh của trang Paid Media
                     alt="Never Stops - Athletes running on track"
-                    fill
-                    className="object-contain scale-[1.8] will-change-transform max-w-[800px]"
+                    fill={true}
+                    className="object-cover" // THAY ĐỔI: Chuyển sang object-cover
+                    priority={true}
                   />
                 </motion.div>
               </div>
             </div>
           </div>
+          {/* --- KẾT THÚC THAY ĐỔI --- */}
 
-          {/* Services section */}
-          <div className="grid md:grid-cols-3 gap-12 md:gap-16">
+
+          {/* Services section (Nội dung Paid Media) */}
+          {/* THAY ĐỔI: Giảm gap mobile từ gap-12 xuống gap-8 */}
+          <div className="grid md:grid-cols-4 gap-8 md:gap-16">
             {[
               {
                 title: (
                   <>
-                    Brand Audit
-                    <br />& Insight Analysis
+                    Multi-channel <br /> Strategy
                   </>
                 ),
-                desc: "We analyze your brand's current positioning and effectiveness to uncover key opportunities.",
+                desc: "Strategic planning across Meta, Google, TikTok, and Youtube.",
               },
               {
                 title: (
                   <>
-                    Market & Competitor
-                    <br />
-                    Research
+                    Conversion Rate <br /> Optimization
                   </>
                 ),
-                desc: "A deep dive into your market landscape and competitors to identify your unique space.",
+                desc: "Constantly refining campaigns to lower costs and increase conversions.",
               },
               {
                 title: (
                   <>
-                    Key Messaging
+                    A/B Testing
                     <br />
-                    Framework
+                    &nbsp;
                   </>
                 ),
-                desc: "Crafting a clear, concise, and persuasive message that resonates with your target audience.",
+                desc: "Testing different creative and copy to find the most effective ad combination.",
+              },
+              {
+                title: (
+                  <>
+                    Performance <br /> Reporting
+                  </>
+                ),
+                desc: "Transparent reporting and data-driven insights to help you make informed decisions.",
               },
             ].map((s, i) => (
-              <div key={i} className="space-y-4">
+              <div key={i} className="space-y-4 flex flex-col">
                 <div className="border-b border-[#0074E5] pb-3">
-                  <h3 className="archivo-expanded text-xl font-bold text-[#000A1D]">
+                  {/* THAY ĐỔI: Giảm cỡ chữ h3 mobile từ text-xl xuống text-lg */}
+                  <h3 className="archivo-expanded text-lg md:text-xl font-bold text-[#000A1D]">
                     {s.title}
                   </h3>
                 </div>
                 <p className="neulis-alt-regular text-[#444444] leading-relaxed text-sm">
                   {s.desc}
                 </p>
-                <button className="flex items-center gap-2 text-[#444444] hover:text-[#0074E5] transition-colors text-sm group">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M15 18L9 12L15 6"
-                      stroke="url(#chevronGradient)"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span className="neulis-alt-regular">Explore more</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M9 18L15 12L9 6"
-                      stroke="url(#chevronGradient)"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
               </div>
             ))}
+          </div>
+
+          {/* Nút "EXPLORE MORE" CHUNG */}
+          {/* THAY ĐỔI: Giảm margin top mobile từ mt-16 xuống mt-12 */}
+          <div className="flex justify-center mt-12 md:mt-16">
+            <Link
+              href="/insights"
+              className="flex items-center gap-2 text-[#444444] hover:text-[#0074E5] transition-colors text-sm group"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M15 18L9 12L15 6"
+                  stroke="url(#chevronGradient)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span className="neulis-alt-regular">Explore more</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 18L15 12L9 6"
+                  stroke="url(#chevronGradient)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>

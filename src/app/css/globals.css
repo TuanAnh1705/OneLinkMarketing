@@ -283,3 +283,32 @@ input[type="time"] {
 .neulis-alt-regular {
   font-family: 'Neulis Alt Regular', sans-serif;
 }
+
+
+
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.2);
+  backdrop-filter: invert(1) blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.scroll-to-top-btn:hover {
+  transform: scale(1.1);
+}
+
+.scroll-to-top-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  /* phần màu đảo đảm bảo tương phản */
+  filter: invert(1) brightness(0.8);
+}

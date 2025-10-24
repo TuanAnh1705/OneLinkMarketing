@@ -1,13 +1,11 @@
 "use client"
 
-import Navbar from "@/app/components/homePage/navBar"
 import { useRef } from "react"
 import HeroSection from "./components/hero"
-import Footer from "@/app/components/homePage/Footer"
-import ProcessSection from "../strategy-consulting/components/processSection"
-import { ParallaxHero } from "../strategy-consulting/components/parallaxImg"
-import FaqAccordion from "../strategy-consulting/components/faq"
-import TestimonialsSection from "../strategy-consulting/components/testimonal"
+import UspSectionForSeo from "./components/UspForSeo"
+import { ParallaxHeroForSeo } from "./components/parallaxHeroForSeo"
+import FaqForSeo from "./components/faqForSeo"
+import TestimonialsForSeo from "./components/testimonialForSeo"
 
 
 export default function Home() {
@@ -15,13 +13,11 @@ export default function Home() {
 
   return (
     <div ref={containerRef}>
-      <Navbar/>
       <HeroSection/>
-      <ProcessSection/>
-      <ParallaxHero/>
-      <FaqAccordion/>
-      <TestimonialsSection/>
-      <Footer/>
+      <UspSectionForSeo/>
+      <ParallaxHeroForSeo/>
+      <FaqForSeo/>
+      <TestimonialsForSeo/>
     </div>
   )
 }

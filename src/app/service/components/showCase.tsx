@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence, cubicBezier } from "framer-motion"
 import Image from "next/image"
 import { gsap } from "gsap"
@@ -43,13 +43,18 @@ const slides = [
   },
 ]
 
+const TRANSITION_DURATION_MS = 1000
+const SWIPE_THRESHOLD = 50
+
 export default function Showcase() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [lastDirection, setLastDirection] = useState<"up" | "down">("down")
   const [curtainRevealed, setCurtainRevealed] = useState(false)
+
   const sectionRef = useRef<HTMLDivElement>(null)
   const isScrolling = useRef(false)
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null)
+  const touchStartY = useRef<number | null>(null)
 
   const slideVariants = {
     fromAbove: { y: "-100%" },
@@ -61,59 +66,94 @@ export default function Showcase() {
     }),
   }
 
+  const changeSlide = useCallback((direction: "up" | "down") => {
+    if (isScrolling.current) return
+
+    const trigger = scrollTriggerRef.current
+    const atFirstSlide = currentSlide === 0
+    const atLastSlide = currentSlide === slides.length - 1
+
+    if (atFirstSlide && direction === "up") {
+      if (trigger) window.scrollTo({ top: trigger.start - window.innerHeight, behavior: "smooth" })
+      return
+    }
+    if (atLastSlide && direction === "down") {
+      if (trigger) window.scrollTo({ top: trigger.end + 100, behavior: "smooth" })
+      return
+    }
+
+    isScrolling.current = true
+    if (direction === "down" && currentSlide < slides.length - 1) {
+      setLastDirection("down")
+      setCurrentSlide((prev) => prev + 1)
+    } else if (direction === "up" && currentSlide > 0) {
+      setLastDirection("up")
+      setCurrentSlide((prev) => prev - 1)
+    }
+
+    setTimeout(() => {
+      isScrolling.current = false
+    }, TRANSITION_DURATION_MS)
+  }, [currentSlide])
+
+  const changeSlideRef = useRef(changeSlide)
+
+  useEffect(() => {
+    changeSlideRef.current = changeSlide
+  }, [changeSlide])
+
   useEffect(() => {
     const section = sectionRef.current
     if (!section) return
 
     const handleWheel = (event: WheelEvent) => {
-      if (isScrolling.current) {
-        event.preventDefault()
-        event.stopPropagation()
-        return
-      }
-
-      const scrollDirection = event.deltaY > 0 ? "down" : "up"
-      const atFirstSlide = currentSlide === 0
-      const atLastSlide = currentSlide === slides.length - 1
-
-      if (atFirstSlide && scrollDirection === "up") {
-        const trigger = scrollTriggerRef.current
-        if (trigger) {
-          window.scrollTo({
-            top: trigger.start - window.innerHeight,
-            behavior: "smooth",
-          })
-        }
-        return
-      }
-
-      if (atLastSlide && scrollDirection === "down") {
-        const trigger = scrollTriggerRef.current
-        if (trigger) {
-          window.scrollTo({
-            top: trigger.end + 100,
-            behavior: "smooth",
-          })
-        }
-        return
-      }
-
       event.preventDefault()
       event.stopPropagation()
+      const scrollDirection = event.deltaY > 0 ? "down" : "up"
+      changeSlideRef.current(scrollDirection)
+    }
 
-      isScrolling.current = true
+    const handleTouchStart = (event: TouchEvent) => {
+      if (isScrolling.current) return
+      touchStartY.current = event.touches[0].clientY
+    }
 
-      if (scrollDirection === "down" && currentSlide < slides.length - 1) {
-        setLastDirection("down")
-        setCurrentSlide((prev) => prev + 1)
-      } else if (scrollDirection === "up" && currentSlide > 0) {
-        setLastDirection("up")
-        setCurrentSlide((prev) => prev - 1)
+    const handleTouchMove = (event: TouchEvent) => {
+      // *** THAY ĐỔI QUAN TRỌNG ***
+      // Gọi preventDefault() NGAY LẬP TỨC
+      // để ngăn trình duyệt di động cuộn trang.
+      event.preventDefault()
+
+      if (touchStartY.current === null || isScrolling.current) {
+        return
       }
+      const currentY = event.touches[0].clientY
+      const deltaY = touchStartY.current - currentY
 
-      setTimeout(() => {
-        isScrolling.current = false
-      }, 1000)
+      if (Math.abs(deltaY) > SWIPE_THRESHOLD) {
+        // Chúng ta không cần preventDefault() ở đây nữa
+        const scrollDirection = deltaY > 0 ? "down" : "up"
+        touchStartY.current = null
+        changeSlideRef.current(scrollDirection)
+      }
+    }
+
+    const handleTouchEnd = () => {
+      touchStartY.current = null
+    }
+
+    const addListeners = () => {
+      section.addEventListener("wheel", handleWheel, { passive: false })
+      section.addEventListener("touchstart", handleTouchStart, { passive: false })
+      section.addEventListener("touchmove", handleTouchMove, { passive: false })
+      section.addEventListener("touchend", handleTouchEnd, { passive: false })
+    }
+
+    const removeListeners = () => {
+      section.removeEventListener("wheel", handleWheel)
+      section.removeEventListener("touchstart", handleTouchStart)
+      section.removeEventListener("touchmove", handleTouchMove)
+      section.removeEventListener("touchend", handleTouchEnd)
     }
 
     const trigger = ScrollTrigger.create({
@@ -125,19 +165,23 @@ export default function Showcase() {
       anticipatePin: 1,
       scrub: false,
       onEnter: () => {
+        document.body.classList.add("in-showcase")
         if (!curtainRevealed) {
           setCurtainRevealed(true)
         }
-        section.addEventListener("wheel", handleWheel, { passive: false })
+        addListeners()
       },
       onLeave: () => {
-        section.removeEventListener("wheel", handleWheel)
+        document.body.classList.remove("in-showcase")
+        removeListeners()
       },
       onEnterBack: () => {
-        section.addEventListener("wheel", handleWheel, { passive: false })
+        document.body.classList.add("in-showcase")
+        addListeners()
       },
       onLeaveBack: () => {
-        section.removeEventListener("wheel", handleWheel)
+        document.body.classList.remove("in-showcase")
+        removeListeners()
       },
     })
 
@@ -145,12 +189,14 @@ export default function Showcase() {
 
     return () => {
       trigger.kill()
-      section.removeEventListener("wheel", handleWheel)
+      document.body.classList.remove("in-showcase")
+      removeListeners()
     }
-  }, [currentSlide, curtainRevealed])
+  }, [curtainRevealed]) // Chỉ phụ thuộc vào `curtainRevealed`
 
   return (
-    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden bg-neutral-900">
+    <section id="showcase" ref={sectionRef} className="relative h-screen w-full overflow-hidden bg-neutral-900">
+      {/* ... (Toàn bộ phần JSX của bạn không thay đổi) ... */}
       <div className="relative h-full w-full">
         <AnimatePresence initial={false} custom={lastDirection}>
           <motion.div
@@ -194,7 +240,7 @@ export default function Showcase() {
       </AnimatePresence>
 
       <div className="pointer-events-none absolute inset-0 z-10">
-        <div className="absolute left-20 bottom-1/6 max-w-3xl overflow-hidden">
+        <div className="absolute left-6 bottom-24 w-[calc(100%-3rem)] md:left-20 md:bottom-1/6 md:w-auto max-w-3xl overflow-hidden">
           <AnimatePresence custom={lastDirection} mode="wait">
             <motion.div
               key={currentSlide}
@@ -207,10 +253,10 @@ export default function Showcase() {
                 transition: { duration: 0.4, ease: "easeInOut" },
               }}
             >
-              <h1 className="archivo-expanded text-6xl md:text-8xl font-medium text-white mb-2">
+              <h1 className="archivo-expanded text-4xl sm:text-6xl md:text-8xl font-medium text-white mb-2">
                 {slides[currentSlide].title}
               </h1>
-              <h2 className="archivo-expanded text-6xl md:text-8xl font-medium text-white mb-6">
+              <h2 className="archivo-expanded text-4xl sm:text-6xl md:text-8xl font-medium text-white mb-6">
                 {slides[currentSlide].subtitle}
               </h2>
               <div className="flex flex-wrap items-center gap-4 mb-8">
@@ -225,7 +271,7 @@ export default function Showcase() {
           </AnimatePresence>
         </div>
 
-        <div className="absolute bottom-14 left-20 w-1/3 max-w-xl flex gap-2">
+        <div className="absolute bottom-10 left-6 right-6 md:left-20 md:right-auto md:w-1/3 max-w-xl flex gap-2">
           {slides.map((_, i) => (
             <div key={i} className="h-1 flex-1 rounded-full bg-white/20 overflow-hidden">
               <motion.div

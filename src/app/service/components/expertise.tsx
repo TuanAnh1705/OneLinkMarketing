@@ -81,7 +81,7 @@ const ExpertiseItem = memo(({ item, showLine }: { item: (typeof expertiseData)[0
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
                 {/* Number */}
                 <div className="lg:col-span-2">
-                    <p className="archivo-expanded text-3xl md:text-3xl font-medium text-[#000000]">({item.number})</p>
+                    <p className="archivo-expanded text-xl md:text-3xl font-medium text-[#000000]">({item.number})</p>
                 </div>
 
                 {/* Services */}
@@ -132,7 +132,7 @@ const ExpertiseItem = memo(({ item, showLine }: { item: (typeof expertiseData)[0
                                 willChange: "transform",
                             }}
                         >
-                            <h3 className="archivo-expanded text-white text-2xl md:text-3xl font-semibold leading-snug whitespace-pre-line text-left">
+                            <h3 className="archivo-expanded text-white text-xl md:text-3xl font-semibold leading-snug whitespace-pre-line text-left">
                                 {item.title}
                             </h3>
                         </motion.div>
@@ -158,11 +158,11 @@ export default function ExpertiseSection() {
             <div className="max-w-7xl mx-auto relative">
                 {/* Header */}
                 <div className="mb-16">
-                    <h1 className="archivo-expanded text-9xl md:text-9xl font-bold text-center tracking-wider bg-gradient-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent mb-8">
+                    <h1 className="archivo-expanded text-4xl md:text-9xl font-bold text-center tracking-wider bg-gradient-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent mb-8">
                         EXPERTISE
                     </h1>
                     <GradientBorder />
-                    <p className="archivo-expanded font-semibold text-[#000A1D] text-center text-5xl md:text-5xl max-w-5xl mx-auto leading-relaxed py-8">
+                    <p className="archivo-expanded font-medium text-[#000A1D] text-center text-xl md:text-5xl max-w-5xl mx-auto leading-tight py-8">
                         We provide a single, <br /> integrated roadmap to solve <br /> all your marketing challenges.
                     </p>
                     <GradientBorder />

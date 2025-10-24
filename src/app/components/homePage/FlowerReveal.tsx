@@ -89,7 +89,7 @@ export default function FlowerRevealOptimized() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen overflow-hidden flex items-center justify-center -mt-[18vh] md:-mt-[22vh]"
+      className="relative h-screen overflow-hidden flex items-center justify-center -mt-[18vh] md:-mt-[22vh] -top-80"
     >
       {/* Nền */}
       <div ref={bgRef} className="absolute inset-0 bg-[#000A1D]" />
