@@ -42,7 +42,7 @@ function FilterTabs({
   const [hoveredTab, setHoveredTab] = useState<string | null>(null)
 
   return (
-    <div className="flex flex-row overflow-x-auto md:grid md:grid-cols-5 w-full max-w-7xl mx-auto mb-12 md:mb-20 px-4 sm:px-8 md:px-0">
+    <div className="flex flex-row flex-wrap gap-y-6 overflow-x-auto md:grid md:grid-cols-5 w-full max-w-7xl mx-auto mb-12 md:mb-20 px-4 sm:px-8 md:px-0">
       {categories.map((category) => {
         const isActive = activeTab === category
         const isHovered = hoveredTab === category
