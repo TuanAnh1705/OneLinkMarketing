@@ -35,15 +35,11 @@ export default function SectionHero() {
                         className="text-center md:text-right"
                     >
                         <p className="text-lg leading-relaxed text-[#2B2B2B]">
-                            Onelink Marketing is <span className="text-xl font-bold">not just another</span>
+                            Onelink Marketing is your <span className="text-xl font-bold">end-to-end</span>
                             <br />
-                            <span className="text-xl font-bold">digital agency</span>. We are your end-to-end
+                            <span className="text-xl font-bold">partner</span>, offering a complete roadmap
                             <br />
-                            partner, providing a comprehensive
-                            <br />
-                            roadmap to solve your marketing
-                            <br />
-                            challenges.
+                            to solve your marketing challenges.
                         </p>
                     </motion.div>
                 </div>

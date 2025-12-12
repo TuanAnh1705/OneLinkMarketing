@@ -97,11 +97,7 @@ export default function SectionWork() {
                         className="text-center lg:text-left w-full"
                     >
                         <p className="text-lg leading-relaxed text-[#444444]">
-                            We are <span className="font-bold">Onelink Marketing</span> - uniting strategy,
-                            creativity, and technical execution to transform
-                            bold ideas into lasting impact. Our experienced
-                            international team delivers global quality with
-                            a superior price/performance ratio.
+                            <span className="font-bold">Onelink Marketing</span> - where strategy, creativity, and execution come together to turn bold ideas into real impact, powered by a global-standard team with exceptional value.
                         </p>
                     </div>
 
