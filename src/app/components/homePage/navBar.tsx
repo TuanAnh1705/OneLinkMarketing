@@ -131,7 +131,7 @@ export default function Navbar() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
               {/* Logo (giữ nguyên) */}
-              <Link href="/" className="flex-shrink-0">
+              <Link href="/" className="shrink-0">
                 <Image
                   src="/assets/logo.png"
                   alt="Onelink Marketing"
@@ -145,14 +145,14 @@ export default function Navbar() {
               <div className="hidden lg:flex items-center gap-8">
                 <Link
                   href="/"
-                  className="neulis-alt-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-medium"
+                  className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-medium"
                 >
                   Home
                 </Link>
 
                 {/* Services Dropdown (giữ nguyên) */}
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="neulis-alt-regular flex items-center gap-1 text-[#000a1d] hover:text-[#0066FF] transition-colors font-medium outline-none">
+                  <DropdownMenuTrigger className="generalsans-regular flex items-center gap-1 text-[#000a1d] hover:text-[#0066FF] transition-colors font-medium outline-none">
                     Services
                     <ChevronDown className="h-4 w-4" />
                   </DropdownMenuTrigger>
@@ -162,7 +162,7 @@ export default function Navbar() {
                       return (
                         <DropdownMenuItem
                           key={item}
-                          className={`group neulis-alt-regular text-white cursor-pointer py-2.5 px-3 rounded-sm transition-all 
+                          className={`group generalsans-regular text-white cursor-pointer py-2.5 px-3 rounded-sm transition-all 
                                         ${
                                           isAll
                                             ? "hover:bg-white/10"
@@ -196,7 +196,7 @@ export default function Navbar() {
 
                 <Link
                   href="/about"
-                  className="neulis-alt-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-medium"
+                  className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-medium"
                 >
                   About Us
                 </Link>
@@ -204,7 +204,7 @@ export default function Navbar() {
                 {/* 🚀 CẬP NHẬT: Insights đã đổi thành Case Studies (Link đơn) */}
                 <Link
                   href="/case-studies"
-                  className="neulis-alt-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-medium"
+                  className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-medium"
                 >
                   Case Studies
                 </Link>
@@ -213,7 +213,7 @@ export default function Navbar() {
               {/* CTA Button and Mobile Menu (giữ nguyên) */}
               <div className="flex items-center gap-3">
                 <Link href="/contact" className="hidden lg:flex">
-                  <button className="relative overflow-hidden px-6 py-2 rounded-full neulis-alt-regular font-medium text-white bg-gradient-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
+                  <button className="relative overflow-hidden px-6 py-2 rounded-full generalsans-regular text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                     <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
                       Let&apos;s Talk
                     </span>
@@ -228,19 +228,19 @@ export default function Navbar() {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="relative p-[2px] rounded-full bg-white border-none shadow-sm hover:shadow-md transition-all"
+                      className="relative p-0.5 rounded-full bg-white border-none shadow-sm hover:shadow-md transition-all"
                     >
                       <div className="rounded-full w-full h-full flex items-center justify-center">
                         <GradientMenuIcon />
                       </div>
-                      <span className="absolute inset-0 rounded-full p-[1px] z-10"></span>
+                      <span className="absolute inset-0 rounded-full p-px z-10"></span>
                     </Button>
                   </SheetTrigger>
 
                   {/* --- NỘI DUNG SHEET --- */}
                   <SheetContent
                     side="right"
-                    className="w-[300px] sm:w-[350px] bg-white p-6 flex flex-col"
+                    className="w-75 sm:w-87.5 bg-white p-6 flex flex-col"
                   >
                     <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
@@ -258,10 +258,10 @@ export default function Navbar() {
                     </div>
 
                     {/* 2. Danh sách Links */}
-                    <div className="flex-grow mt-6 flex flex-col gap-2">
+                    <div className="grow mt-6 flex flex-col gap-2">
                       <Link
                         href="/"
-                        className="neulis-alt-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3"
+                        className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3"
                         onClick={closeSheet}
                       >
                         Home
@@ -272,7 +272,7 @@ export default function Navbar() {
                         open={servicesOpen}
                         onOpenChange={setServicesOpen}
                       >
-                        <CollapsibleTrigger className="flex items-center justify-between w-full neulis-alt-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3">
+                        <CollapsibleTrigger className="flex items-center justify-between w-full generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3">
                           <span>Services</span>
                           <ChevronDown
                             className={`h-5 w-5 transition-transform ${
@@ -293,7 +293,7 @@ export default function Navbar() {
                               <Link
                                 key={item}
                                 href={href}
-                                className="neulis-alt-regular text-[#444444] hover:text-[#0066FF] transition-colors py-2 text-base"
+                                className="generalsans-regular text-[#444444] hover:text-[#0066FF] transition-colors py-2 text-base"
                                 onClick={closeSheet}
                               >
                                 {item}
@@ -305,7 +305,7 @@ export default function Navbar() {
 
                       <Link
                         href="/about"
-                        className="neulis-alt-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3"
+                        className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3"
                         onClick={closeSheet}
                       >
                         About Us
@@ -314,7 +314,7 @@ export default function Navbar() {
                       {/* 🚀 CẬP NHẬT: Insights đã đổi thành Case Studies (Link đơn) */}
                       <Link
                         href="/case-studies"
-                        className="neulis-alt-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3"
+                        className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3"
                         onClick={closeSheet}
                       >
                         Case Studies
@@ -328,7 +328,7 @@ export default function Navbar() {
                         onClick={closeSheet}
                         className="block"
                       >
-                        <button className="relative overflow-hidden w-full px-6 py-3 rounded-full neulis-alt-regular font-medium text-white bg-gradient-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
+                        <button className="relative overflow-hidden w-full px-6 py-3 rounded-full generalsans-regular text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                           <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
                             Let&apos;s Talk
                           </span>

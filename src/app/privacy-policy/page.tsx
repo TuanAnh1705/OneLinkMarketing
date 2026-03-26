@@ -3,8 +3,8 @@ import React from "react"
 
 export default function PrivacyPolicyPage() {
   return (
-    // MỚI: Thêm 'neulis-alt-extralight' làm font chữ cơ sở cho cả trang
-    <main className="bg-white py-16 sm:py-24 neulis-alt-regular mb-40 md:mb-0">
+    // MỚI: Thêm 'generalsans-regular' làm font chữ cơ sở cho cả trang
+    <main className="bg-white py-16 sm:py-24 generalsans-regular mb-40 md:mb-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* === TIÊU ĐỀ TRANG === */}
@@ -13,24 +13,24 @@ export default function PrivacyPolicyPage() {
           <h1 className="text-4xl sm:text-5xl font-bold text-black archivo-expanded">
             Privacy Policy
           </h1>
-          {/* MỚI: Thêm 'neulis-alt-extralight' cho tiêu đề phụ */}
-          <p className="mt-4 text-base font-semibold uppercase text-black tracking-wider neulis-alt-regular">
+          {/* MỚI: Thêm 'generalsans-regular' cho tiêu đề phụ */}
+          <p className="mt-4 text-base font-semibold uppercase text-black tracking-wider generalsans-regular">
             CUSTOMER INFORMATION PRIVACY POLICY
           </p>
         </div>
 
         {/* === NỘI DUNG CHÍNH SÁCH === */}
         {/* MỚI: Thêm các lớp 'prose-headings:archivo-expanded' và 
-          'prose-p:neulis-alt-extralight' để tùy chỉnh font của typography.
-          Chúng ta cũng thêm 'prose-li:neulis-alt-extralight' cho các mục danh sách
+          'prose-p:generalsans-regular' để tùy chỉnh font của typography.
+          Chúng ta cũng thêm 'prose-li:generalsans-regular' cho các mục danh sách
           và 'prose-strong:font-semibold' để chữ in đậm nổi bật hơn.
         */}
         <article className="
           prose prose-lg lg:prose-xl 
           max-w-7xl 
           prose-headings:archivo-expanded
-          prose-p:neulis-alt-regular
-          prose-li:neulis-alt-regular
+          prose-p:generalsans-regular
+          prose-li:generalsans-regular
           prose-h2:font-semibold 
           prose-h2:text-2xl 
           prose-h2:mb-4 

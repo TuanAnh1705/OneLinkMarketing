@@ -8,25 +8,25 @@ const timelineItems = [
     {
         title: "Fragmented Marketing",
         description:
-            "Working with multiple agencies leads to inconsistent messaging and a lack of control.",
+            "Juggling multiple freelancers or agencies across different countries, cultures and languages, results in inconsistent branding, lack of cohesion across company touchpoints, and confused messaging.",
         image: "/assets/pp1.png",
     },
     {
         title: "High Costs, Low ROI",
         description:
-            "You invest heavily, but campaigns lack synergy, resulting in an uncertain return on investment.",
+            "Bloated Western salaries, Over-inflated city-centre office space, Unnecessary bureaucracy and overheads - all passed onto you, before any work has even started.",
         image: "/assets/pp2.png",
     },
     {
         title: "Weak Brand Identity",
         description:
-            "Your brand's message is unclear, and your website fails to generate real leads or conversions.",
+            "Poorly converting websites, inconsistent messaging, no clear strategy or roadmap, distinctly average content production, yet high monthly costs. What exactly are you paying for?",
         image: "/assets/pp3.png",
     },
     {
-        title: "Global Scaling Struggle",
+        title: "Scaling Issues",
         description:
-            "Lack of a cohesive strategy makes it difficult to compete and expand into international markets.",
+            "You want to scale, but have no solid metrics to work from, whilst the cost to increase output is concerningly high. Surely A/B testing shouldn't be this costly?",
         image: "/assets/pp4.png",
     },
 ]
@@ -35,7 +35,7 @@ export default function Page() {
     const [hoveredIndex, setHoveredIndex] = useState<number>(0)
 
     return (
-        <main className="min-h-screen px-4 py-12 md:px-8 lg:px-0 lg:py-0 -mt-5 md:mt-5">
+        <main className="min-h-screen px-4 py-12 md:px-8 lg:px-0 lg:py-0 -mt-20 md:mt-5">
             <div className="mx-auto max-w-screen-2xl">
                 {/* Title Section */}
                 <div className="mb-12 lg:mb-20">
@@ -48,8 +48,8 @@ export default function Page() {
                 <div className="relative w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
                     {/* Left Side - Image Stack */}
-                    <div className="relative hidden lg:flex w-full max-w-md lg:max-w-none lg:w-[450px] items-center justify-center shrink-0 order-2 lg:order-1">
-                        <div className="relative h-[400px] sm:h-[450px] lg:h-[550px] w-full lg:translate-x-20 lg:-translate-y-8">
+                    <div className="relative hidden lg:flex w-full max-w-md lg:max-w-none lg:w-112.5 items-center justify-center shrink-0 order-2 lg:order-1">
+                        <div className="relative h-100 sm:h-112.5 lg:h-137.5 w-full lg:translate-x-20 lg:-translate-y-8">
                             {timelineItems.map((item, index) => (
                                 <div
                                     key={`${index}-${hoveredIndex}`}
@@ -101,7 +101,7 @@ export default function Page() {
                                             {/* Title */}
                                             <h3
                                                 className={cn(
-                                                    "neulis-alt-regular font-medium text-2xl lg:text-xl lg:whitespace-nowrap transition-all duration-300 transform",
+                                                    "generalsans-light text-2xl lg:text-[24px] lg:whitespace-nowrap transition-all duration-300 transform",
                                                     hoveredIndex === index
                                                         ? "text-white lg:translate-x-3"
                                                         : "bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent translate-x-0"
@@ -113,7 +113,7 @@ export default function Page() {
                                             {/* Description */}
                                             <p
                                                 className={cn(
-                                                    "neulis-alt-extralight font-semibold md:text-md leading-relaxed transition-all duration-300 w-full lg:w-[520px] lg:-translate-x-5 whitespace-pre-line text-left",
+                                                    "generalsans-regular md:text-[15px] leading-relaxed transition-all duration-300 w-full lg:w-130 lg:-translate-x-5 whitespace-pre-line text-left",
                                                     hoveredIndex === index
                                                         ? "text-white"
                                                         : "text-[#444444]"

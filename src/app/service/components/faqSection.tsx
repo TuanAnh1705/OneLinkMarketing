@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 function GradientLine() {
   return (
     <div className="relative w-full">
-      <div className="w-full h-[0.5px] bg-gradient-to-r from-[#0074E5] to-[#162660] will-change-transform" />
+      <div className="w-full h-[0.5px] bg-linear-to-r from-[#0074E5] to-[#162660] will-change-transform" />
     </div>
   )
 }
@@ -52,7 +52,7 @@ export default function FaqAccordion() {
     setOpenIndex(openIndex === index ? null : index)
 
   return (
-    <div className="relative w-full z-20 mb-20 md:mt-0 -mt-28">
+    <div className="relative w-full z-20 mb-20 md:-mt-35 -mt-28">
       <div className="mx-auto max-w-5xl mt-60">
         {/* --- HEADER --- */}
         <div className="relative mb-12">
@@ -76,7 +76,7 @@ export default function FaqAccordion() {
                   <span className="archivo-expanded text-lg font-medium text-[#000000] w-12">
                     {item.id}
                   </span>
-                  <h3 className="neulis-alt-regular text-xl font-medium text-[#000A1D] md:text-2xl">
+                  <h3 className="generalsans-regular text-xl font-medium text-[#000A1D] md:text-2xl">
                     {item.question}
                   </h3>
                 </div>
@@ -119,7 +119,7 @@ export default function FaqAccordion() {
                     className="overflow-hidden"
                   >
                     <div className="pb-6 pl-24 pr-12">
-                      <p className="neulis-alt-regular font-medium text-xl leading-relaxed text-[#444444]">
+                      <p className="generalsans-regular text-xl leading-relaxed text-[#444444]">
                         {item.answer}
                       </p>
                     </div>

@@ -39,8 +39,8 @@ const UspItem = ({
             >
                 <span className="archivo-expanded text-xl md:text-3xl font-medium min-w-[60px]">{item.number}</span>
                 <div className="flex-1 grid md:grid-cols-2 gap-8">
-                    <h3 className="neulis-alt-regular text-xl md:text-2xl font-semibold">{item.title}</h3>
-                    <p className="neulis-alt-regular text-sm md:text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                    <h3 className="generalsans-regular text-xl md:text-2xl font-medium">{item.title}</h3>
+                    <p className="generalsans-regular text-sm md:text-sm text-gray-600 leading-relaxed">{item.description}</p>
                 </div>
             </motion.div>
 
@@ -98,7 +98,7 @@ export default function UspSectionForSeo() {
     return (
         <section
             ref={containerRef}
-            className="bg-white py-32 md:py-40 px-8 md:px-16 lg:px-24 overflow-x-hidden"
+            className="bg-white py-32 md:py-40 px-8 md:px-16 lg:px-24 overflow-x-hidden -translate-y-30 md:translate-y-0"
         >
             <div className="max-w-7xl mx-auto">
                 <h2 className="archivo-expanded text-3xl md:text-5xl lg:text-6xl font-medium leading-tight mb-12 text-[#000A1D]">
@@ -142,7 +142,7 @@ export default function UspSectionForSeo() {
                 {/* Nút CTA */}
                 <div className="flex justify-center mt-20">
                     <Link href="/contact">
-                        <button className="relative overflow-hidden px-5 py-3.5 rounded-full font-semibold text-sm text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
+                        <button className="relative overflow-hidden px-5 py-3.5 rounded-full generalsans-regular text-sm text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                             {/* Lớp chữ trên cùng */}
                             <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
                                 Contact Us

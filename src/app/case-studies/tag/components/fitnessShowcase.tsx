@@ -79,8 +79,8 @@ export default function FitnessShowcase() {
                         ].map(([label, value], i) => (
                             <div key={i} className="space-y-3">
                                 <div className="h-[0.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
-                                <p className="neulis-alt-regular text-sm text-[#444444]">{label}</p>
-                                <p className="neulis-alt-regular text-base font-medium text-[#000A1D]">{value}</p>
+                                <p className="generalsans-regular text-sm text-[#444444]">{label}</p>
+                                <p className="generalsans-regular text-base font-medium text-[#000A1D]">{value}</p>
                             </div>
                         ))}
                     </div>

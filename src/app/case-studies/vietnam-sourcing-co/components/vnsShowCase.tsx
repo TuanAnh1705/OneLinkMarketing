@@ -77,8 +77,8 @@ export default function VNSShowcase() {
                         ].map(([label, value], i) => (
                             <div key={i} className="space-y-3">
                                 <div className="h-[0.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
-                                <p className="neulis-alt-regular text-sm text-[#444444]">{label}</p>
-                                <p className="neulis-alt-regular text-base font-medium text-[#000A1D]">{value}</p>
+                                <p className="generalsans-regular text-sm text-[#444444]">{label}</p>
+                                <p className="generalsans-regular text-base font-medium text-[#000A1D]">{value}</p>
                             </div>
                         ))}
                     </div>
@@ -103,13 +103,13 @@ export default function VNSShowcase() {
                             1. About the project
                         </h2>
                         <div className="space-y-6">
-                            <p className="neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <p className="generalsans-regular text-base leading-relaxed text-[#444444]">
                                 Vietnam Sourcing Co is a sourcing and manufacturing service provider based in Vietnam, helping international buyers find reliable factories and manage production efficiently.
                             </p>
-                            <p className="neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <p className="generalsans-regular text-base leading-relaxed text-[#444444]">
                                 Although the company had strong expertise and a wide factory network, its <span className="font-semibold text-black">digital presence didn&apos;t reflect its true capabilities.</span> The old website was not SEO-optimized, the brand story lacked clarity, and content failed to communicate Vietnam&apos;s growing manufacturing strength to international clients.
                             </p>
-                            <p className="neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <p className="generalsans-regular text-base leading-relaxed text-[#444444]">
                                 That&apos;s when <span className="font-semibold text-black">Vietnam Sourcing Co partnered with OneLink Marketing</span> to translate their operational excellence into a strong digital identity that drives visibility, credibility, and qualified leads from around the world.
                             </p>
                         </div>
@@ -125,10 +125,10 @@ export default function VNSShowcase() {
                             2. The Challenges
                         </h2>
                         <div className="space-y-4">
-                            <p className="neulis-alt-regular text-base leading-relaxed text-[#444444] mb-2">
+                            <p className="generalsans-regular text-base leading-relaxed text-[#444444] mb-2">
                                 Before the partnership, Vietnam Sourcing Co faced three major challenges:
                             </p>
-                            <div className="space-y-2 neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <div className="space-y-2 generalsans-regular text-base leading-relaxed text-[#444444]">
                                 <p>
                                     <span className="font-semibold text-black">1. Limited global brand awareness:</span> Despite their strong service quality, they lacked recognition among international buyers.
                                 </p>

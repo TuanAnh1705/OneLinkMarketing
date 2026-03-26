@@ -37,7 +37,7 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
                 <div className={`text-3xl mb-1`}>
                     {type === "success" ? " ✔ " : "✘"}
                 </div>
-                <span className="neulis-alt-regular font-medium text-lg">
+                <span className="generalsans-regular text-lg">
                     {message}
                 </span>
             </motion.div>
@@ -180,7 +180,7 @@ export function ReplyForm() {
                 <h2 className="archivo-expanded text-4xl md:text-5xl font-medium text-slate-800 mb-2">
                     Leave a Reply
                 </h2>
-                <p className="neulis-alt-regular text-[#444444] mb-12 mt-10 text-xl">
+                <p className="generalsans-regular text-[#444444] mb-12 mt-10 text-xl">
                     Your email address will not be published. Required fields are marked{" "}
                     <span className="text-red-500">*</span>
                 </p>
@@ -188,7 +188,7 @@ export function ReplyForm() {
                 {/* Form */}
                 <form onSubmit={handleSubmit}>
                     {/* Name and Email Fields */}
-                    <div className="neulis-alt-regular grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 mb-12">
+                    <div className="generalsans-regular grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 mb-12">
                         <FormField
                             placeholder="Name *"
                             name="name"
@@ -207,7 +207,7 @@ export function ReplyForm() {
                     </div>
 
                     {/* Message Field */}
-                    <div className="neulis-alt-regular mb-12">
+                    <div className="generalsans-regular mb-12">
                         <FormField
                             placeholder="Message *"
                             name="message"
@@ -227,7 +227,7 @@ export function ReplyForm() {
                                 className="relative overflow-hidden px-5 py-3 rounded-full font-medium text-sm group border border-slate-400 disabled:opacity-70 disabled:cursor-not-allowed"
                             >
                                 {/* Chữ */}
-                                <span className="neulis-alt-regular relative z-30 flex items-center justify-center w-full h-full text-white group-hover:text-slate-700 transition-colors duration-300">
+                                <span className="generalsans-regular relative z-30 flex items-center justify-center w-full h-full text-white group-hover:text-slate-700 transition-colors duration-300">
                                     {isLoading ? "Sending..." : "Send Us Now"}
                                 </span>
 

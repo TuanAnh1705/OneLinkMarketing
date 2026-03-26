@@ -2,22 +2,23 @@
 
 import { useRef, memo } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
-import Link from "next/link" // <-- 1. Import Link
+import Link from "next/link"
 
+// --- DATA ---
 const expertiseData = [
     {
         number: "01",
         title: "Strategy \n Consulting",
-        services: ["Brand Audit & Insight Analysis", "Market & Competitor Research", "Key Messaging Framework"],
+        services: ["Brand Audit & Insight Analysis", "Market & Competitor Research", "Key Messaging Framework","Measurement, Data & Optimisation"],
         image: "/assets/sv1.png",
-        slug: "/service/strategy-consulting", // <-- 2. Thêm slug
+        slug: "/service/strategy-consulting",
     },
     {
         number: "02",
         title: "Digital Asset \n Development",
         services: ["Brand Identity", "Website Design", "Landing Page", "Digital Collateral"],
         image: "/assets/sv2.png",
-        slug: "/service/digital-asset-development", // <-- 2. Thêm slug
+        slug: "/service/digital-asset-development",
     },
     {
         number: "03",
@@ -29,7 +30,7 @@ const expertiseData = [
             "Content Strategy & Production",
         ],
         image: "/assets/sv3.png",
-        slug: "/service/seo-services", // <-- 2. Thêm slug
+        slug: "/service/seo-services",
     },
     {
         number: "04",
@@ -41,7 +42,7 @@ const expertiseData = [
             "Performance Reporting & Daily Insights",
         ],
         image: "/assets/sv4.png",
-        slug: "/service/paid-media-&-advertising", // <-- 2. Thêm slug
+        slug: "/service/paid-media-&-advertising",
     },
     {
         number: "05",
@@ -53,16 +54,16 @@ const expertiseData = [
             "Reporting & Community Engagement",
         ],
         image: "/assets/sv5.png",
-        slug: "/service/social-media-management", // <-- 2. Thêm slug
+        slug: "/service/social-media-management",
     },
 ]
 
-// Đường line gradient
+// --- COMPONENTS ---
+
 function GradientBorder() {
-    return <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+    return <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660] opacity-50" />
 }
 
-// Item chuyên môn
 const ExpertiseItem = memo(({ item, showLine }: { item: (typeof expertiseData)[0]; showLine: boolean }) => {
     const ref = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
@@ -70,33 +71,37 @@ const ExpertiseItem = memo(({ item, showLine }: { item: (typeof expertiseData)[0
         offset: ["start end", "center center"],
     })
 
+    // Hiệu ứng Clip Path (mở hộp)
     const clipValue = useTransform(scrollYProgress, [0, 1], [100, 0])
     const clipSpring = useSpring(clipValue, { stiffness: 70, damping: 20 })
 
-    const imageTranslateX = useTransform(scrollYProgress, [0, 1], [25, 0])
-    const imageTranslateXSpring = useSpring(imageTranslateX, { stiffness: 60, damping: 18 })
-
+    // Hiệu ứng Text trượt ngang
     const titleTranslateX = useTransform(scrollYProgress, [0, 0.8], [-100, 0])
     const titleTranslateXSpring = useSpring(titleTranslateX, { stiffness: 60, damping: 18 })
 
-    const sharpImageOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1])
-    const sharpImageOpacitySpring = useSpring(sharpImageOpacity, { stiffness: 100, damping: 30 })
-
     return (
-        <div ref={ref} className="py-16 relative">
+        <div ref={ref} className="py-12 md:py-16 relative">
+            {/* LAYOUT GRID MỚI: 
+               - lg:col-span-2: Số thứ tự
+               - lg:col-span-6: Danh sách dịch vụ (Chiếm nhiều chỗ hơn để đẩy box ra xa)
+               - lg:col-span-4: Box Title (Nhỏ lại)
+            */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-                {/* Number */}
+                
+                {/* 1. Number */}
                 <div className="lg:col-span-2">
-                    <p className="archivo-expanded text-xl md:text-3xl font-medium text-[#000000]">({item.number})</p>
+                    <p className="archivo-expanded text-xl md:text-3xl font-medium text-[#000000]">
+                        ({item.number})
+                    </p>
                 </div>
 
-                {/* Services - Responsive fix */}
-                <div className="lg:col-span-5 pl-28 md:pl-20 -mt-14 md:mt-0 lg:pl-52 text-left">
+                {/* 2. Services List */}
+                <div className="lg:col-span-6 pl-0 md:pl-20 lg:pl-32 text-left">
                     <ul className="space-y-1 md:space-y-2">
                         {item.services.map((service, idx) => (
                             <li
                                 key={idx}
-                                className="neulis-alt-regular font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent text-sm md:text-base lg:text-lg leading-snug"
+                                className="generalsans-regular text-[#000A1D] text-sm md:text-base lg:text-lg leading-snug"
                             >
                                 {service}
                             </li>
@@ -104,58 +109,33 @@ const ExpertiseItem = memo(({ item, showLine }: { item: (typeof expertiseData)[0
                     </ul>
                 </div>
 
-
-                {/* Image --- BẮT ĐẦU THAY ĐỔI --- */}
-                <div className="lg:col-span-5">
-                    {/* 3. Bọc motion.div bằng Link và truyền href từ item.slug */}
-                    <Link href={item.slug}>
+                {/* 3. Blue Box Title (Đã thu gọn width) */}
+                <div className="lg:col-span-4 flex justify-start lg:justify-end">
+                    <Link href={item.slug} className="w-full max-w-97.5"> 
                         <motion.div
-                            className="relative w-full h-64 md:h-80 overflow-hidden rounded-3xl shadow-lg cursor-pointer" // <-- Thêm cursor-pointer
+                            className="relative w-full h-52 md:h-64 overflow-hidden rounded-3xl shadow-lg cursor-pointer bg-[#000A1D]"
                             style={{
                                 clipPath: useTransform(clipSpring, (v) => `inset(0 0 0 ${v}% round 24px)`),
                                 willChange: "clip-path",
                             }}
                         >
-                            <img
-                                src={item.image}
-                                alt=""
-                                aria-hidden="true"
-                                className="absolute inset-0 w-full h-full object-cover blur-md scale-110"
-                            />
-                            <motion.img
-                                src={item.image}
-                                alt={item.title}
-                                className="absolute inset-0 w-full h-full object-cover"
-                                style={{
-                                    x: useTransform(imageTranslateXSpring, (v) => `${v}%`),
-                                    scale: useSpring(useTransform(scrollYProgress, [0, 1], [1.1, 1]), {
-                                        stiffness: 80,
-                                        damping: 20,
-                                    }),
-                                    opacity: sharpImageOpacitySpring,
-                                    willChange: "transform, opacity",
-                                }}
-                            />
-                            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
                             <motion.div
-                                className="absolute inset-0 flex items-center justify-start px-6"
+                                className="absolute inset-0 flex items-center justify-start px-8"
                                 style={{
                                     x: useTransform(titleTranslateXSpring, (v) => `${v}%`),
                                     willChange: "transform",
                                 }}
                             >
-                                <h3 className="archivo-expanded text-white text-xl md:text-3xl font-semibold leading-snug whitespace-pre-line text-left">
+                                <h3 className="archivo-expanded text-white text-lg md:text-2xl font-semibold leading-tight whitespace-pre-line text-left">
                                     {item.title}
                                 </h3>
                             </motion.div>
                         </motion.div>
                     </Link>
                 </div>
-                {/* --- KẾT THÚC THAY ĐỔI --- */}
-
             </div>
 
-            {/* Line dưới mỗi item, trừ item cuối */}
+            {/* Line dưới mỗi item */}
             {showLine && (
                 <div className="absolute bottom-0 left-0 w-full">
                     <GradientBorder />
@@ -163,33 +143,37 @@ const ExpertiseItem = memo(({ item, showLine }: { item: (typeof expertiseData)[0
             )}
         </div>
     )
-    ExpertiseItem.displayName = "ExpertiseItem"
 })
 
-// Section chính
+ExpertiseItem.displayName = "ExpertiseItem"
+
+// --- MAIN SECTION ---
 export default function ExpertiseSection() {
     return (
-        <section className="relative py-20 px-6 md:px-12 lg:px-20 overflow-hidden">
-            <div className="max-w-7xl mx-auto relative">
-                {/* Header */}
+        <section className="relative py-20 px-6 md:px-12 lg:px-20 overflow-hidden bg-white">
+            <div className="max-w-8xl mx-auto relative">
+                
+                {/* Header Section */}
                 <div className="mb-16">
-                    <h1 className="archivo-expanded text-4xl md:text-9xl font-bold text-center tracking-wider bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent mb-8">
-                        EXPERTISE
+                    <h1 className="archivo-expanded text-5xl md:text-9xl font-bold text-center tracking-tighter bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent mb-8">
+                        SERVICES
                     </h1>
                     <GradientBorder />
-                    <p className="archivo-expanded font-medium text-[#000A1D] text-center text-xl md:text-5xl max-w-5xl mx-auto leading-none py-8">
-                        We provide a single, <br /> integrated roadmap to solve <br /> all your marketing challenges.
+                    <p className="archivo-expanded font-medium text-[#000A1D] text-center text-xl md:text-4xl lg:text-5xl max-w-5xl mx-auto leading-tight py-12">
+                        We provide a single, <br className="hidden md:block" /> 
+                        integrated roadmap to solve <br className="hidden md:block" /> 
+                        all your marketing challenges.
                     </p>
                     <GradientBorder />
                 </div>
 
-                {/* Danh sách item */}
-                <div>
+                {/* List of Items */}
+                <div className="mt-8">
                     {expertiseData.map((item, i) => (
                         <ExpertiseItem
-                            key={i}
+                            key={item.number}
                             item={item}
-                            showLine={i < expertiseData.length - 1} // Chỉ vẽ line nếu chưa phải item cuối
+                            showLine={i < expertiseData.length - 1}
                         />
                     ))}
                 </div>

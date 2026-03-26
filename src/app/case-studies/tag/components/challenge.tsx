@@ -58,7 +58,7 @@ export default function ChallengeSection() {
 
                         {/* Right - Description */}
                         <div className="space-y-6">
-                            <p className=" neulis-alt-regular font-medium text-lg leading-relaxed text-[#444444]">
+                            <p className=" generalsans-regular text-lg leading-relaxed text-[#444444]">
                                 Tag, a high-performance running apparel brand, had a premium product line but no direct-to-consumer (D2C) channel. Their entire business was reliant on inefficient, unscalable sales through third-party retailers and social media DMs, which offered zero brand control or access to vital customer data. They needed to launch their first-ever flagship e-commerce platform to build a real brand, own their customer relationships, and create a scalable revenue stream.
                             </p>
                         </div>
@@ -78,7 +78,7 @@ export default function ChallengeSection() {
 
                         {/* Right - Description */}
                         <div className="space-y-6">
-                            <p className=" neulis-alt-regular font-medium text-lg leading-relaxed text-[#444444]">
+                            <p className=" generalsans-regular text-lg leading-relaxed text-[#444444]">
                                 Our solution was to architect and deploy their entire D2C ecosystem from the ground up, centered on our two core services: <span className="font-semibold">Website Design</span> and <span className="font-semibold">Landing Pages.</span>
                             </p>
                         </div>

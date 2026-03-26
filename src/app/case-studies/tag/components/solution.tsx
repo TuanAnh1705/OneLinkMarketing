@@ -51,12 +51,12 @@ export default function SolutionsSection() {
                 <div className="max-w-7xl mx-auto flex justify-start">
                     {/* Thay đổi từ lg:w-1/3 thành lg:w-full để có thêm không gian cho văn bản */}
                     <div className="w-full lg:w-full text-left">
-                        <h3 className="neulis-alt-regular font-semibold text-lg tracking-tight text-[#000A1D]">
+                        <h3 className="generalsans-regular text-lg tracking-tight text-[#000A1D]">
                             Phase 1: High-Performance Website Design (The Foundation)
                         </h3>
 
                         {/* Thay thế <p> cũ bằng nội dung mới từ hình ảnh */}
-                        <div className="neulis-alt-regular font-medium text-lg leading-relaxed text-[#444444] space-y-4">
+                        <div className="generalsans-regular text-lg leading-relaxed text-[#444444] space-y-4">
                             <p>
                                 We built their complete e-commerce foundation on the Shopify 2.0 platform. This was broken into three key streams:
                             </p>
@@ -73,7 +73,7 @@ export default function SolutionsSection() {
                             </ul>
 
                             {/* Thêm nội dung Phase 2 */}
-                            <h3 className="neulis-alt-regular font-semibold text-lg tracking-tight text-[#000A1D] mt-8 mb-0">
+                            <h3 className="generalsans-regular text-lg tracking-tight text-[#000A1D] mt-8 mb-0">
                                 Phase 2: Targeted Landing Pages
                             </h3>
                             <p>
@@ -113,7 +113,7 @@ export default function SolutionsSection() {
                         <h2 className="archivo-expanded text-4xl lg:text-5xl font-medium tracking-tight text-[#000A1D] mb-10">
                             5. The Results
                         </h2>
-                        <div className="neulis-alt-regular font-medium text-lg leading-relaxed text-[#444444] space-y-0">
+                        <div className="generalsans-regular text-lg leading-relaxed text-[#444444] space-y-0">
                             <p className="mb-8">
                                 The new platform was a success from the moment it launched. By building the site correctly from the foundation, we bypassed the typical &quot;growing pains&quot; of a new store.
                             </p>

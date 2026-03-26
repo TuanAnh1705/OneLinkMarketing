@@ -56,7 +56,7 @@ export default function GetAFree() {
     // Đã xóa các biến marqueeItems vì không cần dùng vòng lặp nữa
 
     return (
-        <section className="relative flex flex-col items-center justify-center min-h-fit py-32 md:h-screen md:py-0 -mt-40 md:-mt-[140vh] space-y-16 overflow-hidden md:mb-0 mb-20">
+        <section className="relative flex flex-col items-center justify-center min-h-fit py-32 md:h-screen md:py-0 -mt-40 md:-mt-80 space-y-16 overflow-hidden mb-32 md:-mb-50">
             
             {/* ======= Main Button ======= */}
             <Link href="/contact">
@@ -100,11 +100,6 @@ export default function GetAFree() {
 
             {/* ======= Static Text (Đã sửa: Bỏ Marquee) ======= */}
             {/* Căn giữa và chỉ hiển thị text tĩnh */}
-            <div className="absolute bottom-30 md:bottom-10 w-full flex justify-center items-center pointer-events-none select-none">
-                <h2 className="text-[8vw] font-bold uppercase tracking-tight neulis-alt-extralight px-8 bg-[#000A1D] bg-clip-text text-transparent text-center whitespace-nowrap">
-                    LET&apos;S WORK TOGETHER
-                </h2>
-            </div>
             
         </section>
     )

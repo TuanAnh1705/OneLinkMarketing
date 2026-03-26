@@ -52,7 +52,7 @@ export default function FaqForSeo() {
     setOpenIndex(openIndex === index ? null : index)
 
   return (
-    <div className="relative w-full z-20 -top-20">
+    <div className="relative w-full z-20 -top-50 md:-top-20">
       <div className="mx-auto max-w-5xl mt-14">
         {/* --- HEADER --- */}
         <div className="relative mb-12">
@@ -76,7 +76,7 @@ export default function FaqForSeo() {
                   <span className="archivo-expanded text-lg font-medium text-[#000000] w-12">
                     {item.id}
                   </span>
-                  <h3 className="neulis-alt-regular text-xl font-medium text-[#000A1D] md:text-2xl">
+                  <h3 className="generalsans-regular text-xl font-medium text-[#000A1D] md:text-2xl">
                     {item.question}
                   </h3>
                 </div>
@@ -119,7 +119,7 @@ export default function FaqForSeo() {
                     className="overflow-hidden"
                   >
                     <div className="pb-6 pl-24 pr-12">
-                      <p className="neulis-alt-regular font-medium leading-relaxed text-xl text-[#444444]">
+                      <p className="generalsans-regular leading-relaxed text-xl text-[#444444]">
                         {item.answer}
                       </p>
                     </div>

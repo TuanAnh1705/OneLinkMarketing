@@ -41,7 +41,7 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
                 </div>
                 
                 {/* Message */}
-                <span className="neulis-alt-regular font-medium text-lg">
+                <span className="generalsans-regular text-lg">
                     {message}
                 </span>
             </motion.div>
@@ -227,20 +227,20 @@ export function ContactFormSection() {
                     <div className="lg:col-span-1 space-y-12">
                         <div>
                             <h3 className="archivo-expanded text-lg font-medium text-[#444444] mb-4">Get in touch</h3>
-                            <p className="text-[#000A1D] neulis-alt-regular font-medium leading-relaxed mb-4">
-                                We’re excited to hear from you! <br /> Let’s start something together.
+                            <p className="text-[#000A1D] generalsans-regular leading-relaxed mb-4">
+                                 Let’s start something together.
                             </p>
-                            <a href="mailto:hello@onelinkmarketing.com" className="underline neulis-alt-regular font-medium text-[#000A1D] hover:text-[#0074E5] transition-colors">
+                            <a href="mailto:hello@onelinkmarketing.com" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">
                                 hello@onelinkmarketing.com
                             </a>
                         </div>
                         <div>
                             <h3 className="archivo-expanded text-lg font-medium text-[#444444] mb-4">Follow</h3>
                             <div className="flex flex-col items-start space-y-2">
-                                <a href="https://www.facebook.com/profile.php?id=61582703650572" className="underline neulis-alt-regular font-medium text-[#000A1D] hover:text-[#0074E5] transition-colors">Facebook</a>
-                                <a href="https://www.linkedin.com/company/onelink-marketing/" className="underline neulis-alt-regular font-medium text-[#000A1D] hover:text-[#0074E5] transition-colors">Linkedin</a>
-                                <a href="https://www.instagram.com/onelink_marketing/" className="underline neulis-alt-regular font-medium text-[#000A1D] hover:text-[#0074E5] transition-colors">Instagram</a>
-                                <a href="https://www.behance.net/onelinkmarketi" className="underline neulis-alt-regular font-medium text-[#000A1D] hover:text-[#0074E5] transition-colors">Behance</a>
+                                <a href="https://www.facebook.com/profile.php?id=61582703650572" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">Facebook</a>
+                                <a href="https://www.linkedin.com/company/onelink-marketing/" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">Linkedin</a>
+                                <a href="https://www.instagram.com/onelink_marketing/" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">Instagram</a>
+                                <a href="https://www.behance.net/onelinkmarketi" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">Behance</a>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@ export function ContactFormSection() {
                     {/* Cột phải: Form */}
                     <div className="lg:col-span-2">
                         <form onSubmit={handleSubmit}>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 mb-12 neulis-alt-regular font-medium text-[#444444]">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 mb-12 generalsans-regular text-[#444444]">
                                 <FormField placeholder="Name" name="name" required value={formData.name} onChange={handleChange} disabled={isLoading} />
                                 <FormField placeholder="Email" name="email" type="email" required value={formData.email} onChange={handleChange} disabled={isLoading} />
                                 
@@ -258,8 +258,11 @@ export function ContactFormSection() {
                                 <FormField placeholder="Company" name="company" required value={formData.company} onChange={handleChange} disabled={isLoading} />
                                 
                                 {/* Budget - Sẽ được validate */}
-                                <FormField placeholder="Budget (USD)" name="budget" value={formData.budget} onChange={handleChange} disabled={isLoading} />
                                 
+                                
+                            </div>
+
+                            <div>
                                 <FormField placeholder="Subject" name="subject" value={formData.subject} onChange={handleChange} disabled={isLoading} />
                             </div>
 
@@ -272,7 +275,7 @@ export function ContactFormSection() {
                                     disabled={isLoading}
                                     className="relative overflow-hidden px-6 py-3 rounded-full font-medium text-sm group border border-slate-400 disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
-                                    <span className="neulis-alt-regular font-medium relative z-30 text-white group-hover:text-slate-700 transition-colors duration-300">
+                                    <span className="generalsans-regular relative z-30 text-white group-hover:text-slate-700 transition-colors duration-300">
                                         {isLoading ? "Sending..." : "Send Message"}
                                     </span>
                                     

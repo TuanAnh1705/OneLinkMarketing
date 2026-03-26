@@ -99,7 +99,7 @@ export default function FlowerRevealOptimized() {
 
       <div
         ref={flowerRef}
-        className="z-10 relative w-[60px] md:w-[130px] lg:w-[180px] h-[60px] md:h-[130px] lg:h-[180px]"
+        className="z-10 relative w-15 md:w-32.5 lg:w-45 h-15 md:h-32.5 lg:h-45"
         style={{
           backfaceVisibility: "hidden",
           transform: "translateZ(0)",

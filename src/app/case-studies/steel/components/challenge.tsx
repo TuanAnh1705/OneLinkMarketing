@@ -60,7 +60,7 @@ export default function ChallengeSection() {
 
                         {/* Right - Description */}
                         <div className="space-y-6">
-                            <p className=" neulis-alt-regular font-medium text-lg leading-relaxed text-[#444444]">
+                            <p className=" generalsans-regular text-lg leading-relaxed text-[#444444]">
                                 OneLink Marketing partnered with Steel Works Seattle, a leading steel fabrication company with 30 years of experience, to completely transform their digital presence. They were masters of their craft, but their online brand was confusing and failed to communicate their true capabilities.
                             </p>
                         </div>
@@ -80,7 +80,7 @@ export default function ChallengeSection() {
 
                         {/* Right - Description */}
                         <div className="space-y-6">
-                            <p className=" neulis-alt-regular font-medium text-lg leading-relaxed text-[#444444] mb-0">
+                            <p className=" generalsans-regular text-lg leading-relaxed text-[#444444] mb-0">
                                 To solve their core identity problem and build a platform for growth, we provided our two key services:
                             </p>
                             <ul className="list-disc pl-5 text-lg">

@@ -80,8 +80,8 @@ export default function CNSShowcase() {
                                     ].map(([label, value], i) => (
                                         <div key={i} className="space-y-3">
                                             <div className="h-[0.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
-                                            <p className="neulis-alt-regular text-sm text-[#444444]">{label}</p>
-                                            <p className="neulis-alt-regular text-base font-medium text-[#000A1D]">{value}</p>
+                                            <p className="generalsans-regular text-sm text-[#444444]">{label}</p>
+                                            <p className="generalsans-regular text-base font-medium text-[#000A1D]">{value}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -105,16 +105,16 @@ export default function CNSShowcase() {
                             1. About the project
                         </h2>
                         <div className="space-y-6">
-                            <p className="neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <p className="generalsans-regular text-base leading-relaxed text-[#444444]">
                                 <span className="font-semibold text-black">China Sourcing Co</span> is a sourcing service company that connects global businesses with reliable manufacturers across China. Despite having an extensive supplier network and a strong operational foundation, the company&apos;s online presence did not fully reflect its expertise and credibility.
                             </p>
-                            <p className="neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <p className="generalsans-regular text-base leading-relaxed text-[#444444]">
                                 The old website was outdated, hard to navigate, and lacked a clear brand narrative. Marketing activities were fragmented across channels, with no unified tracking or data integration.
                             </p>
-                            <p className="neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <p className="generalsans-regular text-base leading-relaxed text-[#444444]">
                                 That&apos;s when <span className="font-semibold text-black">China Sourcing Co partnered with OneLink Marketing</span> with three main goals:
                             </p>
-                            <ul className="list-disc pl-5 space-y-2 neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <ul className="list-disc pl-5 space-y-2 generalsans-regular text-base leading-relaxed text-[#444444]">
                                 <li>
                                     <span className="font-semibold text-black">Redesign the website</span> with a modern, conversion-optimized layout.
                                 </li>
@@ -138,10 +138,10 @@ export default function CNSShowcase() {
                             2. The Challenges
                         </h2>
                         <div className="space-y-4">
-                            <p className="neulis-alt-regular text-base leading-relaxed text-[#444444] mb-4">
+                            <p className="generalsans-regular text-base leading-relaxed text-[#444444] mb-4">
                                 When we started, we identified three major bottlenecks:
                             </p>
-                            <div className="space-y-4 neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                            <div className="space-y-4 generalsans-regular text-base leading-relaxed text-[#444444]">
                                 <p>
                                     <span className="font-semibold text-black">1. Website not optimized for conversion:</span> The old site had a cluttered layout and lacked clear CTAs, leading to a high bounce rate and low quote submissions.
                                 </p>

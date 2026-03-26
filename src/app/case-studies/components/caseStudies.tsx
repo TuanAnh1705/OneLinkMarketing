@@ -128,7 +128,7 @@ export default function CaseStudies() {
                                             <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
                                         </div>
                                         <h3 className="mt-7 archivo-expanded font-medium text-xl text-[#000A1D]">{item.title}</h3>
-                                        <p className="text-sm neulis-alt-extralight font-semibold text-[#444444]">{item.year}</p>
+                                        <p className="text-sm generalsans-regular text-[#444444]">{item.year}</p>
                                     </motion.div>
                                 </Link>
                             ))}

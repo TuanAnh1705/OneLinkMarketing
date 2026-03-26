@@ -2,127 +2,107 @@
 
 import React from "react"
 
-// ============================================================================
-// 🔹 Component Mũi Tên Ngang (Desktop)
-// ============================================================================
+// --- Components Mũi tên ---
 function GradientArrowHorizontal() {
     return (
-        <svg
-            width="160"
-            height="28"
-            viewBox="0 0 120 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            // Ẩn trên mobile, chỉ hiện trên desktop, và ngăn co lại
-            className="hidden lg:block mx-4 flex-shrink-0"
+        <svg 
+            width="100" // Giảm chiều rộng mũi tên để dành chỗ cho khoảng cách
+            height="24" 
+            viewBox="0 0 120 24" 
+            fill="none" 
+            className="hidden lg:block shrink-0 self-start mt-2" // self-start để cố định vị trí đỉnh
         >
             <defs>
                 <linearGradient id="arrow-gradient-horizontal" x1="0" y1="12" x2="120" y2="12" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#0074E5" />
-                    <stop offset="1" stopColor="#162660" />
+                    <stop stopColor="#0074E5" /><stop offset="1" stopColor="#162660" />
                 </linearGradient>
             </defs>
-            <path
-                d="M0 12H110L100 2M110 12L100 22"
-                stroke="url(#arrow-gradient-horizontal)" // Dùng gradient ngang
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
+            <path d="M0 12H110L100 2M110 12L100 22" stroke="url(#arrow-gradient-horizontal)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     )
 }
 
-// ============================================================================
-// 🔹 Component Mũi Tên Dọc (Mobile) - MỚI
-// ============================================================================
 function GradientArrowVertical() {
     return (
-        <svg
-            width="28" // Chiều rộng nhỏ
-            height="100" // Chiều cao lớn
-            viewBox="0 0 24 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            // Hiện trên mobile, ẩn trên desktop, thêm khoảng cách
-            className="block lg:hidden my-6"
-        >
+        <svg width="24" height="60" viewBox="0 0 24 100" fill="none" className="block lg:hidden my-8">
             <defs>
-                {/* Định nghĩa gradient dọc */}
                 <linearGradient id="arrow-gradient-vertical" x1="12" y1="0" x2="12" y2="100" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#0074E5" />
-                    <stop offset="1" stopColor="#162660" />
+                    <stop stopColor="#0074E5" /><stop offset="1" stopColor="#162660" />
                 </linearGradient>
             </defs>
-            <path
-                // Vẽ đường thẳng từ trên (y=0) xuống dưới (y=90)
-                // Vẽ đầu mũi tên ở (y=90)
-                d="M12 0V90M12 90L2 80M12 90L22 80"
-                stroke="url(#arrow-gradient-vertical)" // Dùng gradient dọc
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
+            <path d="M12 0V90M12 90L2 80M12 90L22 80" stroke="url(#arrow-gradient-vertical)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     )
 }
 
-// ============================================================================
-// 🔹 Dữ liệu cho các bước (Không đổi)
-// ============================================================================
 const roadmapData = [
     {
         title: "Strategic Foundation",
-        description: "Market research, brand audit, and keyword analysis to build a data-driven strategy.",
+        subtitle: "Insight before action.",
+        description: "Market research, brand audits and keyword analysis uncover opportunities and shape a clear, data driven marketing strategy.",
     },
     {
-        title: "Core Identity Building",
-        description: "Crafting a professional brand identity, and a core messaging framework for consistency.",
+        title: "Core Brand Development",
+        subtitle: "Define how your brand shows up.",
+        description: "We build a strong brand identity and messaging framework that ensures clarity, consistency and differentiation.",
     },
     {
-        title: "Digital Asset Activation",
+        title: "Digital Platform Activation",
+        subtitle: "Turn digital presence to growth.",
         description: "Designing SEO/UX-optimized websites and digital collateral that work as lead magnets.",
     },
     {
-        title: "Sustainable Performance",
-        description: "Implementing SEO, social, and paid media campaigns to generate leads and scale your business.",
+        title: "Scalable Performance Marketing",
+        subtitle: "Drive measurable growth.",
+        description: "Integrated SEO, paid media and social campaigns generate qualified leads, improve ROI and scale your business.",
     },
 ]
 
-// ============================================================================
-// 🔹 Component RoadmapSection chính
-// ============================================================================
 export function RoadmapSection() {
     return (
-        <section className="bg-white py-20 md:py-32 px-8 -mt-28">
+        <section className="bg-white py-20 md:py-32 px-8 md:-translate-y-30">
             <div className="max-w-7xl mx-auto">
-                <h2 className="archivo-expanded text-2xl md:text-5xl font-medium text-[#000A1D] text-center max-w-4xl mx-auto leading-tight">
+                <h2 className="archivo-expanded text-2xl md:text-5xl font-medium text-[#000A1D] text-center max-w-4xl mx-auto leading-tight mb-24">
                     Our 4-Step Roadmap to <br/> Sustainable Growth
                 </h2>
 
-                {/* THAY ĐỔI:
-                  - Bỏ 'gap-y-12' (vì mũi tên dọc đã có 'my-6')
-                  - Thêm 'items-center' (căn giữa các mục trên mobile)
-                  - Thêm 'lg:items-start' (giữ nguyên layout cũ trên desktop)
+                {/* - lg:gap-x-12: Tạo khoảng cách ngang giữa Title và Mũi tên.
+                   - grid-cols: 4 cột nội dung chính + mũi tên xen kẽ.
                 */}
-                <div className="mt-20 flex flex-col lg:flex-row items-center lg:items-start justify-between">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:gap-x-8 items-start">
+                    
                     {roadmapData.map((step, index) => (
-                        <React.Fragment key={step.title}>
-                            {/* Nội dung của một bước */}
-                            <div className="flex-1 text-center lg:text-left max-w-sm">
-                                <h3 className="neulis-alt-regular text-xl font-medium text-[#000A1D] mb-4">{step.title}</h3>
-                                <p className="neulis-alt-regular font-medium text-[#444444] leading-relaxed">{step.description}</p>
+                        <React.Fragment key={index}>
+                            {/* Cột Nội Dung: Thêm max-w-[240px] để bóp gọn chiều rộng văn bản */}
+                            <div className="flex flex-col text-center lg:text-left lg:max-w-45 mx-auto lg:mx-0">
+                                {/* Row 1: Title */}
+                                <div className="min-h-20 flex items-start">
+                                    <h3 className="archivo-expanded text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-[#0074E5] to-[#162660] w-full leading-tight">
+                                        {step.title}
+                                    </h3>
+                                </div>
+
+                                {/* Row 2: Subtitle */}
+                                <div className="mt-3 min-h-16">
+                                    <p className="generalsans-regular text-[#000A1D] font-bold text-[17px] leading-snug">
+                                        {step.subtitle}
+                                    </p>
+                                </div>
+
+                                {/* Row 3: Description */}
+                                <div className="mt-6">
+                                    <p className="generalsans-regular text-[#666666] leading-relaxed text-[15px] font-light">
+                                        {step.description}
+                                    </p>
+                                </div>
                             </div>
 
-                            {/* THAY ĐỔI:
-                              - Hiển thị CẢ HAI mũi tên.
-                              - CSS (hidden/block) sẽ tự động chọn đúng mũi tên để hiển thị.
-                            */}
+                            {/* Cột Mũi Tên: Thêm padding-x để tách xa Title và cột nội dung tiếp theo */}
                             {index < roadmapData.length - 1 && (
-                                <>
+                                <div className="flex flex-col items-center justify-start lg:px-4">
                                     <GradientArrowHorizontal />
                                     <GradientArrowVertical />
-                                </>
+                                </div>
                             )}
                         </React.Fragment>
                     ))}

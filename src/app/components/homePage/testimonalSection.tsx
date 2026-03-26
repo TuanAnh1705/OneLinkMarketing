@@ -190,13 +190,13 @@ export default function TestimonialsSection() {
     }, [logoX, totalWidth])
 
     return (
-        <section className="relative bg-[#000A1D] text-white w-full overflow-hidden py-16 sm:py-3 -top-[30px] md:-top-96 z-10 flex flex-col items-center justify-center min-h-screen">
+        <section className="relative bg-[#000A1D] text-white w-full overflow-hidden py-35 sm:py-35 -top-7.5  z-10 flex flex-col items-center justify-center min-h-screen">
             <div className="container mx-auto px-6 lg:px-8 flex flex-col items-center justify-center">
                 <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium archivo-expanded text-center text-white leading-tight mb-16 sm:mb-24 max-w-4xl mx-auto">
                     What our clients say <br /> about our work
                 </h2>
 
-                <div className="relative w-full max-w-5xl h-[450px] sm:h-[400px] flex items-center justify-center">
+                <div className="relative w-full max-w-5xl h-112.5 sm:h-100 flex items-center justify-center">
                     <motion.div
                         className="relative w-full h-full flex items-center justify-center"
                         style={{ perspective: "1200px" }}
@@ -220,7 +220,7 @@ export default function TestimonialsSection() {
                             return (
                                 <motion.div
                                     key={index}
-                                    className="absolute w-[90%] max-w-[500px] h-[380px] sm:min-h-[350px] sm:h-[350px] p-6 sm:p-8 md:p-10 flex flex-col justify-center rounded-lg shadow-2xl cursor-grab active:cursor-grabbing"
+                                    className="absolute w-[90%] max-w-125 h-95 sm:min-h-87.5 sm:h-87.5 p-6 sm:p-8 md:p-10 flex flex-col justify-center rounded-lg shadow-2xl cursor-grab active:cursor-grabbing"
                                     style={{
                                         ...cardStyle,
                                         transformStyle: "preserve-3d",
@@ -245,8 +245,8 @@ export default function TestimonialsSection() {
                                             />
                                         </div>
                                         <div>
-                                            <p className={`neulis-alt-extralight font-bold text-lg sm:text-xl ${cardStyle.textColor}`}>{testimonial.author}</p>
-                                            <p className={`neulis-alt-extralight font-medium text-xs sm:text-sm ${cardStyle.textColor}`}>{testimonial.role}</p>
+                                            <p className={`generalsans-regular text-lg sm:text-xl ${cardStyle.textColor}`}>{testimonial.author}</p>
+                                            <p className={`generalsans-light text-xs sm:text-sm ${cardStyle.textColor}`}>{testimonial.role}</p>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -297,9 +297,6 @@ export default function TestimonialsSection() {
 
             {/* PHẦN LOGO MARQUEE - INFINITE SEAMLESS LOOP (Giống StorySection) */}
             <div className="mt-20 w-full">
-                <p className="text-center text-white mb-12 text-lg sm:text-xl neulis-alt-extralight font-medium">
-                    Accelerate Business Growth with <br /> OneLink Marketing
-                </p>
                 <div className="relative w-full overflow-hidden">
                     <motion.div
                         style={{ x: logoX }}

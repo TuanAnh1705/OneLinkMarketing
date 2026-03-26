@@ -22,13 +22,13 @@ export default function SectionProjects() {
     <motion.section
   ref={section4Ref}
   className="
-    relative justify-center 
-    -mt-[1450px]     
-    min-[393px]:mt-96   
-    min-[430px]:-mt-[1750px]   
-    md:-mt-96         
-    lg:-mt-60         
-    z-10 bg-white pt-0 pb-32 px-8 md:px-16 lg:px-24
+    relative justify-center
+    -mt-362.5
+    min-[200px]:-mt-110
+    min-[200px]:-mt-130
+    md:-mt-96
+    lg:-mt-60
+    z-10 bg-white pt-0 pb-10 px-8 md:px-16 lg:px-24
   "
   onMouseMove={(e) => {
     mouseX.set(e.clientX)
@@ -37,7 +37,7 @@ export default function SectionProjects() {
 >
       {/* Custom cursor */}
       <motion.div
-        className="fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center rounded-4xl bg-[#FFFFFF] border-none text-[#444444] text-sm shadow-lg px-5 py-3"
+        className="generalsans-regular fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center rounded-4xl bg-[#FFFFFF] border-none text-[#444444] text-sm shadow-lg px-5 py-3"
         style={{
           x: smoothX,
           y: smoothY,
@@ -83,7 +83,7 @@ export default function SectionProjects() {
                     <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
                   </div>
                   <h3 className="mt-7 archivo-expanded font-medium text-xl text-[#000A1D]">{item.title}</h3>
-                  <p className="text-sm neulis-alt-extralight font-semibold text-[#444444]">{item.year}</p>
+                  <p className="text-sm generalsans-regular text-[#444444]">{item.year}</p>
                 </motion.div>
               </Link>
             ))}
@@ -95,7 +95,7 @@ export default function SectionProjects() {
       <div className="flex justify-center mt-20 relative">
         <motion.div whileHover={{ scale: 1.05 }} style={{ opacity: buttonOpacity, y: buttonY }}>
           <Link href="/case-studies">
-            <button className="relative overflow-hidden px-5 py-3.5 rounded-full font-medium text-sm text-[#444444] border-[0.5px] border-[#444444] hover:border-transparent bg-white transition-colors duration-300 group">
+            <button className="generalsans-regular relative overflow-hidden px-5 py-3.5 rounded-full font-medium text-sm text-[#444444] border-[0.5px] border-[#444444] hover:border-transparent bg-white transition-colors duration-300 group">
               <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-white">
                 View All Work
               </span>

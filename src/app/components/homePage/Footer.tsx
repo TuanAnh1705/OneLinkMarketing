@@ -5,12 +5,12 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowUp, Send, Loader2 } from "lucide-react" // Thêm Loader2 cho hiệu ứng loading
+import { ArrowUp, Send, Loader2 } from "lucide-react" 
 import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion" // Import framer-motion
+import { motion, AnimatePresence } from "framer-motion"
 
 // ============================================================================
-// 🔹 Component Toast (Copy từ ContactForm)
+// 🔹 Component Toast
 // ============================================================================
 interface ToastProps {
     message: string
@@ -32,7 +32,7 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
                 exit={{ opacity: 0, scale: 0.8, y: -20 }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
                 className={`
-                    pointer-events-auto px-8 py-4 rounded-xl shadow-2xl flex flex-col items-center gap-2 min-w-[300px] text-center
+                    pointer-events-auto px-8 py-4 rounded-xl shadow-2xl flex flex-col items-center gap-2 min-w-75 text-center
                     ${type === "success" 
                         ? "bg-[#162660] text-green-500 border border-slate-700" 
                         : "bg-white text-red-600 border-2 border-red-100" 
@@ -42,7 +42,7 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
                 <div className={`text-3xl mb-1`}>
                     {type === "success" ? " ✔ " : "⚠️"}
                 </div>
-                <span className="neulis-alt-regular font-medium text-lg">
+                <span className="generalsans-regular text-lg">
                     {message}
                 </span>
             </motion.div>
@@ -56,8 +56,6 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
 
 export default function Footer() {
     const [showScrollTop, setShowScrollTop] = useState(false)
-    
-    // 1. State cho Email Form
     const [email, setEmail] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [toast, setToast] = useState<{ show: boolean; message: string; type: "success" | "error" }>({
@@ -78,40 +76,27 @@ export default function Footer() {
         window.scrollTo({ top: 0, behavior: "smooth" })
     }
 
-    // 2. Hàm hiển thị Toast
     const showToast = (message: string, type: "success" | "error") => {
         setToast({ show: true, message, type })
     }
 
-    // 3. Hàm xử lý Subscribe
     const handleSubscribe = async (e: React.FormEvent) => {
         e.preventDefault()
-
-        // Validate cơ bản
         if (!email || !email.includes('@')) {
             showToast("Please enter a valid email address.", "error")
             return
         }
-
         setIsLoading(true)
-
         try {
             const response = await fetch("/api/sheet/email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
             })
-
             const data = await response.json()
-
-            if (!response.ok) {
-                throw new Error(data.error || "Something went wrong")
-            }
-
-            // Thành công
+            if (!response.ok) throw new Error(data.error || "Something went wrong")
             showToast("Subscribed successfully!", "success")
-            setEmail("") // Reset input
-
+            setEmail("")
         } catch (error: any) {
             console.error("Error subscribing:", error)
             showToast("Failed to subscribe. Please try again.", "error")
@@ -130,14 +115,13 @@ export default function Footer() {
         { name: "Strategy Consulting", href: "/service/strategy-consulting" },
         { name: "Digital Asset Development", href: "/service/digital-asset-development" },
         { name: "SEO Services", href: "/service/seo-services" },
-        { name: "Paid Media & Advertising", href: "/service/paid-media-&-advertising" },
+        { name: "Paid Media & Advertising", href: "/service/paid-media-advertising" },
         { name: "Social Media Management", href: "/service/social-media-management" },
     ]
 
     return (
         <footer className="text-gray-800 -mt-40 md:mt-0 pt-20 pb-10 px-4 md:px-8 relative overflow-hidden bg-white">
             
-            {/* 🌈 Hiển thị Toast */}
             <AnimatePresence>
                 {toast.show && (
                     <Toast 
@@ -148,16 +132,15 @@ export default function Footer() {
                 )}
             </AnimatePresence>
 
-            {/* Gradient Line Top */}
             <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-[#0074E5] to-[#162660]" />
 
             <div className="max-w-7xl mx-auto flex flex-col gap-16 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    
                     {/* Left Column */}
                     <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-                        <div className="w-full max-w-[500px] mx-auto lg:mx-0 flex flex-col items-center lg:items-start text-center lg:text-left">
-                            {/* Logo */}
-                            <div className="mb-6 w-full h-[120px] lg:h-[150px] relative">
+                        <div className="w-full max-w-125 mx-auto lg:mx-0 flex flex-col items-center lg:items-start text-center lg:text-left">
+                            <div className="mb-6 w-full h-30 lg:h-37.5 relative">
                                 <Image
                                     src="/assets/logo.png"
                                     alt="Onelink Logo"
@@ -167,7 +150,6 @@ export default function Footer() {
                                 />
                             </div>
 
-                            {/* Social Icons */}
                             <div className="flex justify-center lg:justify-start gap-5 mt-6 w-full">
                                 <Link href="https://www.instagram.com/onelink_marketing/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity">
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 fill-black">
@@ -175,7 +157,6 @@ export default function Footer() {
                                         <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077" />
                                     </svg>
                                 </Link>
-                                
                                 <Link href="https://www.facebook.com/profile.php?id=61582703650572" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity">
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 fill-black">
                                         <title>Facebook</title>
@@ -193,13 +174,11 @@ export default function Footer() {
                                 </Link>
                             </div>
 
-                            {/* Privacy Policy */}
-                            <Link href="/privacy-policy" className="neulis-alt-extralight mt-8 text-[#000A1D] underline font-bold text-center lg:text-left w-full hover:opacity-70 transition-opacity">
+                            <Link href="/privacy-policy" className="generalsans-regular mt-8 text-[#000A1D] underline text-center lg:text-left w-full hover:opacity-70 transition-opacity">
                                 Privacy Policy
                             </Link>
 
-                            {/* Copyright */}
-                            <p className="neulis-alt-extralight font-bold mt-14 text-[#000A1D] text-center lg:text-left w-full">
+                            <p className="generalsans-regular mt-14 text-[#000A1D] text-center lg:text-left w-full">
                                 <span className="text-[#ADADAD]">©</span>2025{" "}
                                 <span className="text-[#ADADAD]"> Onelink Marketing. </span>All rights reserved.
                             </p>
@@ -208,13 +187,23 @@ export default function Footer() {
 
                     {/* Right Column */}
                     <div className="flex flex-col lg:items-end text-center lg:text-left">
-                        {/* 🌟 Chat Box / Subscription Form */}
-                        <div className="w-full max-w-md lg:self-end">
-                            <h3 className="neulis-alt-regular text-4xl font-medium mb-6 text-[#000A1D] text-center lg:text-left">
-                                Planning Something?
-                            </h3>
+                        {/* 🌟 Chat Box / Subscription Form Container */}
+                        <div className="w-full max-w-md lg:self-end flex flex-col items-center lg:items-start">
                             
-                            {/* Chuyển thành Form để bắt sự kiện Submit */}
+                            {/* 🚀 THAY THẾ CHỮ PLANNING BẰNG NÚT LET'S TALK */}
+                            <div className="mb-6 w-full flex justify-center lg:justify-start">
+                                <Link href="/contact" className="inline-block">
+                                    <button className="relative overflow-hidden px-8 py-3 rounded-full generalsans-regular text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group shadow-md">
+                                        <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
+                                            Let&apos;s Talk
+                                        </span>
+                                        <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] rounded-full z-10"></span>
+                                        <span className="absolute inset-0 rounded-full border border-transparent group-hover:border-[#444444] transition-colors duration-300 z-10 pointer-events-none"></span>
+                                    </button>
+                                </Link>
+                            </div>
+                            
+                            {/* Giữ nguyên Form Submit Email */}
                             <form onSubmit={handleSubscribe} className="relative w-full">
                                 <Input
                                     type="email"
@@ -222,7 +211,7 @@ export default function Footer() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     disabled={isLoading}
-                                    className="neulis-alt-extralight font-medium w-full h-14 pr-14 bg-gray-100 border-none rounded-full text-gray-600 placeholder:text-gray-400 disabled:opacity-70"
+                                    className="generalsans-regular w-full h-14 pr-14 bg-gray-100 border-none rounded-full text-gray-600 placeholder:text-gray-400 disabled:opacity-70"
                                 />
                                 <Button
                                     type="submit"
@@ -242,8 +231,8 @@ export default function Footer() {
 
                         <div className="flex flex-col md:flex-row items-start md:items-start justify-between gap-10 mt-14 w-full max-w-md lg:self-end">
                             <div className="text-left md:text-left flex-1">
-                                <h4 className="neulis-alt-regular text-xl mb-4 text-[#444444]">Company</h4>
-                                <ul className="neulis-alt-extralight font-bold space-y-2 text-[#444444]">
+                                <h4 className="generalsans-regular text-xl mb-4 text-[#444444]">Company</h4>
+                                <ul className="generalsans-regular space-y-2 text-[#444444]">
                                     {companyLinks.map((item) => (
                                         <li key={item.name} className="flex items-start justify-start md:justify-start gap-2">
                                             <span className="text-[#444444] text-lg leading-[1.2]">•</span>
@@ -256,8 +245,8 @@ export default function Footer() {
                             </div>
 
                             <div className="text-center md:text-left flex-1 flex flex-col">
-                                <h4 className="neulis-alt-regular text-xl mb-4 text-[#444444] text-left md:text-left">Services</h4>
-                                <ul className="neulis-alt-extralight font-bold space-y-2 text-[#444444]">
+                                <h4 className="generalsans-regular text-xl mb-4 text-[#444444] text-left md:text-left">Services</h4>
+                                <ul className="generalsans-regular space-y-2 text-[#444444]">
                                     {servicesLinks.map((item) => (
                                         <li key={item.name} className="flex items-center justify-start md:justify-start gap-2">
                                             <span className="text-[#444444] text-lg leading-[1.2]">•</span>

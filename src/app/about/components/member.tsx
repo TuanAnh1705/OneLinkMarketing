@@ -71,7 +71,7 @@ export function TeamSection() {
         <div className="max-w-7xl mx-auto px-8">
           <div className="text-center mb-16">
             <h2 className="archivo-expanded text-5xl md:text-6xl font-medium text-[#000A1D]">
-              Meet Our Team
+              Meet The Team
             </h2>
           </div>
           <div className="flex justify-center items-center py-20">
@@ -89,7 +89,7 @@ export function TeamSection() {
         <div className="max-w-7xl mx-auto px-8">
           <div className="text-center mb-16">
             <h2 className="archivo-expanded text-5xl md:text-6xl font-medium text-[#000A1D]">
-              Meet Our Team
+              Meet The Team
             </h2>
           </div>
           <div className="text-center py-20">
@@ -107,7 +107,7 @@ export function TeamSection() {
         <div className="max-w-7xl mx-auto px-8">
           <div className="text-center mb-16">
             <h2 className="archivo-expanded text-5xl md:text-6xl font-medium text-[#000A1D]">
-              Meet Our Team
+              Meet The Team
             </h2>
           </div>
           <div className="text-center py-20">
@@ -120,12 +120,12 @@ export function TeamSection() {
 
   // ==================== MAIN RENDER ====================
   return (
-    <section className="bg-white py-20 md:py-32">
+    <section className="bg-white py-20 md:py-32 md:-translate-y-30 md:-mb-40 mb-50">
       <div className="max-w-7xl mx-auto px-8">
         {/* --- Tiêu đề --- */}
         <div className="text-center mb-16">
           <h2 className="archivo-expanded text-5xl md:text-6xl font-medium text-[#000A1D]">
-            Meet Our Team
+            Meet The Team
           </h2>
         </div>
       </div>
@@ -154,7 +154,7 @@ export function TeamSection() {
                   <h3 className="archivo-expanded text-xl font-medium text-[#000A1D]">
                     {member.name}
                   </h3>
-                  <p className="neulis-alt-regular font-medium text-[#444444]">
+                  <p className="generalsans-regular text-[#444444]">
                     {member.position}
                   </p>
                 </div>

@@ -142,7 +142,7 @@ function PostCard({
           {post.title}
         </h3>
 
-        <p className="neulis-alt-regular mt-2 text-sm font-medium text-[#666666]">
+        <p className="generalsans-regular mt-2 text-sm font-medium text-[#666666]">
           By {authorNames}
         </p>
       </motion.div>

@@ -123,25 +123,30 @@ const MobileServiceCard = ({ service, index }: { service: ServiceCardProps; inde
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       variants={mobileCardVariants}
-      className="relative h-[450px] overflow-hidden shadow-lg"
+      className="flex flex-col overflow-hidden shadow-lg bg-[#0074E5]"
     >
-      {/* Background Image */}
-      <div className="absolute inset-0">
+      {/* Image Section */}
+      <div className="relative w-full overflow-hidden">
         <MotionImage
           src={service.imageUrl}
           alt={typeof service.title === 'string' ? service.title : 'Service'}
-          fill
-          className="object-cover"
+          width={600}
+          height={400}
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          sizes="100vw"
+          className="object-contain"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-black/20 to-black/60" />
       </div>
 
       {/* Content Overlay */}
-      <div className="absolute inset-x-0 bottom-0 p-6 bg-[#0074E5] backdrop-blur-sm text-white">
+      <div className="p-6 bg-[#0074E5] text-white">
         <h3 className="archivo-expanded text-lg font-bold mb-3 leading-tight text-white">
           {service.title}
         </h3>
-        <p className="neulis-alt-regular text-sm leading-relaxed text-white mb-4">
+        <p className="generalsans-regular text-sm leading-relaxed text-white mb-4">
           {service.description}
         </p>
         <Link
@@ -223,7 +228,7 @@ export default function HeroSection() {
             {/* Centered text */}
             <div className="flex items-start justify-center">
               <div className="max-w-4xl text-center">
-                <p className="neulis-alt-regular text-sm md:text-xl text-[#444444] leading-relaxed">
+                <p className="generalsans-regular text-sm md:text-xl text-[#444444] leading-relaxed">
                   Achieve top rankings and capture high-intent organic traffic with our comprehensive SEO strategies, engineered for long-term visibility and authority.
                 </p>
               </div>
@@ -232,7 +237,7 @@ export default function HeroSection() {
 
           {/* Services section - Mobile only inside container */}
           <div className="mb-12 md:mb-16 lg:hidden">
-            <div className="space-y-6">
+            <div className="space-y-12">
               {services.map((service, index) => (
                 <MobileServiceCard
                   key={index}
@@ -247,7 +252,7 @@ export default function HeroSection() {
         {/* Desktop Services - Full Width, outside container */}
         <div className="hidden lg:block mb-12 md:-mb-18">
           <div
-            className="relative h-[750px] xl:h-[850px] overflow-hidden shadow-lg w-full"
+            className="relative h-[700px] xl:h-[800px] overflow-hidden shadow-lg w-full"
             onMouseLeave={() => setHoveredIndex(null)}
           >
             {/* Default Background */}
@@ -255,7 +260,7 @@ export default function HeroSection() {
               src={DEFAULT_SERVICE_IMAGE}
               alt="SEO Services"
               fill
-              className="object-cover"
+              className="object-fill"
               animate={{ opacity: 1 }}
             />
 
@@ -266,7 +271,7 @@ export default function HeroSection() {
                 src={service.imageUrl}
                 alt={typeof service.title === 'string' ? service.title : 'Service'}
                 fill
-                className="object-cover"
+                className="object-fill"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -300,7 +305,7 @@ export default function HeroSection() {
                         variants={contentVariants}
                         animate={animateState}
                       >
-                        <p className="neulis-alt-regular text-md md:text-xl text-white ">
+                        <p className="generalsans-regular text-md md:text-xl text-white ">
                           {service.description}
                         </p>
 

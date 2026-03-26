@@ -172,7 +172,7 @@ export function StorySection() {
         >
             {/* Custom cursor */}
             <motion.div
-                className="fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center rounded-4xl bg-[#FFFFFF] border-none text-[#444444] text-sm shadow-lg px-5 py-3"
+                className="generalsans-regular fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center rounded-4xl bg-[#FFFFFF] border-none text-[#444444] text-sm shadow-lg px-5 py-3"
                 style={{
                     x: smoothX,
                     y: smoothY,
@@ -192,13 +192,10 @@ export function StorySection() {
                             Our Story <br /> and History
                         </h2>
                     </div>
-                    <div className="neulis-alt-regular font-medium text-[#444444] text-sm md:text-lg leading-relaxed space-y-6">
+                    <div className="generalsans-regular text-[#444444] text-sm md:text-lg leading-relaxed space-y-6">
                         <p>
-                            Founded with a mission to solve the fragmentation problem in digital marketing, Onelink Marketing was
-                            born to provide a unified, high-performance solution. We believe every brand deserves a strong
-                            identity and superior performance, without the high costs of local agencies.
+                            Traditional marketing teams are costly, inefficient, and difficult to scale. OneLink replaces this with a streamlined model combining a Vietnam based delivery team, native English speaking account management, and structured processes to deliver more output at significantly lower cost without sacrificing quality.
                         </p>
-                        <p>Our journey is one of bridging the gap between quality and efficiency.</p>
 
                         <motion.div
                             transition={{ type: "spring", stiffness: 300 }}
@@ -206,7 +203,7 @@ export function StorySection() {
                         >
                             <Link href="/service">
                                 <button className="relative overflow-hidden px-4 py-3 rounded-full font-medium text-sm group border border-slate-400">
-                                    <span className="neulis-alt-regular font-medium relative z-30 text-white group-hover:text-slate-700 transition-colors duration-300">
+                                    <span className="generalsans-regular relative z-30 text-white group-hover:text-slate-700 transition-colors duration-300">
                                         Explore Services
                                     </span>
                                     <span

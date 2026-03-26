@@ -11,16 +11,16 @@ export default function VNSResults() {
                     <h2 className="archivo-expanded text-3xl lg:text-4xl font-medium tracking-tight text-[#000A1D] mb-6">
                         4. Key Results
                     </h2>
-                    <p className="neulis-alt-regular text-base leading-relaxed text-[#444444] mb-6">
+                    <p className="generalsans-regular text-base leading-relaxed text-[#444444] mb-6">
                         After 4 months of implementation, Vietnam Sourcing Co achieved measurable growth:
                     </p>
-                    <ul className="list-disc pl-5 space-y-2 neulis-alt-regular text-base leading-relaxed text-[#444444] mb-8">
+                    <ul className="list-disc pl-5 space-y-2 generalsans-regular text-base leading-relaxed text-[#444444] mb-8">
                         <li><span className="font-semibold text-black">+187% organic traffic growth</span></li>
                         <li><span className="font-semibold text-black">Top 1 Google rankings</span> for “Vietnam sourcing company” and “product sourcing in Vietnam”</li>
                         <li><span className="font-semibold text-black">Steady inbound leads</span> from verified international buyers (U.S., Australia, EU)</li>
                         <li><span className="font-semibold text-black">+45% session duration</span> and <span className="font-semibold text-black">-30% bounce rate</span>, showing stronger engagement</li>
                     </ul>
-                    <p className="neulis-alt-regular text-base leading-relaxed text-[#444444] mb-12">
+                    <p className="generalsans-regular text-base leading-relaxed text-[#444444] mb-12">
                         <span className="font-semibold text-black">Boosted brand authority</span>, positioning Vietnam Sourcing Co as a credible global sourcing partner
                     </p>
 
@@ -59,7 +59,7 @@ export default function VNSResults() {
                                 <p className="archivo-expanded text-xl text-[#000A1D]">General Manager</p>
                             </div>
                             <div className="border-l-2 border-gray-300 pl-6">
-                                <p className="neulis-alt-regular text-lg italic text-[#444444] leading-relaxed">
+                                <p className="generalsans-regular text-lg italic text-[#444444] leading-relaxed">
                                     “Before working with the agency, we were doing great work but nobody knew about it online. Now, our content and SEO strategy consistently bring in the right leads and help us tell the Vietnam sourcing story the way it deserves to be told.”
                                 </p>
                             </div>
@@ -71,7 +71,7 @@ export default function VNSResults() {
                         <h2 className="archivo-expanded text-3xl lg:text-4xl font-medium tracking-tight text-[#000A1D] mb-6">
                             5. Key Takeaway
                         </h2>
-                        <ul className="list-disc pl-5 space-y-4 neulis-alt-regular text-base leading-relaxed text-[#444444] mb-8">
+                        <ul className="list-disc pl-5 space-y-4 generalsans-regular text-base leading-relaxed text-[#444444] mb-8">
                             <li>
                                 The partnership between <span className="font-semibold text-black">OneLink Marketing</span> and <span className="font-semibold text-black">Vietnam Sourcing Co</span> demonstrates how a strategic, full-funnel marketing approach can <span className="font-semibold text-black">turn operational expertise into brand power.</span>
                             </li>
@@ -82,7 +82,7 @@ export default function VNSResults() {
                                 Today, the company stands as one of <span className="font-semibold text-black">Vietnam&apos;s most trusted sourcing partners</span> for global buyers, with a digital presence that truly reflects its value.
                             </li>
                         </ul>
-                        <p className="neulis-alt-regular text-base text-[#666666] mt-8">
+                        <p className="generalsans-regular text-base text-[#666666] mt-8">
                             OneLink Marketing – We don&apos;t just do marketing.<br />
                             We build ecosystems that connect great businesses with the world.
                         </p>

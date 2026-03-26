@@ -118,7 +118,7 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
         <h3 className="mt-6 archivo-expanded font-medium text-lg text-[#000A1D] leading-tight">
           {post.title}
         </h3>
-        <p className="mt-2 text-sm neulis-alt-extralight font-normal text-[#666666]">
+        <p className="mt-2 text-sm generalsans-regular text-[#666666]">
           By {authorNames}
         </p>
       </motion.div>

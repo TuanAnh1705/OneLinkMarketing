@@ -73,7 +73,7 @@ export default function FaqAccordion() {
               >
                 <div className="flex items-center gap-6 pl-6">
                   <span className="archivo-expanded text-lg font-medium text-[#000000] w-12">{item.id}</span>
-                  <h3 className="neulis-alt-regular text-xl font-medium text-[#000A1D] md:text-2xl">{item.question}</h3>
+                  <h3 className="generalsans-regular text-xl font-medium text-[#000A1D] md:text-2xl">{item.question}</h3>
                 </div>
 
                 {/* Dấu cộng / trừ */}
@@ -114,7 +114,7 @@ export default function FaqAccordion() {
                     className="overflow-hidden"
                   >
                     <div className="pb-6 pl-24 pr-12">
-                      <p className="neulis-alt-regular font-medium leading-relaxed text-[#444444]">{item.answer}</p>
+                      <p className="generalsans-regular text-xl leading-relaxed text-[#444444]">{item.answer}</p>
                     </div>
                   </motion.div>
                 )}

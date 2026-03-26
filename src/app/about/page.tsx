@@ -6,7 +6,6 @@ import { StorySection } from "./components/ourStory"
 import { RoadmapSection } from "./components/roadMap"
 import { CoreValuesSection } from "./components/coreValue"
 import { TeamSection } from "./components/member"
-import Partner from "./components/partner"
 
 export default function Home() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -18,7 +17,6 @@ export default function Home() {
             <RoadmapSection/>
             <CoreValuesSection/>
             <TeamSection/>
-            <Partner/>
         </div>
     )
 }

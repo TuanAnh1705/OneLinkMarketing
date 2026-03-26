@@ -76,7 +76,7 @@ export default function Faq() {
                   <span className="archivo-expanded text-lg font-medium text-[#000000] min-w-[48px] text-left">
                     {item.id}
                   </span>
-                  <h3 className="neulis-alt-regular text-xl font-medium text-[#000A1D] md:text-2xl">
+                  <h3 className="generalsans-regular text-xl font-medium text-[#000A1D] md:text-2xl">
                     {item.question}
                   </h3>
                 </div>
@@ -119,7 +119,7 @@ export default function Faq() {
                     className="overflow-hidden"
                   >
                     <div className="pb-6 pl-24 pr-12">
-                      <p className="neulis-alt-regular font-medium text-xl leading-relaxed text-[#444444]">
+                      <p className="generalsans-regular text-xl leading-relaxed text-[#444444]">
                         {item.answer}
                       </p>
                     </div>

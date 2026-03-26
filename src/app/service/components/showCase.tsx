@@ -307,7 +307,7 @@ export default function Showcase() {
                   {slides[currentSlide].subtitle}
                 </h2>
                 <div className="flex flex-wrap items-center gap-4 mb-8">
-                  <span className="neulis-alt-regular font-medium px-4 py-2 border border-white/30 text-white text-sm rounded-full">
+                  <span className="generalsans-regular px-4 py-2 border border-white/30 text-white text-sm rounded-full">
                     {slides[currentSlide].year}
                   </span>
                 </div>

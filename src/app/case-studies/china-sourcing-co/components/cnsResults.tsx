@@ -95,17 +95,17 @@ export default function CNSResults() {
             {/* --- 4. EMAIL MARKETING --- */}
             <section className="container mx-auto px-6 md:mb-16 -mb-32">
                 <div className="max-w-7xl mx-auto">
-                    <h3 className="neulis-alt-regular font-bold text-lg text-[#000A1D] mb-4">
+                    <h3 className="generalsans-regular text-lg text-[#000A1D] mb-4">
                         4. Email Marketing & Lead Nurturing
                     </h3>
-                    <p className="neulis-alt-regular text-base leading-relaxed text-[#444444] mb-4">
+                    <p className="generalsans-regular text-base leading-relaxed text-[#444444] mb-4">
                         To maximize conversion potential, we developed a <span className="font-semibold text-black">targeted email nurture flow</span> that guided leads through every stage of decision-making.
                     </p>
 
-                    <p className="neulis-alt-regular font-bold text-base text-[#000A1D] mb-2">
+                    <p className="generalsans-regular text-base text-[#000A1D] mb-2">
                         Actions taken:
                     </p>
-                    <ul className="list-disc pl-5 space-y-2 neulis-alt-regular text-base leading-relaxed text-[#444444] -mb-36 md:mb-8">
+                    <ul className="list-disc pl-5 space-y-2 generalsans-regular text-base leading-relaxed text-[#444444] -mb-36 md:mb-8">
                         <li>Automated <span className="font-semibold text-black">welcome + sourcing guide + case study</span> email flow.</li>
                         <li>Segmented leads into hot, warm, and cold tiers for personalization.</li>
                         <li>Redesigned email templates consistent with the new website design.</li>
@@ -126,17 +126,17 @@ export default function CNSResults() {
             {/* --- 4. REPORTING --- */}
             <section className="container mx-auto px-6 -mb-36 md:mb-16">
                 <div className="max-w-7xl mx-auto">
-                    <h3 className="neulis-alt-regular font-bold text-lg text-[#000A1D] mb-4">
+                    <h3 className="generalsans-regular text-lg text-[#000A1D] mb-4">
                         4. Reporting & Performance Insights
                     </h3>
-                    <p className="neulis-alt-regular text-base leading-relaxed text-[#444444] mb-6">
+                    <p className="generalsans-regular text-base leading-relaxed text-[#444444] mb-6">
                         Transparency and agility were key to this partnership. We created a live dashboard consolidating data from all channels to monitor daily performance.
                     </p>
 
-                    <p className="neulis-alt-regular font-bold text-base text-[#000A1D] mb-2">
+                    <p className="generalsans-regular text-base text-[#000A1D] mb-2">
                         What we delivered:
                     </p>
-                    <ul className="list-disc pl-5 space-y-2 neulis-alt-regular text-base leading-relaxed text-[#444444] -mb-34 md:mb-8">
+                    <ul className="list-disc pl-5 space-y-2 generalsans-regular text-base leading-relaxed text-[#444444] -mb-34 md:mb-8">
                         <li>Real-time tracking of traffic, leads, and conversion costs.</li>
                         <li>Weekly performance reviews and creative adjustments.</li>
                         <li>Quarterly executive reports to measure ROI.</li>
@@ -160,10 +160,10 @@ export default function CNSResults() {
                     <h2 className="archivo-expanded text-3xl lg:text-4xl font-medium tracking-tight text-[#000A1D] mb-6">
                         4. Key Results
                     </h2>
-                    <p className="neulis-alt-regular text-base leading-relaxed text-[#444444] mb-6">
+                    <p className="generalsans-regular text-base leading-relaxed text-[#444444] mb-6">
                         Within just 90 days, China Sourcing Co saw measurable growth across every key performance metric.
                     </p>
-                    <div className="space-y-4 neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                    <div className="space-y-4 generalsans-regular text-base leading-relaxed text-[#444444]">
                         <p>
                             The new website redesign alone drove a <span className="font-semibold text-black">192% increase in conversion rate</span>, rising from 1.2% to 3.5%. Organic traffic also surged by <span className="font-semibold text-black">240%</span> thanks to a well-structured SEO strategy.
                         </p>
@@ -183,7 +183,7 @@ export default function CNSResults() {
                     <h2 className="archivo-expanded text-3xl lg:text-4xl font-medium tracking-tight text-[#000A1D] mb-6">
                         5. Conclusion
                     </h2>
-                    <div className="space-y-6 neulis-alt-regular text-base leading-relaxed text-[#444444]">
+                    <div className="space-y-6 generalsans-regular text-base leading-relaxed text-[#444444]">
                         <p>
                             <span className="font-semibold text-black">China Sourcing Co&apos;s</span> project demonstrates how a <span className="font-semibold text-black">data-driven redesign</span> combined with a multi-channel strategy can accelerate real business growth.
                         </p>

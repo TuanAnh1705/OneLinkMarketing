@@ -67,12 +67,12 @@ export default function ReadyToTransform() {
     const isMobile = useMediaQuery("(max-width: 767px)")
 
     return (
-        <section className="relative flex flex-col items-center justify-center min-h-fit py-24 md:h-screen -mt-10 md:-mt-[20vh] space-y-5 overflow-hidden bg-white/0">
+        <section className="relative flex flex-col items-center justify-center min-h-fit py-24 md:h-screen -mt-10 md:-mt-[20vh] space-y-5 overflow-hidden bg-white/0 md:-mb-35">
             <div className="mb-16">
                 <h1 className="archivo-expanded text-3xl md:text-6xl font-medium text-center tracking-wider text-[#000A1D] mb-2">
                     Ready to Transform Your Brand?
                 </h1>
-                <p className="neulis-alt-regular font-medium text-[#000A1D] text-center text-md md:text-2xl max-w-3xl mx-auto leading-relaxed py-8">
+                <p className="generalsans-regular text-[#000A1D] text-center text-md md:text-2xl max-w-3xl mx-auto leading-relaxed py-8">
                     Start your transformation journey with us today.
                 </p>
             </div>

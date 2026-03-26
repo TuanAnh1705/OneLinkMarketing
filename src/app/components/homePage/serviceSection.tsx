@@ -1,268 +1,332 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Link from "next/link"
-
-gsap.registerPlugin(ScrollTrigger)
+import { ArrowUpRight } from "lucide-react"
 
 export default function ServiceSection() {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const textGroupRef = useRef<HTMLDivElement>(null)
-    const blackLinesRef = useRef<HTMLDivElement[]>([])
-    const gradientLinesRef = useRef<HTMLDivElement[]>([])
-    const [isMobile, setIsMobile] = useState(false)
-
-    // Kiểm tra screen size
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768) // md breakpoint
-        }
-        
-        checkMobile()
-        window.addEventListener('resize', checkMobile)
-        
-        return () => window.removeEventListener('resize', checkMobile)
-    }, [])
-
-    // GSAP animation chỉ chạy trên desktop
-    useEffect(() => {
-        if (isMobile) return // Bỏ qua animation nếu là mobile
-
-        const ctx = gsap.context(() => {
-            let scrollVelocity = 0
-            let lastScrollY = 0
-            let velocityCheckInterval: NodeJS.Timeout
-
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top top",
-                    end: "+=2500",
-                    scrub: 0.5,
-                    pin: true,
-                    onUpdate: (self) => {
-                        const currentScrollY = self.scroll()
-                        scrollVelocity = Math.abs(currentScrollY - lastScrollY)
-                        lastScrollY = currentScrollY
-                    },
-                },
-            })
-
-            blackLinesRef.current.forEach((line, i) => {
-                const baseDuration = 1.4
-                const speedMultiplier = i * 0.3
-
-                tl.to(
-                    [line, gradientLinesRef.current[i]],
-                    {
-                        clipPath: "inset(0% 0% 0% 0%)",
-                        ease: "power2.inOut",
-                        duration: baseDuration + speedMultiplier,
-                    },
-                    i === 0 ? "+=0.2" : `<${i * 0.15}`
-                )
-            })
-
-            tl.to(
-                textGroupRef.current,
-                {
-                    scale: 28,
-                    yPercent: -15,
-                    opacity: 0,
-                    transformOrigin: "center center",
-                    ease: "expo.out",
-                    duration: 3,
-                },
-                "+=0.5"
-            )
-
-            tl.to(
-                containerRef.current,
-                {
-                    backgroundColor: "#000A1D",
-                    duration: 2.8,
-                    ease: "power2.inOut",
-                },
-                "<"
-            )
-        }, containerRef)
-
-        return () => ctx.revert()
-    }, [isMobile])
-
     const services = [
         {
-            title: "Strategy \n Consulting",
-            desc: "Laying the strategic \n foundation with brand \n audits and market research.",
+            title: "Strategy Consulting",
+            desc: "Laying the strategic foundation with brand audits and market research.",
+            href: "/service/strategy-consulting"
         },
         {
-            title: "Digital Asset \n Development",
-            desc: "Building your core brand \n identity and creating SEO/ \n UX-optimized websites.",
+            title: "Digital Asset Development",
+            desc: "Building your core brand identity and creating SEO/UX-optimized websites.",
+            href: "/service/digital-asset-development"
         },
         {
             title: "SEO \n Services",
-            desc: "Driving organic traffic and \n sustainable growth with \n on-page and off-page SEO.",
+            desc: "Driving organic traffic and sustainable growth with on-page and off-page SEO.",
+            href: "/service/seo-services"
         },
         {
-            title: "Paid Media \n & Advertising",
-            desc: "Optimizing multi-channel ad \n campaigns for maximum ROI \n and lead generation.",
+            title: "Paid Media & Advertising",
+            desc: "Optimizing multi-channel ad campaigns for maximum ROI and lead generation.",
+            href: "/service/paid-media-advertising"
         },
         {
-            title: "Social Media \n Management",
-            desc: "Building and engaging your \n community with consistent \n and high-quality content.",
+            title: "Social Media Management",
+            desc: "Building and engaging your community with consistent and high-quality content.",
+            href: "/service/social-media-management"
         },
     ]
 
     return (
-        <>
-            {/* SECTION 1 - Desktop: Animation, Mobile: Static Gradient */}
-            <section
-                ref={containerRef}
-                className={`relative flex justify-center items-center overflow-hidden bg-white -top-40 md:-top-60 lg:-top-72 ${
-                    isMobile ? 'h-auto py-20' : 'h-screen'
-                }`}
-            >
-                {isMobile ? (
-                    // MOBILE VERSION - Chỉ hiển thị text gradient tĩnh
-                    <div className="text-center leading-tight archivo-expanded font-medium text-4xl px-6 mt-20 -mb-16">
-                        <div>
-                            <span className="bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
-                                From Strategy
-                            </span>{" "}
-                            to
-                        </div>
-                        <div>
-                            <span className="bg-linear-to-r from-[#162660] to-[#0074E5] bg-clip-text text-transparent">
-                                Performance Growth
-                            </span>
-                        </div>
+        <section className="bg-white py-16 md:py-24 px-4 sm:px-8 md:px-16 lg:px-24 lg:mb-40 -mt-10">
+            {/* TITLE */}
+            <div className="text-center mb-30 md:mb-40">
+                <h2
+                    className="text-3xl md:text-6xl lg:text-7xl font-medium leading-tight"
+                    style={{ fontFamily: "'Archivo Expanded', sans-serif" }}
+                >
+                    <span className="bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
+                        From Strategy to
+                    </span>
+                    <br />
+                    <span className="bg-linear-to-r from-[#162660] to-[#0074E5] bg-clip-text text-transparent">
+                        Performance Growth
+                    </span>
+                </h2>
+            </div>
+
+            {/* MAIN CONTENT */}
+            <div className="max-w-350 mx-auto">
+                {/* GRID LAYOUT */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 md:gap-y-14 gap-x-4 md:gap-x-6 lg:gap-x-1">
+                    {/* ROW 1 - OUR SERVICES + 2 CARDS */}
+                    <div className="flex items-center justify-center md:col-span-2 lg:col-span-1">
+                        <h3
+                            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-[#000A1D] leading-tight text-center lg:text-left"
+                            style={{ fontFamily: "'Archivo Expanded', sans-serif" }}
+                        >
+                            Our <span className="lg:block">Services</span>
+                        </h3>
                     </div>
-                ) : (
-                    // DESKTOP VERSION - Giữ nguyên animation
-                    <div
-                        ref={textGroupRef}
-                        className="fixed top-[45%] md:top-[40%] lg:top-[38%] z-10 flex flex-col justify-center items-center text-center leading-tight pointer-events-none archivo-expanded font-medium text-[clamp(36px,7vw,90px)]"
-                    >
-                        {/* LAYER 1: Xám nền */}
-                        <div className="text-gray-300">
-                            <div>
-                                From <span>Strategy</span> to
-                            </div>
-                            <div>
-                                <span>Performance Growth</span>
-                            </div>
-                        </div>
 
-                        {/* LAYER 2: Chữ đen */}
-                        <div className="absolute text-black">
-                            {["From Strategy to", "Performance Growth"].map((text, i) => (
-                                <div
-                                    key={i}
-                                    ref={(el) => {
-                                        if (el) blackLinesRef.current[i] = el
-                                    }}
-                                    style={{ clipPath: "inset(0% 100% 0% 0%)" }}
-                                >
-                                    {text}
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* LAYER 3: Gradient */}
-                        <div className="absolute text-transparent">
-                            {[
-                                {
-                                    text: (
-                                        <>
-                                            <span className="bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
-                                                From Strategy
-                                            </span>{" "}
-                                            to
-                                        </>
-                                    ),
-                                    key: "layer2",
-                                },
-                                {
-                                    text: (
-                                        <span className="bg-linear-to-r from-[#162660] to-[#0074E5] bg-clip-text text-transparent">
-                                            Performance Growth
-                                        </span>
-                                    ),
-                                    key: "layer3",
-                                },
-                            ].map((item, i) => (
-                                <div
-                                    key={item.key}
-                                    ref={(el) => {
-                                        if (el) gradientLinesRef.current[i] = el
-                                    }}
-                                    style={{
-                                        clipPath: "inset(0% 100% 0% 0%)",
-                                        WebkitFontSmoothing: "antialiased",
-                                        MozOsxFontSmoothing: "grayscale",
-                                        textShadow: "none",
-                                        filter: "none",
-                                        mixBlendMode: "normal",
-                                        WebkitTextStroke: "0px transparent",
-                                    }}
-                                >
-                                    {item.text}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-            </section>
-
-            {/* SECTION 2 - Service List */}
-            <section className={`relative text-white bg-[#000A1D] z-40 ${
-                isMobile ? 'top-0' : '-translate-y-[5vh] -top-[900px] md:-top-60 lg:-top-80'
-            }`}>
-                <div className="flex flex-col w-full relative overflow-visible md:-top-96">
-                    {/* LINE ĐẦU */}
-                    <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-[#002B6D] via-[#162660] to-[#0074E5] opacity-90 shadow-[0_0_12px_rgba(0,116,229,0.5)] z-50" />
-                    
-                    {services.map((item, index) => {
-                        const href = `/service/${item.title
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}`
-
-                        return (
-                            <Link
-                                key={item.title}
-                                href={href}
-                                className="relative w-full flex justify-center items-center overflow-visible group"
-                            >
-                                {/* NỀN DƯỚI */}
-                                <div className="absolute inset-0 bg-linear-to-r from-[#002B6D] via-[#162660] to-[#0074E5]" />
-                                
-                                {/* NỘI DUNG */}
-                                <div className="relative z-10 bg-[#000A1D] transition-all duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] flex items-start gap-10 py-12 md:py-16 lg:py-20 w-full group-hover:rounded-l-[110px] group-hover:rounded-r-[110px]">
-                                    <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-16 lg:gap-10 px-6 lg:pl-40 lg:pr-20 w-full">
-                                        <h2 className="text-4xl md:text-5xl lg:text-7xl text-white leading-[1.15] whitespace-pre-line flex-1 lg:translate-x-16 neulis-alt-extralight font-bold">
-                                            {item.title}
-                                        </h2>
-                                        
-                                        <p className="flex-1 max-w-xl text-lg lg:text-xl leading-relaxed whitespace-pre-line lg:translate-x-40 lg:translate-y-6 neulis-alt-extralight">
-                                            {item.desc}
-                                        </p>
+                    {/* Card 1 - Strategy Consulting */}
+                    <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
+                        <Link href={services[0].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[0].title} />
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                            <defs>
+                                <linearGradient id="borderGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#0074E5" />
+                                    <stop offset="50%" stopColor="#162660" />
+                                    <stop offset="100%" stopColor="#0074E5" />
+                                </linearGradient>
+                            </defs>
+                            <rect
+                                x="1" y="1"
+                                width="calc(100% - 2px)"
+                                height="calc(100% - 2px)"
+                                rx="23"
+                                fill="none"
+                                stroke="url(#borderGradient1)"
+                                strokeWidth="2"
+                                className="border-draw-path"
+                            />
+                        </svg>
+                        <div className="relative z-10 flex flex-col h-full pointer-events-none">
+                            <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
+                                {services[0].title}
+                            </h4>
+                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                {services[0].desc}
+                            </p>
+                            {/* FIX: Bọc w-fit để giới hạn độ dài đường line */}
+                            <div className=" w-fit mt-auto select-none">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                        Discover
+                                    </span>
+                                    <div className="relative">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
+                                            <defs>
+                                                <linearGradient id="iconGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stopColor="#0074E5" />
+                                                    <stop offset="100%" stopColor="#162660" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient1)'}} strokeWidth={2} />
                                     </div>
                                 </div>
-                                
-                                {/* LINE NGĂN */}
-                                {index !== services.length - 1 && (
-                                    <div className="absolute -bottom-[1.5px] left-0 w-full h-0.5 bg-linear-to-r from-[#002B6D] via-[#162660] to-[#0074E5] opacity-90 shadow-[0_0_12px_rgba(0,116,229,0.5)] z-50" />
-                                )}
-                            </Link>
-                        )
-                    })}
-                    
-                    {/* LINE DƯỚI */}
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-linear-to-r from-[#002B6D] via-[#162660] to-[#0074E5] opacity-90 shadow-[0_0_12px_rgba(0,116,229,0.5)] z-50" />
+                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Card 2 - Digital Asset Development */}
+                    <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
+                        <Link href={services[1].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[1].title} />
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                            <defs>
+                                <linearGradient id="borderGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#0074E5" />
+                                    <stop offset="50%" stopColor="#162660" />
+                                    <stop offset="100%" stopColor="#0074E5" />
+                                </linearGradient>
+                            </defs>
+                            <rect
+                                x="1" y="1"
+                                width="calc(100% - 2px)"
+                                height="calc(100% - 2px)"
+                                rx="23"
+                                fill="none"
+                                stroke="url(#borderGradient2)"
+                                strokeWidth="2"
+                                className="border-draw-path"
+                            />
+                        </svg>
+                        <div className="relative z-10 flex flex-col h-full pointer-events-none">
+                            <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
+                                {services[1].title}
+                            </h4>
+                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'Neulis Alt Regular', sans-serif" }}>
+                                {services[1].desc}
+                            </p>
+                            <div className="w-fit mt-auto select-none">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                        Discover
+                                    </span>
+                                    <div className="relative">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
+                                            <defs>
+                                                <linearGradient id="iconGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stopColor="#0074E5" />
+                                                    <stop offset="100%" stopColor="#162660" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient2)'}} strokeWidth={2} />
+                                    </div>
+                                </div>
+                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ROW 2 - 3 CARDS */}
+                    {/* Card 3 - SEO Services */}
+                    <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
+                        <Link href={services[2].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[2].title} />
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                            <defs>
+                                <linearGradient id="borderGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#0074E5" />
+                                    <stop offset="50%" stopColor="#162660" />
+                                    <stop offset="100%" stopColor="#0074E5" />
+                                </linearGradient>
+                            </defs>
+                            <rect
+                                x="1" y="1"
+                                width="calc(100% - 2px)"
+                                height="calc(100% - 2px)"
+                                rx="23"
+                                fill="none"
+                                stroke="url(#borderGradient3)"
+                                strokeWidth="2"
+                                className="border-draw-path"
+                            />
+                        </svg>
+                        <div className="relative z-10 flex flex-col h-full pointer-events-none">
+                            <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
+                                {services[2].title}
+                            </h4>
+                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                {services[2].desc}
+                            </p>
+                            <div className="w-fit mt-auto select-none">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                        Discover
+                                    </span>
+                                    <div className="relative">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
+                                            <defs>
+                                                <linearGradient id="iconGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stopColor="#0074E5" />
+                                                    <stop offset="100%" stopColor="#162660" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient3)'}} strokeWidth={2} />
+                                    </div>
+                                </div>
+                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Card 4 - Paid Media & Advertising */}
+                    <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
+                        <Link href={services[3].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[3].title} />
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                            <defs>
+                                <linearGradient id="borderGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#0074E5" />
+                                    <stop offset="50%" stopColor="#162660" />
+                                    <stop offset="100%" stopColor="#0074E5" />
+                                </linearGradient>
+                            </defs>
+                            <rect
+                                x="1" y="1"
+                                width="calc(100% - 2px)"
+                                height="calc(100% - 2px)"
+                                rx="23"
+                                fill="none"
+                                stroke="url(#borderGradient4)"
+                                strokeWidth="2"
+                                className="border-draw-path"
+                            />
+                        </svg>
+                        <div className="relative z-10 flex flex-col h-full pointer-events-none">
+                            <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
+                                {services[3].title}
+                            </h4>
+                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                {services[3].desc}
+                            </p>
+                            <div className="w-fit mt-auto select-none">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                        Discover
+                                    </span>
+                                    <div className="relative">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
+                                            <defs>
+                                                <linearGradient id="iconGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stopColor="#0074E5" />
+                                                    <stop offset="100%" stopColor="#162660" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient4)'}} strokeWidth={2} />
+                                    </div>
+                                </div>
+                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Card 5 - Social Media Management */}
+                    <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
+                        <Link href={services[4].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[4].title} />
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                            <defs>
+                                <linearGradient id="borderGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#0074E5" />
+                                    <stop offset="50%" stopColor="#162660" />
+                                    <stop offset="100%" stopColor="#0074E5" />
+                                </linearGradient>
+                            </defs>
+                            <rect
+                                x="1" y="1"
+                                width="calc(100% - 2px)"
+                                height="calc(100% - 2px)"
+                                rx="23"
+                                fill="none"
+                                stroke="url(#borderGradient5)"
+                                strokeWidth="2"
+                                className="border-draw-path"
+                            />
+                        </svg>
+                        <div className="relative z-10 flex flex-col h-full pointer-events-none">
+                            <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
+                                {services[4].title}
+                            </h4>
+                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                {services[4].desc}
+                            </p>
+                            <div className="w-fit mt-auto select-none">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
+                                        Discover
+                                    </span>
+                                    <div className="relative">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
+                                            <defs>
+                                                <linearGradient id="iconGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stopColor="#0074E5" />
+                                                    <stop offset="100%" stopColor="#162660" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient5)'}} strokeWidth={2} />
+                                    </div>
+                                </div>
+                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </section>
-        </>
+            </div>
+        </section>
     )
 }

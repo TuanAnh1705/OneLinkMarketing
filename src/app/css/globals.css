@@ -284,7 +284,27 @@ input[type="time"] {
   font-family: 'Neulis Alt Regular', sans-serif;
 }
 
+@font-face {
+  font-family: 'GeneralSans Regular';
+  src: url('/font/GeneralSans-Regular.otf') format('onetype');
+  font-weight: 500;
+  font-style: normal;
+}
 
+.generalsans-regular {
+  font-family: 'GeneralSans Regular', sans-serif;
+}
+
+@font-face {
+  font-family: 'GeneralSans Light';
+  src: url('/font/GeneralSans-Extralight.otf') format('onetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+.generalsans-light {
+  font-family: 'GeneralSans Light', sans-serif;
+}
 
 .scroll-to-top-btn {
   position: fixed;
@@ -311,4 +331,102 @@ input[type="time"] {
   height: 1.5rem;
   /* phần màu đảo đảm bảo tương phản */
   filter: invert(1) brightness(0.8);
+}
+
+/* Gradient flow animation */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* CSS Custom Property for animated gradient angle */
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer utilities {
+  .animate-gradient-flow {
+    animation: gradient-flow 3s ease infinite;
+  }
+
+  .gradient-animated-line {
+    background: linear-gradient(90deg,
+      #0074E5 0%,
+      #162660 25%,
+      #0074E5 50%,
+      #162660 75%,
+      #0074E5 100%
+    );
+    background-size: 300% 100%;
+    animation: gradient-flow 2s linear infinite;
+  }
+
+  .gradient-border-animated {
+    --gradient-angle: 0deg;
+    background: conic-gradient(
+      from var(--gradient-angle) at 50% 50%,
+      #0074E5 0deg,
+      #162660 90deg,
+      #0074E5 180deg,
+      #162660 270deg,
+      #0074E5 360deg
+    );
+    transition: --gradient-angle 1s ease-in-out;
+  }
+
+  .group:hover .gradient-border-animated {
+    --gradient-angle: 360deg;
+  }
+
+  /* Border draw animation for SVG */
+  .border-draw-path {
+    stroke-dasharray: 1500;
+    stroke-dashoffset: 1500;
+  }
+
+  @keyframes border-draw-in {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes border-draw-out {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    99.9% {
+      stroke-dashoffset: -1500;
+    }
+    100% {
+      stroke-dashoffset: 1500;
+    }
+  }
+
+  .group:hover .border-draw-path {
+    animation: border-draw-in 0.6s ease-in-out forwards;
+  }
+
+  .group:not(:hover) .border-draw-path {
+    animation: border-draw-out 0.6s ease-in-out forwards;
+  }
+
+  /* SVG border container with delayed fade out */
+  .border-svg-container {
+    opacity: 0;
+    transition: opacity 0.2s 0.6s; /* delay 0.6s when unhover to let animation finish */
+  }
+
+  .group:hover .border-svg-container {
+    opacity: 1;
+    transition-delay: 0s; /* no delay when hover */
+  }
 }

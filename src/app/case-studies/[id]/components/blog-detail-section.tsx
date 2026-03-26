@@ -175,7 +175,7 @@ export default function BlogDetailSection({ id }: { id: string }) {
               {/* ✅ Authors - Safe check */}
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
-                <span className="neulis-alt-regular">
+                <span className="generalsans-regular">
                   {authorNames}
                 </span>
               </div>
@@ -184,7 +184,7 @@ export default function BlogDetailSection({ id }: { id: string }) {
               {post.wpCreatedAt && (
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  <span className="neulis-alt-regular">
+                  <span className="generalsans-regular">
                     {new Date(post.wpCreatedAt).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",

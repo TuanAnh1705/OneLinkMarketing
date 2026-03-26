@@ -1,9 +1,8 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
-import Link from "next/link"
 
 const coreValuesData = [
     {
@@ -25,16 +24,28 @@ const coreValuesData = [
 ]
 
 export function CoreValuesSection() {
+    const [isDesktop, setIsDesktop] = useState(false)
+
+    useEffect(() => {
+        const checkDesktop = () => {
+            setIsDesktop(window.innerWidth >= 1024)
+        }
+
+        checkDesktop()
+        window.addEventListener('resize', checkDesktop)
+        return () => window.removeEventListener('resize', checkDesktop)
+    }, [])
+
     const parallaxRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: parallaxRef,
         offset: ["start end", "end start"],
     })
 
-    const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"])
+    const y = useTransform(scrollYProgress, [0, 1], isDesktop ? ["-30%", "30%"] : ["0%", "0%"])
 
     return (
-        <section className="bg-[#050B18] text-white py-20 md:py-32 px-6 md:px-8 overflow-hidden">
+        <section className="bg-[#050B18] text-white py-20 md:py-32 px-6 md:px-8 overflow-hidden md:-translate-y-20">
             <div className="max-w-7xl mx-auto">
                 {/* ==================== CORE VALUES ==================== */}
                 <div className="text-center mb-20">
@@ -59,66 +70,31 @@ export function CoreValuesSection() {
                             <div className="absolute inset-0 bg-[#0074E5]/70"></div>
                             <div className="relative z-10 flex flex-col justify-between h-full">
                                 <h3 className="archivo-expanded text-4xl md:text-5xl text-white font-bold">{value.title}</h3>
-                                <p className="neulis-alt-regular font-medium text-white text-base md:text-lg leading-snug">{value.description}</p>
+                                <p className="generalsans-regular text-white text-base md:text-lg leading-snug">{value.description}</p>
                             </div>
                         </div>
                     ))}
                 </div>
 
                 {/* ==================== LEAD ENGINE ==================== */}
-                <div ref={parallaxRef} className="grid grid-cols-1 lg:grid-cols-3 gap-0 items-stretch overflow-hidden">
+                <div ref={parallaxRef} className="flex justify-center overflow-hidden -mt-16 lg:mt-0">
                     {/* --- ẢNH PARALLAX --- */}
-                    <div className="relative h-[350px] sm:h-[450px] lg:h-[560px] lg:col-span-1 overflow-hidden">
+                    <div className="relative h-60 sm:h-137.5 lg:h-225 w-full max-w-7xl overflow-hidden">
                         <motion.div
                             style={{ y }}
-                            className="relative w-full h-[140%] -top-[20%] will-change-transform"
+                            className="relative w-full h-[140%] top-[0%] will-change-transform"
                         >
                             <Image
-                                src="/assets/core.png"
+                                src="/assets/ab8.png"
                                 alt="Abstract background"
                                 fill
-                                className="object-cover"
+                                className="object-cover object-[45%_center]"
                                 priority
                             />
                         </motion.div>
                     </div>
-
-                    {/* --- CARD TEXT BÊN PHẢI --- */}
-                    <div className="bg-linear-to-br lg:col-span-2 from-[#0074E5] to-[#162660] p-6 sm:p-10 md:p-14 flex flex-col justify-start">
-                        <div className="max-w-3xl">
-                            <h2 className="archivo-expanded text-white text-3xl md:text-5xl font-medium leading-tight mb-8">
-                                From a Lifeless Website to a Lead Engine
-                            </h2>
-                            <ul className="neulis-alt-regular font-medium space-y-4 text-base md:text-xl text-white">
-                                <ListItem>
-                                    An <span className="font-bold">SEO/UX-optimized website</span> that generates leads in the <span className="font-bold">US, UK, and AU markets.</span>
-                                </ListItem>
-                                <ListItem>A <span className="font-bold">clear and professional brand identity.</span></ListItem>
-                                <ListItem>
-                                    Digital assets integrated into a single, effective <span className="font-bold">lead engine.</span>
-                                </ListItem>
-                                <ListItem><span className="font-bold">Optimized costs</span> with high-performance results.</ListItem>
-                            </ul>
-
-                            <Link href="/case-studies"
-                                className="group relative inline-block mt-8 md:mt-10 text-white border border-white rounded-full px-6 py-2 text-sm transition-colors duration-300 ease-in-out overflow-hidden hover:text-black"
-                            >
-                                <span className="absolute inset-0 w-full h-full bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></span>
-                                <span className="neulis-alt-regular font-medium relative">Learn More</span>
-                            </Link>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section >
-    )
-}
-
-function ListItem({ children }: { children: React.ReactNode }) {
-    return (
-        <li className="flex items-start">
-            <span className="text-white mr-3 mt-1.5">&#8226;</span>
-            <span>{children}</span>
-        </li>
     )
 }

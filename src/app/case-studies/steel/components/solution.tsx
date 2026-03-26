@@ -54,7 +54,7 @@ export default function SolutionsSection() {
                         </h2>
 
                         {/* ✅ SỬA LẠI: Dùng leading-relaxed cho dễ đọc */}
-                        <div className="neulis-alt-regular font-medium text-lg leading-relaxed text-[#444444] space-y-4">
+                        <div className="generalsans-regular text-lg leading-relaxed text-[#444444] space-y-4">
                             <p>
                                 <strong>Steel Works Seattle</strong> faced a major identity crisis. They had two completely different customer profiles:
                             </p>
@@ -82,7 +82,7 @@ export default function SolutionsSection() {
 
                         {/* === ✅ NỘI DUNG MỚI TỪ HÌNH ẢNH === */}
                         {/* Sửa thành leading-relaxed và space-y-6 */}
-                        <div className="neulis-alt-regular font-medium text-lg leading-relaxed text-[#444444] space-y-6">
+                        <div className="generalsans-regular text-lg leading-relaxed text-[#444444] space-y-6">
                             <p>
                                 OneLink Marketing focuses on creating a single, powerful brand identity delivered through a strategic, custom-designed website.
                             </p>
@@ -157,7 +157,7 @@ export default function SolutionsSection() {
                         <h2 className="archivo-expanded text-4xl lg:text-5xl font-medium tracking-tight text-[#000A1D] mb-10">
                             5. The Results
                         </h2>
-                        <div className="neulis-alt-regular font-medium text-base leading-relaxed text-[#444444] space-y-0">
+                        <div className="generalsans-regular text-base leading-relaxed text-[#444444] space-y-0">
                             <p className="mb-6">
                                 The new, cohesive brand identity and custom website completely transformed their market position.
                             </p>
