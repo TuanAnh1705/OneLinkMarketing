@@ -37,10 +37,10 @@ const UspItem = ({
                 style={{ x: contentTranslateX, opacity: contentOpacity }}
                 className="flex items-start gap-8 py-10"
             >
-                <span className="archivo-expanded text-xl md:text-3xl font-medium min-w-[60px]">{item.number}</span>
+                <span className="archivo-expanded text-[#000000] text-xl md:text-3xl font-medium min-w-15">{item.number}</span>
                 <div className="flex-1 grid md:grid-cols-2 gap-8">
-                    <h3 className="generalsans-regular text-xl md:text-2xl font-medium">{item.title}</h3>
-                    <p className="generalsans-regular text-sm md:text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                    <h3 className="generalsans-regular text-[#000A1D] text-xl md:text-2xl font-medium">{item.title}</h3>
+                    <p className="generalsans-regular text-sm md:text-sm text-gray-[#444444] leading-relaxed">{item.description}</p>
                 </div>
             </motion.div>
 
@@ -107,7 +107,7 @@ export default function UspSectionForSeo() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
                     {/* Cột trái */}
                     <div className="lg:col-span-1">
-                        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px] lg:-translate-y-3">
+                        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px]">
                             <Image
                                 src="/assets/sv8.png"
                                 alt="Strategic Advantage"
