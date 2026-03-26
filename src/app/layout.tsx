@@ -6,6 +6,7 @@ import { ThemeModeScript, ThemeProvider } from 'flowbite-react';
 import customTheme from "@/ultils/theme/custom-theme";
 import Navbar from "./components/homePage/navBar";
 import Footer from "./components/homePage/Footer";
+import PageTransition from "./components/PageTransition";
 
 
 
@@ -45,9 +46,11 @@ export default function RootLayout({
       <body className={`${plus_jakarta_sans.className} overflow-x-hidden bg-white!`}>
         <ThemeProvider theme={customTheme}>
           <Navbar />
-          <main className="pt-20 bg-white!">
-            {children}
-          </main>
+          <PageTransition>
+            <main className="pt-20 bg-white!">
+              {children}
+            </main>
+          </PageTransition>
           <Footer />
         </ThemeProvider>
       </body>
