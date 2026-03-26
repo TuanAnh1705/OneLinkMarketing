@@ -100,7 +100,7 @@ export function PartnerSection() {
             >
               <motion.div
                 style={{ y: isMobile ? undefined : y }}
-                className="relative w-full h-full lg:h-[140%] lg:-top-[20%] will-change-transform"
+                className="relative w-full h-full lg:h-[125%] lg:-top-[20%] will-change-transform"
               >
                 <Image
                   src="/assets/6.png"
