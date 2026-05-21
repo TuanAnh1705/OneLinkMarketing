@@ -43,14 +43,14 @@ export default function ServiceSection() {
                     <span className="text-[#0074E5]">
                         From
                     </span>
-                    <span className="bg-[#000A1D] font-bold italic bg-clip-text">
+                    <span className="text-[#000A1D] font-bold italic">
                         Strategy
                     </span>
                     <span className="text-[#0074E5]">
                         {" "}to
                     </span>
                     <br />
-                    <span className="bg-[#000A1D] font-bold italic bg-clip-text">
+                    <span className="text-[#000A1D] font-bold italic ">
                         Performance Growth
                     </span>
                 </h2>
