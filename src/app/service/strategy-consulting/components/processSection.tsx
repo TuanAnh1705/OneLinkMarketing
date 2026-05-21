@@ -101,7 +101,7 @@ export default function ProcessSection() {
             ref={containerRef}
             // Thêm -translate-y-16 (hoặc số khác tùy ý) cho mobile 
             // và md:translate-y-0 để reset ở màn hình từ tablet trở lên
-            className="bg-white py-32 md:py-40 px-8 md:px-16 lg:px-24 overflow-x-hidden -translate-y-30 md:translate-y-0"
+            className="bg-white pt-10 pb-32 md:pt-12 md:pb-40 px-8 md:px-16 lg:px-24 overflow-x-hidden"
         >
             <div className="max-w-7xl mx-auto">
                 <h2 className="archivo-expanded text-2xl md:text-5xl lg:text-6xl font-medium leading-tight mb-12 text-[#000A1D]">
@@ -143,7 +143,7 @@ export default function ProcessSection() {
                 </div>
 
                 {/* Nút CTA */}
-                <div className="flex justify-center mt-20">
+                <div className="flex justify-center mt-0 mb-10 md:-mb-10 md:mt-20">
                     <Link href="/contact">
                         <button className="relative overflow-hidden px-5 py-3.5 rounded-full generalsans-regular text-sm text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                             {/* Lớp chữ trên cùng */}

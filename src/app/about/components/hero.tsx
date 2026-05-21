@@ -20,7 +20,7 @@ export default function Hero() {
                         VIETNAM
                     </h1>
                     <GradientBorder />
-                    <p className="archivo-expanded font-medium text-[#000A1D] text-center text-xl md:text-5xl max-w-5xl mx-auto leading-none py-8">
+                    <p className="generalsans-regular font-medium text-[#000A1D] text-center text-xl md:text-5xl max-w-5xl mx-auto leading-none py-8">
                         International Team
                         <br />Global Mindset
                         <br />Vietnamese Resources

@@ -1,7 +1,8 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
+import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -40,39 +41,85 @@ function FilterTabs({
   onTabChange: (category: string) => void
 }) {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   return (
-    <div className="flex flex-row flex-wrap gap-y-6 overflow-x-auto md:grid md:grid-cols-5 w-full max-w-7xl mx-auto mb-12 md:mb-20 px-4 sm:px-8 md:px-0">
-      {categories.map((category) => {
-        const isActive = activeTab === category
-        const isHovered = hoveredTab === category
+    <div className="w-full max-w-7xl mx-auto mb-12 md:mb-20 px-4 sm:px-8 md:px-0">
+      {/* Mobile dropdown */}
+      <div className="relative md:hidden">
+        <button
+          onClick={() => setDropdownOpen((o) => !o)}
+          className="flex items-center justify-between w-full px-4 py-3 text-[#000A1D] text-base generalsans-regular"
+        >
+          <span>{activeTab}</span>
+          <motion.span animate={{ rotate: dropdownOpen ? 180 : 0 }} transition={{ duration: 0.25 }}>
+            <ChevronDown className="w-4 h-4 text-[#0074E5]" />
+          </motion.span>
+        </button>
+        <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
 
-        return (
-          <div
-            key={category}
-            onClick={() => onTabChange(category)}
-            onMouseEnter={() => setHoveredTab(category)}
-            onMouseLeave={() => setHoveredTab(null)}
-            className="relative flex flex-col items-start cursor-pointer group shrink-0 pr-8 md:pr-0"
-          >
-            <span className="text-base md:text-lg text-[#444444] group-hover:text-[#000A1D] transition-colors duration-300 relative z-10 pb-3 whitespace-nowrap">
-              {category}
-            </span>
-
+        <AnimatePresence>
+          {dropdownOpen && (
             <motion.div
-              className="absolute bottom-0 left-0 w-full bg-[#D1D1D1]"
-              initial={{ scaleX: 0 }}
-              animate={{
-                scaleX: isActive || isHovered ? 0.9 : 0,
-                height: isActive || isHovered ? 2 : 1,
-                backgroundColor: isActive || isHovered ? "#000A1D" : "#D1D1D1",
-              }}
-              transition={{ type: "spring", stiffness: 350, damping: 30 }}
-              style={{ transformOrigin: "left" }}
-            />
-          </div>
-        )
-      })}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="overflow-hidden absolute left-0 right-0 z-20"
+            >
+              {/* Gradient border wrapper for list */}
+              <div className="px-px pb-px bg-linear-to-r from-[#0074E5] to-[#162660]">
+                <div className="bg-white">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => { onTabChange(category); setDropdownOpen(false) }}
+                      className={`flex items-center justify-between w-full px-4 py-3 text-left text-base generalsans-regular transition-colors ${activeTab === category ? "text-[#000A1D] font-medium" : "text-[#444444] hover:text-[#000A1D]"}`}
+                    >
+                      {category}
+                      {activeTab === category && <div className="w-1.5 h-1.5 bg-[#0074E5]" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Desktop tabs */}
+      <div className="hidden md:grid md:grid-cols-5 gap-y-6">
+        {categories.map((category) => {
+          const isActive = activeTab === category
+          const isHovered = hoveredTab === category
+
+          return (
+            <div
+              key={category}
+              onClick={() => onTabChange(category)}
+              onMouseEnter={() => setHoveredTab(category)}
+              onMouseLeave={() => setHoveredTab(null)}
+              className="relative flex flex-col items-start cursor-pointer group pr-8 md:pr-0"
+            >
+              <span className="text-base md:text-lg text-[#444444] group-hover:text-[#000A1D] transition-colors duration-300 relative z-10 pb-3 whitespace-nowrap">
+                {category}
+              </span>
+
+              <motion.div
+                className="absolute bottom-0 left-0 w-full bg-[#D1D1D1]"
+                initial={{ scaleX: 0 }}
+                animate={{
+                  scaleX: isActive || isHovered ? 0.9 : 0,
+                  height: isActive || isHovered ? 2 : 1,
+                  backgroundColor: isActive || isHovered ? "#000A1D" : "#D1D1D1",
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                style={{ transformOrigin: "left" }}
+              />
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -115,7 +162,7 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
           </motion.div>
         </div>
         
-        <h3 className="mt-6 archivo-expanded font-medium text-lg text-[#000A1D] leading-tight">
+        <h3 className="mt-6 generalsans-regular font-bold text-lg text-[#000A1D] leading-tight">
           {post.title}
         </h3>
         <p className="mt-2 text-sm generalsans-regular text-[#666666]">

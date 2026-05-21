@@ -1,7 +1,5 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 
 const coreValuesData = [
@@ -24,26 +22,6 @@ const coreValuesData = [
 ]
 
 export function CoreValuesSection() {
-    const [isDesktop, setIsDesktop] = useState(false)
-
-    useEffect(() => {
-        const checkDesktop = () => {
-            setIsDesktop(window.innerWidth >= 1024)
-        }
-
-        checkDesktop()
-        window.addEventListener('resize', checkDesktop)
-        return () => window.removeEventListener('resize', checkDesktop)
-    }, [])
-
-    const parallaxRef = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: parallaxRef,
-        offset: ["start end", "end start"],
-    })
-
-    const y = useTransform(scrollYProgress, [0, 1], isDesktop ? ["-30%", "30%"] : ["0%", "0%"])
-
     return (
         <section className="bg-[#050B18] text-white py-20 md:py-32 px-6 md:px-8 overflow-hidden md:-translate-y-20">
             <div className="max-w-7xl mx-auto">
@@ -52,7 +30,7 @@ export function CoreValuesSection() {
                     <h2 className="archivo-expanded text-4xl sm:text-5xl md:text-7xl text-white font-medium">Our Core Values</h2>
                 </div>
 
-                {/* --- 3 CARD TRÊN --- */}
+                {/* --- 3 CARD --- */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-28">
                     {coreValuesData.map((value) => (
                         <div
@@ -77,24 +55,18 @@ export function CoreValuesSection() {
                 </div>
 
                 {/* ==================== LEAD ENGINE ==================== */}
-                <div ref={parallaxRef} className="flex justify-center overflow-hidden -mt-16 lg:mt-0">
-                    {/* --- ẢNH PARALLAX --- */}
+                <div className="flex justify-center overflow-hidden -mt-16 lg:mt-0">
                     <div className="relative h-60 sm:h-137.5 lg:h-225 w-full max-w-7xl overflow-hidden">
-                        <motion.div
-                            style={{ y }}
-                            className="relative w-full h-[140%] top-[0%] will-change-transform"
-                        >
-                            <Image
-                                src="/assets/ab8.png"
-                                alt="Abstract background"
-                                fill
-                                className="object-cover object-[45%_center]"
-                                priority
-                            />
-                        </motion.div>
+                        <Image
+                            src="/assets/ab8.png"
+                            alt="Abstract background"
+                            fill
+                            className="object-cover object-[45%_center]"
+                            priority
+                        />
                     </div>
                 </div>
             </div>
-        </section >
+        </section>
     )
 }

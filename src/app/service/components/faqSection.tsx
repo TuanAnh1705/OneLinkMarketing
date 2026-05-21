@@ -52,12 +52,12 @@ export default function FaqAccordion() {
     setOpenIndex(openIndex === index ? null : index)
 
   return (
-    <div className="relative w-full z-20 mb-20 md:-mt-35 -mt-28">
+    <div className="relative w-full z-20 mb-20 md:-mt-35 -mt-35">
       <div className="mx-auto max-w-5xl mt-60">
         {/* --- HEADER --- */}
         <div className="relative mb-12">
           <GradientLine />
-          <h1 className="archivo-expanded py-12 text-center font-serif text-4xl font-medium tracking-wide text-[#000A1D] md:text-5xl">
+          <h1 className="archivo-expanded py-12 text-center font-serif text-2xl font-medium tracking-wide text-[#000A1D] md:text-5xl lg:text-6xl">
             Frequently Asked Questions
           </h1>
           <GradientLine />
@@ -119,7 +119,7 @@ export default function FaqAccordion() {
                     className="overflow-hidden"
                   >
                     <div className="pb-6 pl-24 pr-12">
-                      <p className="generalsans-regular text-xl leading-relaxed text-[#444444]">
+                      <p className="generalsans-regular text-sm md:text-sm leading-relaxed text-[#444444]">
                         {item.answer}
                       </p>
                     </div>

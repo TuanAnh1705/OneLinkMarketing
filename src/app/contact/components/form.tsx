@@ -204,7 +204,7 @@ export function ContactFormSection() {
     }
 
     return (
-        <section className="bg-white/0 py-20 md:py-32 px-8 -mb-36 -mt-48 relative">
+        <section className="bg-white/0 py-20 md:py-32 px-8 -mb-36 md:-mt-60 -mt-50 relative">
             
             {/* Hiển thị Toast (Overlay ở giữa màn hình) */}
             <AnimatePresence>
@@ -218,7 +218,7 @@ export function ContactFormSection() {
             </AnimatePresence>
 
             <div className="max-w-7xl mx-auto">
-                <h2 className="archivo-expanded text-3xl md:text-5xl font-medium text-[#000A1D] text-center max-w-5xl mx-auto leading-tight">
+                <h2 className="generalsans-regular font-medium text-3xl md:text-5xl text-[#000A1D] text-center max-w-5xl mx-auto leading-tight">
                     Drop Us A Line To <br /> Get Your Project Started
                 </h2>
 

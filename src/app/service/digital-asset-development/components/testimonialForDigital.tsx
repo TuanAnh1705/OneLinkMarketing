@@ -83,7 +83,7 @@ export default function TestimonialsForDigital() {
     return (
         <section
             ref={sectionRef}
-            className="relative bg-white text-[#000A1D] w-full overflow-hidden py-24 sm:py-32 -translate-y-40 md:-translate-y-20 z-10 md:mb-0 mb-20"
+            className="relative bg-white text-[#000A1D] w-full overflow-hidden py-24 sm:py-32 -translate-y-60 md:-translate-y-20 z-10 md:mb-0 -mb-50"
         >
 
             <div className="mt-0">

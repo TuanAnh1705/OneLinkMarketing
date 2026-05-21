@@ -124,7 +124,7 @@ export default function CaseStudies() {
                                         }}
                                         viewport={{ once: false, amount: 0.4 }}
                                     >
-                                        <div className="relative w-full aspect-4/3 rounded-[2.5rem] overflow-hidden border border-[#e5e5e5] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+                                        <div className="relative w-full aspect-4/3 rounded-sm overflow-hidden border border-[#e5e5e5] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
                                             <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
                                         </div>
                                         <h3 className="mt-7 archivo-expanded font-medium text-xl text-[#000A1D]">{item.title}</h3>

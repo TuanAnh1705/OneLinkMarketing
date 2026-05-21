@@ -114,7 +114,7 @@ export default function Footer() {
     const servicesLinks = [
         { name: "Strategy Consulting", href: "/service/strategy-consulting" },
         { name: "Digital Asset Development", href: "/service/digital-asset-development" },
-        { name: "SEO Services", href: "/service/seo-services" },
+        { name: "Search Engine Optimization", href: "/service/search-engine-optimization" },
         { name: "Paid Media & Advertising", href: "/service/paid-media-advertising" },
         { name: "Social Media Management", href: "/service/social-media-management" },
     ]
@@ -179,7 +179,7 @@ export default function Footer() {
                             </Link>
 
                             <p className="generalsans-regular mt-14 text-[#000A1D] text-center lg:text-left w-full">
-                                <span className="text-[#ADADAD]">©</span>2025{" "}
+                                <span className="text-[#ADADAD]">©</span>2026{" "}
                                 <span className="text-[#ADADAD]"> Onelink Marketing. </span>All rights reserved.
                             </p>
                         </div>
@@ -234,9 +234,9 @@ export default function Footer() {
                                 <h4 className="generalsans-regular text-xl mb-4 text-[#444444]">Company</h4>
                                 <ul className="generalsans-regular space-y-2 text-[#444444]">
                                     {companyLinks.map((item) => (
-                                        <li key={item.name} className="flex items-start justify-start md:justify-start gap-2">
-                                            <span className="text-[#444444] text-lg leading-[1.2]">•</span>
-                                            <Link href={item.href} className="hover:text-black transition-colors">
+                                        <li key={item.name}>
+                                            <Link href={item.href} className="group flex items-center overflow-hidden hover:text-black transition-colors">
+                                                <div className="shrink-0 w-0 h-2.5 bg-[#0074E5] opacity-0 group-hover:w-2.5 group-hover:opacity-100 group-hover:mr-2 transition-all duration-300 ease-out" />
                                                 {item.name}
                                             </Link>
                                         </li>
@@ -248,9 +248,9 @@ export default function Footer() {
                                 <h4 className="generalsans-regular text-xl mb-4 text-[#444444] text-left md:text-left">Services</h4>
                                 <ul className="generalsans-regular space-y-2 text-[#444444]">
                                     {servicesLinks.map((item) => (
-                                        <li key={item.name} className="flex items-center justify-start md:justify-start gap-2">
-                                            <span className="text-[#444444] text-lg leading-[1.2]">•</span>
-                                            <Link href={item.href} className="hover:text-black transition-colors">
+                                        <li key={item.name}>
+                                            <Link href={item.href} className="group flex items-center overflow-hidden hover:text-black transition-colors">
+                                                <div className="shrink-0 w-0 h-2.5 bg-[#0074E5] opacity-0 group-hover:w-2.5 group-hover:opacity-100 group-hover:mr-2 transition-all duration-300 ease-out" />
                                                 {item.name}
                                             </Link>
                                         </li>

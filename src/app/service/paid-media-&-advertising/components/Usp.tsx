@@ -98,7 +98,7 @@ export default function UspSectionForPaid() {
     return (
         <section
             ref={containerRef}
-            className="bg-white py-32 md:py-40 px-8 md:px-16 lg:px-24 overflow-x-hidden -translate-y-30 md:translate-y-0"
+            className="bg-white pt-10 pb-32 md:pt-12 md:pb-40 px-8 md:px-16 lg:px-24 overflow-x-hidden"
         >
             <div className="max-w-7xl mx-auto">
                 <h2 className="archivo-expanded text-2xl md:text-5xl lg:text-6xl font-medium leading-tight mb-12 text-[#000A1D]">
@@ -106,14 +106,16 @@ export default function UspSectionForPaid() {
                 </h2>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
                     {/* Cột trái */}
-                    <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px]">
-                        <Image
-                            src="/assets/sv9.png"
-                            alt="Strategic Advantage"
-                            fill
-                            className="object-contain"
-                            priority
-                        />
+                    <div className="lg:col-span-1">
+                        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px]">
+                            <Image
+                                src="/assets/sv9.png"
+                                alt="Strategic Advantage"
+                                fill
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
                     </div>
 
                     {/* Cột phải */}
@@ -139,7 +141,7 @@ export default function UspSectionForPaid() {
                 </div>
 
                 {/* Nút CTA */}
-                <div className="flex justify-center mt-20">
+                <div className="flex justify-center mt-0 mb-10 md:-mb-10 md:mt-20">
                     <Link href="/contact">
                         <button className="relative overflow-hidden px-5 py-3.5 rounded-full generalsans-regular text-sm text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                             {/* Lớp chữ trên cùng */}

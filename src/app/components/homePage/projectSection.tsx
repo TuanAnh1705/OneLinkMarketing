@@ -21,15 +21,7 @@ export default function SectionProjects() {
   return (
     <motion.section
   ref={section4Ref}
-  className="
-    relative justify-center
-    -mt-362.5
-    min-[200px]:-mt-110
-    min-[200px]:-mt-130
-    md:-mt-96
-    lg:-mt-60
-    z-10 bg-white pt-0 pb-10 px-8 md:px-16 lg:px-24
-  "
+  className="relative justify-center bg-white py-10 px-4 md:px-16 lg:px-24 md:-mt-15"
   onMouseMove={(e) => {
     mouseX.set(e.clientX)
     mouseY.set(e.clientY)
@@ -79,7 +71,7 @@ export default function SectionProjects() {
                   }}
                   viewport={{ once: false, amount: 0.4 }}
                 >
-                  <div className="relative w-full aspect-4/3 rounded-[2.5rem] overflow-hidden border border-[#e5e5e5] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+                  <div className="relative w-full aspect-4/3 rounded-sm overflow-hidden border border-[#e5e5e5] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
                     <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
                   </div>
                   <h3 className="mt-7 archivo-expanded font-medium text-xl text-[#000A1D]">{item.title}</h3>

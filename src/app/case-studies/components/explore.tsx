@@ -64,7 +64,7 @@ export default function ExploreSection() {
     const isMobile = useMediaQuery("(max-width: 767px)")
 
     return (
-        <section className="relative flex flex-col items-center justify-center h-screen -mt-[30vh] space-y-5 overflow-hidden bg-white/0">
+        <section className="relative flex flex-col items-center justify-center h-screen -mt-80 -mb-50 md:-mb-50 md:-mt-80 space-y-5 overflow-hidden bg-white/0">
             <div className="mb-0">
                 <h1 className="archivo-expanded text-4xl md:text-6xl font-medium text-center tracking-wider text-[#000A1D] mb-2 px-4">
                     Ready to Take the Next Step?

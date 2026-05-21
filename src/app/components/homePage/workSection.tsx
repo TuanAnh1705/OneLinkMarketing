@@ -4,8 +4,8 @@ import Link from "next/link"
 
 export default function SectionWork() {
     return (
-        <section className="min-h-screen relative px-4 sm:px-8 md:px-16 lg:px-24 -translate-y-70 md:-translate-y-40 py-20">
-            <div className="h-screen flex flex-col items-center justify-center gap-12">
+        <section className="relative px-4 sm:px-8 md:px-16 lg:px-24 py-16 md:py-24">
+            <div className="flex flex-col items-center justify-center gap-10 md:gap-12">
 
                 {/* CHỮ OUR WORK */}
                 <div

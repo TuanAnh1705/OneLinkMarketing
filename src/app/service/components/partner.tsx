@@ -1,9 +1,8 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
-import { motion, useScroll, useTransform, useInView } from "framer-motion"
+import { useRef, useState } from "react"
+import { motion, useScroll, useInView } from "framer-motion"
 import Image from "next/image"
-import Link from "next/link"
 
 // --- TYPES ---
 interface Feature {
@@ -17,137 +16,90 @@ interface FeatureItemProps extends Feature {
 }
 
 export function PartnerSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024)
-    }
-
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
   const whyWeAreRef = useRef<HTMLDivElement>(null)
 
-  // 1. Logic tính toán scroll cho đường line
   const { scrollYProgress: lineScrollProgress } = useScroll({
     target: whyWeAreRef,
     offset: ["start center", "end center"],
   })
 
-  // 2. Scroll cho parallax image (giữ nguyên)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["-30%", "30%"])
-
   return (
-    <section className="bg-[#0a0e1a] text-white py-16 md:py-20">
-      <div className="mx-auto">
+    <>
+      {/* Đã thêm relative và overflow-hidden vào section */}
+      <section className="relative overflow-hidden bg-[#0a0e1a] text-white pt-16 md:pt-20 pb-20 md:pb-28">
+        <div className="mx-auto">
 
-        {/* ================== WHY WE ARE SECTION ================== */}
-        <div className="max-w-full mx-auto px-6 md:px-12 lg:px-20 mb-16 md:mb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+          {/* ================== WHY WE ARE SECTION ================== */}
+          <div className="max-w-full mx-auto px-6 md:px-12 lg:px-20 mb-16 md:mb-32">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
 
-            {/* Left Column - Title */}
-            <div className="lg:col-span-4">
-              <h2 className="archivo-expanded text-3xl md:text-4xl lg:text-5xl text-white font-medium leading-tight">
-                Why We Are Your<br/> Ideal Partner?
-              </h2>
-            </div>
-
-            {/* Right Column - Line & Features */}
-            <div className="lg:col-span-8 relative" ref={whyWeAreRef}>
-
-              {/* Đường line dọc */}
-              <div className="absolute left-0 top-0 bottom-0 w-px md:w-0.5">
-                <div className="absolute inset-0 bg-white" />
-                <motion.div
-                  className="absolute inset-0 bg-[#0074E5] origin-top"
-                  style={{ scaleY: lineScrollProgress }}
-                />
+              {/* Left Column - Title */}
+              <div className="lg:col-span-4">
+                <h2 className="archivo-expanded text-3xl md:text-4xl lg:text-5xl text-white font-medium leading-tight">
+                  Why We Are Your<br/> Ideal Partner?
+                </h2>
               </div>
 
-              {/* Danh sách tính năng */}
-              <div className="pl-8 lg:pl-16 grid grid-cols-1 gap-12 lg:gap-12">
-                {features.map((feature, index) => (
-                  <FeatureItem
-                    key={index}
-                    index={index}
-                    {...feature}
+              {/* Right Column - Line & Features */}
+              <div className="lg:col-span-8 relative" ref={whyWeAreRef}>
+
+                {/* Đường line dọc */}
+                <div className="absolute left-0 top-0 bottom-0 w-px md:w-0.5">
+                  <div className="absolute inset-0 bg-white" />
+                  <motion.div
+                    className="absolute inset-0 bg-[#0074E5] origin-top"
+                    style={{ scaleY: lineScrollProgress }}
                   />
-                ))}
+                </div>
+
+                {/* Danh sách tính năng */}
+                <div className="pl-8 lg:pl-16 grid grid-cols-1 gap-12 lg:gap-12">
+                  {features.map((feature, index) => (
+                    <FeatureItem
+                      key={index}
+                      index={index}
+                      {...feature}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
+
         </div>
 
-        {/* ================== METRICS SECTION ================== */}
-        <div className="flex flex-col items-center px-4">
-          {/* Two-column container for image and text */}
-          {/* Chuyển sang flex-col trên mobile, lg:flex-row trên desktop */}
-          <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-12 lg:gap-20 max-w-8xl">
-            {/* Hình bên trái với parallax effect */}
-            <div
-              ref={containerRef}
-              className="relative w-full max-w-2xl lg:w-180 h-100 lg:h-200 overflow-hidden shrink-0"
-            >
-              <motion.div
-                style={{ y: isMobile ? undefined : y }}
-                className="relative w-full h-full lg:h-[125%] lg:-top-[20%] will-change-transform"
-              >
-                <Image
-                  src="/assets/6.png"
-                  alt="Abstract gradient"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </motion.div>
-            </div>
+        {/* Arc trắng hoà với nền section phía dưới (vòng cung hướng xuống) */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-32 md:h-48 pointer-events-none z-10"
+          style={{
+            background: "radial-gradient(ellipse 200% 100% at 50% 0%, transparent 0%, transparent 30%, rgba(255,255,255,0.8) 70%, #ffffff 100%)"
+          }}
+        />
+      </section>
 
-            {/* Cột phải: metrics */}
-            {/* Bỏ h cố định, thêm mt-12 trên mobile */}
-            <div className="h-auto lg:h-200 flex-1 flex flex-col w-full max-w-md lg:max-w-none lg:w-auto -mt-20 lg:mt-0">
-              <div>
-                {/* Giảm font-size và căn giữa trên mobile */}
-                <h3 className="archivo-expanded text-3xl md:text-5xl lg:text-6xl font-medium mb-8 md:mb-12 leading-tight text-white md:text-left lg:text-left">
-                  Metrics That Matter
-                </h3>
-              </div>
+      {/* ================== METRICS CARD ================== */}
+      {/* Nổi tại giao thoa giữa dark section và white section phía dưới */}
+      <div className="relative z-10 -mt-16 md:-mt-45 px-6 md:px-12 lg:px-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
 
-              {/* Bỏ justify-between, dùng gap-10 trên mobile */}
-              <div className="archivo-expanded grow flex flex-col justify-start lg:justify-between pt-0 lg:pt-8 gap-10 lg:gap-0">
-                <MetricItem value="327%+" label="Improvement in website traffic" />
-                <MetricItem value="54%+" label="Increase in lead conversion rates" />
-                <MetricItem value="22%+" label="Reduction in bounce rate" />
-              </div>
-            </div>
+          {/* Ảnh */}
+          <div className="relative h-[280px] md:h-[550px] overflow-hidden bg-white shadow-[0_8px_40px_rgba(0,0,0,0.10)]">
+            <Image
+              src="/assets/6.png"
+              alt="Team"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
 
-          {/* Button */}
-          <div className="mt-16 md:mt-20">
-            <motion.div whileHover={{ scale: 1.05 }}>
-              {/* Giảm padding và font-size trên mobile */}
-              <Link href="/contact">
-                <button className="relative overflow-hidden px-10 py-3 md:px-5 md:py-3 rounded-full generalsans-regular text-base md:text-sm text-white border border-white/30 hover:border-transparent bg-transparent transition-colors duration-300 group">
-                  <span className="relative z-20 flex items-center justify-center w-full h-full">
-                    Contact Us
-                  </span>
-                  <span className="absolute inset-0 bg-linear-to-r from-[#0074E5] to-[#162660] translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] rounded-full z-10"></span>
-                </button>
-              </Link>
-            </motion.div>
-          </div>
+          {/* Metric columns */}
+          <MetricColumn value="327%+" label="Improvement in website traffic" />
+          <MetricColumn value="54%+"  label="Increase in lead conversion rates" />
+          <MetricColumn value="22%+"  label="Reduction in bounce rate" />
         </div>
       </div>
-    </section>
+    </>
   )
 }
 
@@ -162,7 +114,7 @@ const features: Feature[] = [
 
 // ================== SUB-COMPONENTS ==================
 
-function FeatureItem({ number, title, description, index }: FeatureItemProps) {
+function FeatureItem({ title, description, index }: FeatureItemProps) {
   const itemRef = useRef<HTMLDivElement>(null)
 
   const isInView = useInView(itemRef, {
@@ -187,9 +139,7 @@ function FeatureItem({ number, title, description, index }: FeatureItemProps) {
     >
       <div className={isLeftColumn ? "lg:col-start-1" : "lg:col-start-2"}>
         <div className="space-y-2">
-          <p className="archivo-expanded text-xl md:text-3xl font-medium text-white">
-            ({number})
-          </p>
+          <div className="w-4 h-4 bg-[#0074E5]" />
           <h3 className="archivo-expanded text-2xl md:text-3xl lg:text-4xl text-white font-medium leading-tight">
             {title}
           </h3>
@@ -202,34 +152,37 @@ function FeatureItem({ number, title, description, index }: FeatureItemProps) {
   )
 }
 
-function MetricItem({
-  value,
-  label,
-  showLine = true,
-}: {
-  value: string
-  label: string
-  showLine?: boolean
-}) {
-  return (
-    <div>
-      {showLine && (
-        // Thêm w-full và max-w để giới hạn chiều rộng trên mobile
-        <div className="w-full max-w-92.5 h-px bg-linear-to-r from-[#0094FF] to-[#162660] mb-6" />
-      )}
-      {/* Chuyển sang flex-col trên mobile, và flex-row trên desktop */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-start gap-4 lg:gap-28">
-        {/* Column for number (fixed width for alignment) */}
-        <div className="w-full lg:w-[320px]">
-          {/* Giảm font-size trên mobile */}
-          <div className="archivo-expanded text-6xl md:text-7xl lg:text-8xl font-extrabold">{value}</div>
-        </div>
+function MetricColumn({ value, label }: { value: string; label: string }) {
+  const [hovered, setHovered] = useState(false)
 
-        {/* Column for label (font size increased) */}
-        {/* Giảm font-size và bỏ pt-3 trên mobile */}
-        <div className="generalsans-regular pt-0 lg:pt-3 text-lg md:text-xl text-white/80">
+  return (
+    <div
+      className="flex flex-col justify-between p-6 md:p-8 bg-white shadow-[0_8px_40px_rgba(0,0,0,0.10)] h-[200px] md:h-[550px] cursor-default"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <span className="generalsans-regular text-7xl md:text-7xl lg:text-7xl font-medium text-[#000A1D]">
+        {value}
+      </span>
+
+      <div className="flex items-start">
+        <div
+          className="shrink-0 bg-[#0074E5] transition-all duration-300 ease-out"
+          style={{
+            width:       hovered ? "14px" : "0px",
+            minWidth:    hovered ? "14px" : "0px",
+            height:      "14px",
+            marginTop:   "3px",
+            marginRight: hovered ? "8px" : "0px",
+            opacity:     hovered ? 1 : 0,
+          }}
+        />
+        <span
+          className="generalsans-regular text-sm md:text-base leading-snug transition-colors duration-150"
+          style={{ color: hovered ? "#0074E5" : "#000A1D" }}
+        >
           {label}
-        </div>
+        </span>
       </div>
     </div>
   )

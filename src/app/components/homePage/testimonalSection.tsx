@@ -122,7 +122,7 @@ export default function TestimonialsSection() {
     }
 
     const swipeConfidenceThreshold = 10000
-    const onDragEnd = (e: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
+    const onDragEnd = (_e: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
         const swipe = Math.abs(offset.x) * velocity.x
         if (swipe < -swipeConfidenceThreshold) {
             handleNext()
@@ -138,10 +138,8 @@ export default function TestimonialsSection() {
     const logoX = useMotionValue(0)
     
     // Kích thước và tính toán - responsive
-    const logoWidth = 96 // w-24 = 96px
-    const logoWidthSm = 120 // sm:w-30 = 120px  
-    const gap = 32 // mr-8 = 32px
-    const gapSm = 64 // sm:mr-16 = 64px
+    const logoWidthSm = 120
+    const gapSm = 64
     
     // Sử dụng kích thước desktop để tính toán
     const itemWidth = logoWidthSm + gapSm
@@ -169,7 +167,7 @@ export default function TestimonialsSection() {
     ]
 
     // Auto-scroll animation với infinite loop
-    useAnimationFrame((t, delta) => {
+    useAnimationFrame((_t, delta) => {
         const moveBy = baseVelocity * (delta / 16)
         const currentX = logoX.get()
         let newX = currentX + moveBy
@@ -190,10 +188,10 @@ export default function TestimonialsSection() {
     }, [logoX, totalWidth])
 
     return (
-        <section className="relative bg-[#000A1D] text-white w-full overflow-hidden py-35 sm:py-35 -top-7.5  z-10 flex flex-col items-center justify-center min-h-screen">
+        <section className="relative bg-[#000A1D] text-white w-full overflow-hidden py-20 md:py-28 z-10 flex flex-col items-center justify-center">
             <div className="container mx-auto px-6 lg:px-8 flex flex-col items-center justify-center">
-                <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium archivo-expanded text-center text-white leading-tight mb-16 sm:mb-24 max-w-4xl mx-auto">
-                    What our clients say <br /> about our work
+                <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium generalsans-regular text-center text-white leading-tight mb-16 sm:mb-24 max-w-4xl mx-auto">
+                    What Our Clients Say <br /> <span className="italic font-bold">About Our Work</span>
                 </h2>
 
                 <div className="relative w-full max-w-5xl h-112.5 sm:h-100 flex items-center justify-center">
@@ -232,7 +230,7 @@ export default function TestimonialsSection() {
                                     <div className="absolute inset-0 w-full h-full rounded-lg" style={{ background: cardStyle.background, transform: 'translateZ(-1px)' }} />
                                     <FaQuoteLeft className={`absolute bottom-8 right-8 text-8xl ${cardStyle.quoteColor}`} />
                                     
-                                    <p className={`archivo-expanded font-medium relative z-10 leading-relaxed mb-6 text-xs sm:text-sm ${cardStyle.textColor}`}>
+                                    <p className={`generalsans-regular font-medium relative z-10 leading-relaxed mb-6 text-xs md:text-[15px] ${cardStyle.textColor}`}>
                                         {testimonial.text}
                                     </p>
                                     <div className="relative z-10 mt-auto flex items-center gap-4">

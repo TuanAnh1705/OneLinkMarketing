@@ -20,7 +20,7 @@ export default function HeroSection() {
                         CASE STUDIES <br/> AND INSIGHTS
                     </h1>
                     <GradientBorder />
-                    <p className="archivo-expanded font-medium text-[#000A1D] text-center text-xl md:text-5xl max-w-5xl mx-auto leading-none py-14">
+                    <p className="generalsans-regular font-medium text-[#000A1D] text-center text-xl md:text-5xl max-w-5xl mx-auto leading-none py-14">
                         Explore our work and learn <br/> from our team of experts.
                     </p>
                     <GradientBorder />

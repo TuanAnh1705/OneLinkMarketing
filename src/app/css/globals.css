@@ -20,6 +20,15 @@ main {
   scroll-behavior: smooth;
 }
 
+.hero-bg {
+  background-image: url('/assets/heroBg.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  /* Fallback gradient if heroBg.png is not available */
+  background-color: #000A1D;
+}
+
 @theme {
   
   --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
@@ -286,8 +295,8 @@ input[type="time"] {
 
 @font-face {
   font-family: 'GeneralSans Regular';
-  src: url('/font/GeneralSans-Regular.otf') format('onetype');
-  font-weight: 500;
+  src: url('/font/GeneralSans-Regular.otf') format('opentype');
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -297,13 +306,24 @@ input[type="time"] {
 
 @font-face {
   font-family: 'GeneralSans Light';
-  src: url('/font/GeneralSans-Extralight.otf') format('onetype');
-  font-weight: 500;
+  src: url('/font/GeneralSans-Light.otf') format('opentype');
+  font-weight: 300;
   font-style: normal;
 }
 
 .generalsans-light {
   font-family: 'GeneralSans Light', sans-serif;
+}
+
+@font-face {
+  font-family: 'GeneralSans Extralight';
+  src: url('/font/GeneralSans-Extralight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+.generalsans-extralight {
+  font-family: 'GeneralSans Extralight', sans-serif;
 }
 
 .scroll-to-top-btn {
@@ -428,5 +448,58 @@ input[type="time"] {
   .group:hover .border-svg-container {
     opacity: 1;
     transition-delay: 0s; /* no delay when hover */
+  }
+}
+
+/* ── Hero h1 DrawSVG-style entry animation ─────────────────────────── */
+.hero-h1-entry {
+  -webkit-text-stroke: 1.5px white;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  /* mask starts at 0-width → sweeps left to right to reveal stroke */
+  -webkit-mask-image: linear-gradient(to right, white, white);
+  mask-image: linear-gradient(to right, white, white);
+  -webkit-mask-size: 0% 100%;
+  mask-size: 0% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+
+  animation:
+    h1-draw  2s    cubic-bezier(0.76, 0, 0.24, 1) forwards,
+    h1-fill  0.8s  ease-out                        1.7s forwards,
+    h1-clip  0.01s linear                          2.56s forwards;
+}
+
+@keyframes h1-draw {
+  to {
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+}
+
+@keyframes h1-fill {
+  from {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1.5px;
+  }
+  to {
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 0px;
+  }
+}
+
+/* switches to background-clip:text mode so hover gradient works */
+@keyframes h1-clip {
+  to {
+    background-color: white;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: none;
+    -webkit-mask: none;
+    mask: none;
   }
 }

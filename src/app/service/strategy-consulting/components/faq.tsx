@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 function GradientLine() {
   return (
     <div className="relative w-full">
-      <div className="w-full h-[0.5px] bg-gradient-to-r from-[#0074E5] to-[#162660] will-change-transform" />
+      <div className="w-full h-[0.5px] bg-linear-to-r from-[#0074E5] to-[#162660] will-change-transform" />
     </div>
   )
 }
@@ -92,14 +92,14 @@ export default function FaqAccordion() {
                       opacity: openIndex === index ? 0 : 1,
                     }}
                     transition={{ duration: 0.3 }}
-                    className="absolute w-5 h-[2px] bg-[#000A1D]"
+                    className="absolute w-5 h-0.5 bg-[#000A1D]"
                   />
                   <motion.span
                     animate={{
                       rotate: openIndex === index ? 0 : 90,
                     }}
                     transition={{ duration: 0.3 }}
-                    className="absolute w-5 h-[2px] bg-[#000A1D]"
+                    className="absolute w-5 h-0.5 bg-[#000A1D]"
                   />
                 </motion.div>
               </button>
@@ -119,7 +119,7 @@ export default function FaqAccordion() {
                     className="overflow-hidden"
                   >
                     <div className="pb-6 pl-24 pr-12">
-                      <p className="generalsans-regular leading-relaxed text-xl text-[#444444]">
+                      <p className="generalsans-regular leading-relaxed text-sm md:text-sm text-[#444444]">
                         {item.answer}
                       </p>
                     </div>

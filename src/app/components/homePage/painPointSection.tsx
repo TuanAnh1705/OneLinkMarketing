@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
@@ -31,132 +31,201 @@ const timelineItems = [
     },
 ]
 
+const ANIMATION_DURATION = 900
+// Số vh cần scroll để chuyển 1 item (giảm xuống để không quá dài)
+const SCROLL_PER_ITEM_VH = 60
+
 export default function Page() {
-    const [hoveredIndex, setHoveredIndex] = useState<number>(0)
+    const [activeIndex, setActiveIndex] = useState(0)
+    const [squareTop, setSquareTop] = useState(0)
+    const wrapperRef = useRef<HTMLDivElement>(null)
+    const listRef = useRef<HTMLDivElement>(null)
+    const numberRefs = useRef<(HTMLSpanElement | null)[]>([])
+    const totalItems = timelineItems.length
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!wrapperRef.current) return
+            const rect = wrapperRef.current.getBoundingClientRect()
+            const scrolledIn = -rect.top
+            if (scrolledIn < 0) {
+                setActiveIndex(0)
+                return
+            }
+            const scrollPerItem = window.innerHeight * (SCROLL_PER_ITEM_VH / 100)
+            const newIndex = Math.min(
+                Math.floor(scrolledIn / scrollPerItem),
+                totalItems - 1
+            )
+            setActiveIndex(newIndex)
+        }
+
+        window.addEventListener("scroll", handleScroll, { passive: true })
+        handleScroll() // init
+        return () => window.removeEventListener("scroll", handleScroll)
+    }, [totalItems])
+
+    // Đo vị trí thực của số active và di chuyển cục vuông tới đó
+    useEffect(() => {
+        const measure = () => {
+            const numEl = numberRefs.current[activeIndex]
+            const listEl = listRef.current
+            if (!numEl || !listEl) return
+            const numRect = numEl.getBoundingClientRect()
+            const listRect = listEl.getBoundingClientRect()
+            setSquareTop(numRect.top - listRect.top + numRect.height / 2)
+        }
+        measure()
+        window.addEventListener("resize", measure)
+        return () => window.removeEventListener("resize", measure)
+    }, [activeIndex])
 
     return (
-        <main className="min-h-screen px-4 py-12 md:px-8 lg:px-0 lg:py-0 -mt-20 md:mt-5">
-            <div className="mx-auto max-w-screen-2xl">
-                {/* Title Section */}
-                <div className="mb-12 lg:mb-20">
-                    <h1 className="archivo-expanded mb-4 text-2xl md:text-6xl lg:text-7xl font-bold text-[#000A1D] lg:translate-x-36">
-                        Are you struggling with <br /> these pain points?
+        <main className="px-4 md:px-8 lg:px-16">
+            <div className="mx-auto max-w-7xl">
+                <div className="pt-12 lg:pt-20 pb-0 lg:pb-0">
+                    <h1 className="generalsans-regular text-3xl md:text-5xl lg:text-6xl font-medium text-[#000A1D] leading-tight">
+                        Are you struggling with <br />
+                        <span className="italic font-bold">these pain points</span>?
                     </h1>
-                </div>
-
-                {/* Content Section */}
-                <div className="relative w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-
-                    {/* Left Side - Image Stack */}
-                    <div className="relative hidden lg:flex w-full max-w-md lg:max-w-none lg:w-112.5 items-center justify-center shrink-0 order-2 lg:order-1">
-                        <div className="relative h-100 sm:h-112.5 lg:h-137.5 w-full lg:translate-x-20 lg:-translate-y-8">
-                            {timelineItems.map((item, index) => (
-                                <div
-                                    key={`${index}-${hoveredIndex}`}
-                                    className={cn(
-                                        "absolute inset-0 origin-center transform-gpu",
-                                        // Hiển thị tất cả ảnh có index <= hoveredIndex
-                                        index <= hoveredIndex ? "opacity-100" : "opacity-0"
-                                    )}
-                                    style={{
-                                        zIndex: index,
-                                        // Ảnh hiện tại sẽ có animation zoom
-                                        animation: index === hoveredIndex 
-                                            ? "zoomIn 0.6s ease-out forwards" 
-                                            : "none"
-                                    }}
-                                >
-                                    <Image
-                                        src={item.image}
-                                        alt={item.title}
-                                        fill
-                                        className="object-contain"
-                                        priority={index === 0}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Right Side - Text List */}
-                    <div className="w-full flex-1 flex flex-col justify-center lg:pl-28 lg:-translate-y-8 relative order-1 lg:order-2">
-                        <div className="relative">
-                            {/* Line đầu */}
-                            <div className="h-px bg-linear-to-r from-[#0074E5] to-[#162660]" />
-
-                            {timelineItems.map((item, index) => (
-                                <div key={index} className="relative">
-                                    <div
-                                        onMouseEnter={() => setHoveredIndex(index)}
-                                        onClick={() => setHoveredIndex(index)}
-                                        className={cn(
-                                            "relative py-8 px-3 cursor-pointer group transition-all duration-300",
-                                            hoveredIndex === index
-                                                ? "bg-[#162660] z-10"
-                                                : "bg-transparent"
-                                        )}
-                                    >
-                                        {/* Title - Description */}
-                                        <div className="flex flex-col items-start gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
-                                            {/* Title */}
-                                            <h3
-                                                className={cn(
-                                                    "generalsans-light text-2xl lg:text-[24px] lg:whitespace-nowrap transition-all duration-300 transform",
-                                                    hoveredIndex === index
-                                                        ? "text-white lg:translate-x-3"
-                                                        : "bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent translate-x-0"
-                                                )}
-                                            >
-                                                {item.title}
-                                            </h3>
-
-                                            {/* Description */}
-                                            <p
-                                                className={cn(
-                                                    "generalsans-regular md:text-[15px] leading-relaxed transition-all duration-300 w-full lg:w-130 lg:-translate-x-5 whitespace-pre-line text-left",
-                                                    hoveredIndex === index
-                                                        ? "text-white"
-                                                        : "text-[#444444]"
-                                                )}
-                                            >
-                                                {item.description}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Line giữa */}
-                                    {index < timelineItems.length - 1 && (
-                                        <div
-                                            className={cn(
-                                                "h-px transition-all duration-300",
-                                                hoveredIndex === index ||
-                                                    hoveredIndex === index + 1
-                                                    ? "bg-[#162660]"
-                                                    : "bg-linear-to-r from-[#0074E5] to-[#162660]"
-                                            )}
-                                        />
-                                    )}
-                                </div>
-                            ))}
-
-                            {/* Line cuối */}
-                            <div className="h-px bg-linear-to-r from-[#0074E5] to-[#162660]" />
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            {/* CSS Animation */}
-            <style jsx>{`
-                @keyframes zoomIn {
-                    0% {
-                        transform: scale(0);
-                    }
-                    100% {
-                        transform: scale(1);
-                    }
-                }
-            `}</style>
+            {/*
+             * Wrapper cao totalItems * 100vh → tạo scroll space để section pin bên trong.
+             * Khi user scroll qua wrapper, section sticky ở top:0 và activeIndex
+             * được tính từ vị trí scroll tương đối với wrapper.
+             */}
+            <div
+                ref={wrapperRef}
+                style={{ height: `${(totalItems + 1) * SCROLL_PER_ITEM_VH}vh` }}
+                className="relative"
+            >
+                <section className="sticky top-0 h-screen">
+                    <div className="mx-auto max-w-7xl h-full flex items-center px-4 md:px-8 lg:px-16">
+                        <div className="w-full flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
+                            {/* LEFT - Text list */}
+                            <div className="w-full lg:flex-1 flex flex-col relative">
+                                <div className="relative" ref={listRef}>
+                                    {/* Cục vuông trượt ngang hàng với số active */}
+                                    <div
+                                        className="absolute left-0 w-3 h-3 bg-[#0074E5] pointer-events-none z-10"
+                                        style={{
+                                            top: squareTop,
+                                            transform: `translateY(-50%) rotate(${activeIndex * 360}deg)`,
+                                            transition: `top ${ANIMATION_DURATION}ms cubic-bezier(0.65, 0, 0.35, 1), transform ${ANIMATION_DURATION}ms cubic-bezier(0.65, 0, 0.35, 1)`,
+                                        }}
+                                    />
+
+                                    {timelineItems.map((item, index) => {
+                                        const isActive = activeIndex === index
+                                        const itemNumber = String(
+                                            index + 1
+                                        ).padStart(2, "0")
+
+                                        return (
+                                            <div
+                                                key={index}
+                                                className="relative py-5"
+                                            >
+                                                <div
+                                                    className={cn(
+                                                        "flex items-start gap-4 transition-all ease-[cubic-bezier(0.65,0,0.35,1)]",
+                                                        isActive
+                                                            ? "translate-x-6 lg:translate-x-8"
+                                                            : "translate-x-0"
+                                                    )}
+                                                    style={{
+                                                        transitionDuration: `${ANIMATION_DURATION}ms`,
+                                                    }}
+                                                >
+                                                    <span
+                                                        ref={(el) => { numberRefs.current[index] = el }}
+                                                        className={cn(
+                                                            "text-sm font-medium pt-2 shrink-0 w-6 transition-colors",
+                                                            isActive
+                                                                ? "text-[#000A1D]"
+                                                                : "text-gray-400"
+                                                        )}
+                                                        style={{
+                                                            transitionDuration: `${ANIMATION_DURATION}ms`,
+                                                        }}
+                                                    >
+                                                        {itemNumber}
+                                                    </span>
+
+                                                    <div className="flex-1 min-w-0">
+                                                        <h3
+                                                            className={cn(
+                                                                "generalsans-light text-2xl lg:text-[28px] font-semibold mb-2 transition-colors",
+                                                                isActive
+                                                                    ? "text-[#000A1D]"
+                                                                    : "text-gray-400"
+                                                            )}
+                                                            style={{
+                                                                transitionDuration: `${ANIMATION_DURATION}ms`,
+                                                            }}
+                                                        >
+                                                            {item.title}
+                                                        </h3>
+                                                        <p
+                                                            className={cn(
+                                                                "generalsans-regular text-sm md:text-[15px] leading-relaxed max-w-md transition-colors",
+                                                                isActive
+                                                                    ? "text-[#444444]"
+                                                                    : "text-gray-400/70"
+                                                            )}
+                                                            style={{
+                                                                transitionDuration: `${ANIMATION_DURATION}ms`,
+                                                            }}
+                                                        >
+                                                            {item.description}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+
+                            {/* RIGHT - Image stack (ẩn trên mobile) */}
+                            <div className="hidden lg:block relative lg:w-[480px] xl:w-[520px] shrink-0">
+                                <div className="relative aspect-4/5 w-full overflow-hidden rounded-sm bg-gray-100">
+                                    {timelineItems.map((item, index) => {
+                                        // index < active → đã qua, trượt lên trên
+                                        // index === active → đang hiển thị
+                                        // index > active → chờ bên dưới
+                                        const offset = index - activeIndex
+                                        const translateY =
+                                            offset < 0 ? -100 : offset > 0 ? 100 : 0
+
+                                        return (
+                                            <div
+                                                key={index}
+                                                className="absolute inset-0 will-change-transform"
+                                                style={{
+                                                    zIndex: totalItems - Math.abs(offset),
+                                                    transform: `translateY(${translateY}%)`,
+                                                    transition: `transform ${ANIMATION_DURATION}ms cubic-bezier(0.77, 0, 0.175, 1)`,
+                                                }}
+                                            >
+                                                <Image
+                                                    src={item.image}
+                                                    alt={item.title}
+                                                    fill
+                                                    className="object-cover"
+                                                    priority={index === 0}
+                                                />
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </main>
     )
 }

@@ -16,7 +16,7 @@ export default function ServiceSection() {
             href: "/service/digital-asset-development"
         },
         {
-            title: "SEO \n Services",
+            title: "Search Engine Optimization",
             desc: "Driving organic traffic and sustainable growth with on-page and off-page SEO.",
             href: "/service/seo-services"
         },
@@ -33,25 +33,31 @@ export default function ServiceSection() {
     ]
 
     return (
-        <section className="bg-white py-16 md:py-24 px-4 sm:px-8 md:px-16 lg:px-24 lg:mb-40 -mt-10">
+        <section className="bg-white py-16 md:py-10 -mt-10 md:-mt-10 px-4 sm:px-8 md:px-16 lg:px-24">
             {/* TITLE */}
             <div className="text-center mb-30 md:mb-40">
                 <h2
-                    className="text-3xl md:text-6xl lg:text-7xl font-medium leading-tight"
-                    style={{ fontFamily: "'Archivo Expanded', sans-serif" }}
+                    className="text-3xl md:text-6xl lg:text-7xl font-medium leading-tight "
+                    style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}
                 >
-                    <span className="bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
-                        From Strategy to
+                    <span className="text-[#0074E5]">
+                        From
+                    </span>
+                    <span className="bg-[#000A1D] font-bold italic bg-clip-text">
+                        Strategy
+                    </span>
+                    <span className="text-[#0074E5]">
+                        {" "}to
                     </span>
                     <br />
-                    <span className="bg-linear-to-r from-[#162660] to-[#0074E5] bg-clip-text text-transparent">
+                    <span className="bg-[#000A1D] font-bold italic bg-clip-text">
                         Performance Growth
                     </span>
                 </h2>
             </div>
 
             {/* MAIN CONTENT */}
-            <div className="max-w-350 mx-auto">
+            <div className="max-w-350 mx-auto md:-mt-20">
                 {/* GRID LAYOUT */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 md:gap-y-14 gap-x-4 md:gap-x-6 lg:gap-x-1">
                     {/* ROW 1 - OUR SERVICES + 2 CARDS */}
@@ -67,7 +73,7 @@ export default function ServiceSection() {
                     {/* Card 1 - Strategy Consulting */}
                     <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
                         <Link href={services[0].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[0].title} />
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{ overflow: 'visible' }}>
                             <defs>
                                 <linearGradient id="borderGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stopColor="#0074E5" />
@@ -82,7 +88,7 @@ export default function ServiceSection() {
                                 rx="23"
                                 fill="none"
                                 stroke="url(#borderGradient1)"
-                                strokeWidth="2"
+                                strokeWidth="1"
                                 className="border-draw-path"
                             />
                         </svg>
@@ -90,7 +96,7 @@ export default function ServiceSection() {
                             <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
                                 {services[0].title}
                             </h4>
-                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <div className="w-full h-px mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
                                 {services[0].desc}
                             </p>
@@ -109,10 +115,10 @@ export default function ServiceSection() {
                                                 </linearGradient>
                                             </defs>
                                         </svg>
-                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient1)'}} strokeWidth={2} />
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{ stroke: 'url(#iconGradient1)' }} strokeWidth={2} />
                                     </div>
                                 </div>
-                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                                <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             </div>
                         </div>
                     </div>
@@ -120,7 +126,7 @@ export default function ServiceSection() {
                     {/* Card 2 - Digital Asset Development */}
                     <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
                         <Link href={services[1].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[1].title} />
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{ overflow: 'visible' }}>
                             <defs>
                                 <linearGradient id="borderGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stopColor="#0074E5" />
@@ -135,7 +141,7 @@ export default function ServiceSection() {
                                 rx="23"
                                 fill="none"
                                 stroke="url(#borderGradient2)"
-                                strokeWidth="2"
+                                strokeWidth="1"
                                 className="border-draw-path"
                             />
                         </svg>
@@ -143,8 +149,8 @@ export default function ServiceSection() {
                             <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
                                 {services[1].title}
                             </h4>
-                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
-                            <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'Neulis Alt Regular', sans-serif" }}>
+                            <div className="w-full h-px mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
                                 {services[1].desc}
                             </p>
                             <div className="w-fit mt-auto select-none">
@@ -161,10 +167,10 @@ export default function ServiceSection() {
                                                 </linearGradient>
                                             </defs>
                                         </svg>
-                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient2)'}} strokeWidth={2} />
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{ stroke: 'url(#iconGradient2)' }} strokeWidth={2} />
                                     </div>
                                 </div>
-                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                                <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             </div>
                         </div>
                     </div>
@@ -173,7 +179,7 @@ export default function ServiceSection() {
                     {/* Card 3 - SEO Services */}
                     <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
                         <Link href={services[2].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[2].title} />
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{ overflow: 'visible' }}>
                             <defs>
                                 <linearGradient id="borderGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stopColor="#0074E5" />
@@ -188,7 +194,7 @@ export default function ServiceSection() {
                                 rx="23"
                                 fill="none"
                                 stroke="url(#borderGradient3)"
-                                strokeWidth="2"
+                                strokeWidth="1"
                                 className="border-draw-path"
                             />
                         </svg>
@@ -196,7 +202,7 @@ export default function ServiceSection() {
                             <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
                                 {services[2].title}
                             </h4>
-                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <div className="w-full h-px mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
                                 {services[2].desc}
                             </p>
@@ -214,10 +220,10 @@ export default function ServiceSection() {
                                                 </linearGradient>
                                             </defs>
                                         </svg>
-                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient3)'}} strokeWidth={2} />
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{ stroke: 'url(#iconGradient3)' }} strokeWidth={2} />
                                     </div>
                                 </div>
-                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                                <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             </div>
                         </div>
                     </div>
@@ -225,7 +231,7 @@ export default function ServiceSection() {
                     {/* Card 4 - Paid Media & Advertising */}
                     <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
                         <Link href={services[3].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[3].title} />
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{ overflow: 'visible' }}>
                             <defs>
                                 <linearGradient id="borderGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stopColor="#0074E5" />
@@ -240,7 +246,7 @@ export default function ServiceSection() {
                                 rx="23"
                                 fill="none"
                                 stroke="url(#borderGradient4)"
-                                strokeWidth="2"
+                                strokeWidth="1"
                                 className="border-draw-path"
                             />
                         </svg>
@@ -248,7 +254,7 @@ export default function ServiceSection() {
                             <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
                                 {services[3].title}
                             </h4>
-                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <div className="w-full h-px mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
                                 {services[3].desc}
                             </p>
@@ -266,10 +272,10 @@ export default function ServiceSection() {
                                                 </linearGradient>
                                             </defs>
                                         </svg>
-                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient4)'}} strokeWidth={2} />
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{ stroke: 'url(#iconGradient4)' }} strokeWidth={2} />
                                     </div>
                                 </div>
-                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                                <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             </div>
                         </div>
                     </div>
@@ -277,7 +283,7 @@ export default function ServiceSection() {
                     {/* Card 5 - Social Media Management */}
                     <div className="relative bg-[#f0f0f0] rounded-3xl p-6 md:p-8 group w-full max-w-101.5 h-auto min-h-72 md:min-h-82.75 mx-auto flex flex-col cursor-pointer">
                         <Link href={services[4].href} className="absolute inset-0 z-0 rounded-3xl" aria-label={services[4].title} />
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{overflow: 'visible'}}>
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none border-svg-container" style={{ overflow: 'visible' }}>
                             <defs>
                                 <linearGradient id="borderGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stopColor="#0074E5" />
@@ -292,7 +298,7 @@ export default function ServiceSection() {
                                 rx="23"
                                 fill="none"
                                 stroke="url(#borderGradient5)"
-                                strokeWidth="2"
+                                strokeWidth="1"
                                 className="border-draw-path"
                             />
                         </svg>
@@ -300,7 +306,7 @@ export default function ServiceSection() {
                             <h4 className="text-3xl md:text-4xl font-medium text-[#000A1D] mb-4 leading-tight" style={{ fontFamily: "'Archivo Expanded', sans-serif", whiteSpace: 'pre-line' }}>
                                 {services[4].title}
                             </h4>
-                            <div className="w-full h-[1.5px] mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                            <div className="w-full h-px mb-4 bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             <p className="text-[#666666] text-lg leading-relaxed mb-6" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
                                 {services[4].desc}
                             </p>
@@ -318,10 +324,10 @@ export default function ServiceSection() {
                                                 </linearGradient>
                                             </defs>
                                         </svg>
-                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{stroke: 'url(#iconGradient5)'}} strokeWidth={2} />
+                                        <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 relative" style={{ stroke: 'url(#iconGradient5)' }} strokeWidth={2} />
                                     </div>
                                 </div>
-                                <div className="h-[1.5px] w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
+                                <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
                             </div>
                         </div>
                     </div>
