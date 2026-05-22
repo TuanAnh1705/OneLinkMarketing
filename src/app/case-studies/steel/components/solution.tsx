@@ -1,42 +1,11 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Image from "next/image"
 
-// Component ParallaxImage độc lập (giữ nguyên)
-function ParallaxStrong({
-    src,
-    alt,
-    className,
-}: {
-    src: string
-    alt: string
-    className?: string
-}) {
-    const ref = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    })
-
-    // biên độ mạnh
-    const y = useTransform(scrollYProgress, [0, 1], ["-25%", "25%"])
-
+function ParallaxStrong({ src, alt, className }: { src: string; alt: string; className?: string }) {
     return (
-        <div ref={ref} className={`relative overflow-hidden bg-transparent rounded-3xl ${className}`}>
-            <motion.div
-                style={{ y }}
-                className="relative w-full h-[150%] -top-[25%] will-change-transform"
-            >
-                <Image
-                    src={src}
-                    alt={alt}
-                    fill
-                    className="object-cover"
-                    priority
-                />
-            </motion.div>
+        <div className={`relative overflow-hidden bg-transparent rounded-3xl ${className}`}>
+            <Image src={src} alt={alt} fill className="object-cover" priority />
         </div>
     )
 }

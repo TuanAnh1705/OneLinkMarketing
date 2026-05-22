@@ -35,17 +35,17 @@ export function CoreValuesSection() {
                     {coreValuesData.map((value) => (
                         <div
                             key={value.title}
-                            className="relative rounded-2xl overflow-hidden p-6 md:p-8 h-64 bg-linear-to-br from-[#0A4BE1] to-[#04205E]"
+                            className="relative rounded-2xl overflow-hidden p-6 md:p-8 h-64"
                         >
                             <div className="absolute inset-0">
                                 <Image
-                                    src={value.imageUrl}
-                                    alt={value.title}
+                                    src="/assets/core.png"
+                                    alt="background"
                                     fill
-                                    className="object-contain translate-x-[20%] -translate-y-[30%] scale-110 opacity-80"
+                                    className="object-fill"
                                 />
                             </div>
-                            <div className="absolute inset-0 bg-[#0074E5]/70"></div>
+                            <div className="absolute inset-0"></div>
                             <div className="relative z-10 flex flex-col justify-between h-full">
                                 <h3 className="archivo-expanded text-4xl md:text-5xl text-white font-bold">{value.title}</h3>
                                 <p className="generalsans-regular text-white text-base md:text-lg leading-snug">{value.description}</p>

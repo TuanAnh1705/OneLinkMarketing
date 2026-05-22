@@ -331,10 +331,10 @@ export default function Navbar() {
                           Work With Us
                         </p>
                         <a
-                          href="mailto:hello@onelinkmarketing.com"
+                          href="mailto:neil@onelinkmarketing.com"
                           className={`generalsans-regular text-sm hover:underline ${isDarkBg ? "text-white/80" : "text-[#0a0a1a]"}`}
                         >
-                          hello@onelinkmarketing.com
+                          neil@onelinkmarketing.com
                         </a>
                       </div>
                     </div>

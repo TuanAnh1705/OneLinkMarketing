@@ -230,8 +230,8 @@ export function ContactFormSection() {
                             <p className="text-[#000A1D] generalsans-regular leading-relaxed mb-4">
                                  Let’s start something together.
                             </p>
-                            <a href="mailto:hello@onelinkmarketing.com" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">
-                                hello@onelinkmarketing.com
+                            <a href="mailto:neil@onelinkmarketing.com" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">
+                                neil@onelinkmarketing.com
                             </a>
                         </div>
                         <div>

@@ -1,58 +1,31 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform, MotionValue, useSpring } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-// --- COMPONENT CON: UspItem ---
+
 const UspItem = ({
     item,
     index,
     total,
-    scrollYProgress,
 }: {
     item: { number: string; title: string; description: string }
     index: number
     total: number
-    scrollYProgress: MotionValue<number>
 }) => {
-    const smoothScroll = useSpring(scrollYProgress, {
-        stiffness: 150,
-        damping: 30,
-        mass: 0.3,
-    })
-
-    const delay = index * 0.1
-    const range = 0.2
-
-    const contentTranslateX = useTransform(smoothScroll, [delay, delay + range], ["70vw", "0vw"])
-    const contentOpacity = useTransform(smoothScroll, [delay, delay + range * 0.7], [0, 1])
-
-    const lineTranslateX = useTransform(smoothScroll, [delay + 0.05, delay + range], ["90vw", "0vw"])
-    const lineOpacity = useTransform(smoothScroll, [delay + 0.02, delay + 0.12], [0, 1])
-
     return (
         <div>
-            <motion.div
-                style={{ x: contentTranslateX, opacity: contentOpacity }}
-                className="flex items-start gap-8 py-10"
-            >
+            <div className="flex items-start gap-8 py-10">
                 <span className="archivo-expanded text-[#000000] text-xl md:text-3xl font-medium min-w-15">{item.number}</span>
                 <div className="flex-1 grid md:grid-cols-2 gap-8">
                     <h3 className="generalsans-regular text-[#000A1D] text-xl md:text-2xl font-medium">{item.title}</h3>
                     <p className="generalsans-regular text-sm md:text-sm text-gray-[#444444] leading-relaxed">{item.description}</p>
                 </div>
-            </motion.div>
+            </div>
 
-            {/* Chỉ hiển thị line nếu KHÔNG phải item cuối */}
             {index < total - 1 && (
-                <motion.div
+                <div
                     className="h-px w-full rounded-full"
-                    style={{
-                        background: "linear-gradient(90deg, #0074E5, #162660)",
-                        x: lineTranslateX,
-                        opacity: lineOpacity,
-                    }}
+                    style={{ background: "linear-gradient(90deg, #0074E5, #162660)" }}
                 />
             )}
         </div>
@@ -61,12 +34,6 @@ const UspItem = ({
 
 // --- COMPONENT CHÍNH ---
 export default function UspSectionForSocial() {
-    const containerRef = useRef<HTMLDivElement>(null)
-
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"],
-    })
 
     const uspItems = [
         {
@@ -97,7 +64,6 @@ export default function UspSectionForSocial() {
 
     return (
         <section
-            ref={containerRef}
             className="bg-white pt-10 pb-32 md:pt-12 md:pb-40 px-8 md:px-16 lg:px-24 overflow-x-hidden"
         >
             <div className="max-w-7xl mx-auto">
@@ -133,7 +99,6 @@ export default function UspSectionForSocial() {
                                     item={item}
                                     index={index}
                                     total={uspItems.length}
-                                    scrollYProgress={scrollYProgress}
                                 />
                             ))}
                         </div>

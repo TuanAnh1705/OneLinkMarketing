@@ -12,7 +12,7 @@ export default function SectionWork() {
                     style={{ fontFamily: "'Archivo Expanded', sans-serif" }}
                     className="text-center"
                 >
-                    <h2 className="text-[11vw] lg:text-[11vw] font-bold text-[#000A1D] leading-none tracking-tight">
+                    <h2 className="text-3xl md:text-6xl lg:text-7xl font-bold text-[#000A1D] leading-none tracking-tight">
                         OUR WORK
                     </h2>
                 </div>

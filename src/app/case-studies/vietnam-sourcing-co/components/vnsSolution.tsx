@@ -1,33 +1,11 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 
-// --- COMPONENT PARALLAX (Cho Charts/Data) ---
-function ParallaxStrong({
-    src,
-    alt,
-    className,
-    objectFit = "cover"
-}: {
-    src: string
-    alt: string
-    className?: string
-    objectFit?: "cover" | "contain"
-}) {
-    const ref = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    })
-    const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"])
-
+function ParallaxStrong({ src, alt, className, objectFit = "cover" }: { src: string; alt: string; className?: string; objectFit?: "cover" | "contain" }) {
     return (
-        <div ref={ref} className={`relative overflow-hidden bg-transparent ${className}`}>
-            <motion.div style={{ y }} className="relative w-full h-[130%] -top-[15%] will-change-transform">
-                <Image src={src} alt={alt} fill className={`object-${objectFit}`} />
-            </motion.div>
+        <div className={`relative overflow-hidden bg-transparent ${className}`}>
+            <Image src={src} alt={alt} fill className={`object-${objectFit}`} />
         </div>
     )
 }

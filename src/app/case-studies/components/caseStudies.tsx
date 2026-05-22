@@ -1,7 +1,7 @@
 "use client"
 
-import { motion, useSpring, useMotionValue } from "framer-motion"
-import { useRef, useState } from "react"
+import { motion } from "framer-motion"
+import { useRef } from "react"
 import Image from "next/image"
 // 🚀 FIX: Import Link để sử dụng
 import Link from "next/link"
@@ -73,35 +73,12 @@ const caseStudiesData: CaseStudyItem[][] = [
 
 export default function CaseStudies() {
     const section4Ref = useRef<HTMLDivElement>(null)
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-    const mouseX = useMotionValue(0)
-    const mouseY = useMotionValue(0)
-    const smoothX = useSpring(mouseX, { stiffness: 350, damping: 20 })
-    const smoothY = useSpring(mouseY, { stiffness: 350, damping: 20 })
 
     return (
         <motion.section
             ref={section4Ref}
             className="relative justify-center -mt-40 z-10 bg-white/0 pt-32 pb-32 px-4 sm:px-8 md:px-16 lg:px-24"
-            onMouseMove={(e) => {
-                mouseX.set(e.clientX)
-                mouseY.set(e.clientY)
-            }}
         >
-            <motion.div
-                className="fixed top-0 left-0 z-50 pointer-events-none hidden md:flex items-center justify-center rounded-4xl bg-[#FFFFFF] border-none text-[#444444] text-sm shadow-lg px-5 py-3"
-                style={{
-                    x: smoothX,
-                    y: smoothY,
-                    translateX: "-50%",
-                    translateY: "-50%",
-                    scale: hoveredIndex !== null ? 1.1 : 0,
-                }}
-                transition={{ type: "spring", stiffness: 250, damping: 20 }}
-            >
-                View Project
-            </motion.div>
-            
             <div className="max-w-7xl mx-auto">
                 <h2 className="archivo-expanded text-4xl sm:text-5xl md:text-6xl font-medium text-center text-[#000A1D] mb-12 md:mb-16">
                     Case Studies
@@ -112,9 +89,7 @@ export default function CaseStudies() {
                             {row.map((item, i) => (
                                 <Link key={i} href={item.href}>
                                     <motion.div
-                                        onMouseEnter={() => setHoveredIndex(rowIndex * 2 + i)}
-                                        onMouseLeave={() => setHoveredIndex(null)}
-                                        className={`text-left ${hoveredIndex === rowIndex * 2 + i ? "cursor-none" : "cursor-pointer"}`}
+                                        className="text-left cursor-pointer"
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         whileInView={{ scale: 1, opacity: 1 }}
                                         transition={{
@@ -125,7 +100,13 @@ export default function CaseStudies() {
                                         viewport={{ once: false, amount: 0.4 }}
                                     >
                                         <div className="relative w-full aspect-4/3 rounded-sm overflow-hidden border border-[#e5e5e5] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
-                                            <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
+                                            <motion.div
+                                                className="w-full h-full"
+                                                whileHover={{ scale: 1.05 }}
+                                                transition={{ duration: 0.5, ease: "easeOut" }}
+                                            >
+                                                <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
+                                            </motion.div>
                                         </div>
                                         <h3 className="mt-7 archivo-expanded font-medium text-xl text-[#000A1D]">{item.title}</h3>
                                         <p className="text-sm generalsans-regular text-[#444444]">{item.year}</p>

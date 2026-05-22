@@ -1,44 +1,11 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform} from "framer-motion"
 import Image from "next/image"
 
-// Component ParallaxImage độc lập (giữ nguyên)
-function ParallaxStrong({
-    src,
-    alt,
-    className,
-}: {
-    src: string
-    alt: string
-    className?: string
-}) {
-    const ref = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    })
-
-    // Tăng biên độ từ 10% lên 25% để thấy rõ chuyển động
-    const y = useTransform(scrollYProgress, [0, 1], ["-25%", "25%"])
-
+function ParallaxStrong({ src, alt, className }: { src: string; alt: string; className?: string }) {
     return (
-        // bg-transparent để không lộ khung trắng/xám
-        <div ref={ref} className={`relative overflow-hidden bg-transparent rounded-3xl ${className}`}>
-            {/* Tăng chiều cao ảnh lên 150% và top -25% để bù trừ cho quãng đường di chuyển dài hơn */}
-            <motion.div 
-                style={{ y }} 
-                className="relative w-full h-[150%] -top-[25%] will-change-transform"
-            >
-                <Image
-                    src={src}
-                    alt={alt}
-                    fill
-                    className="object-cover"
-                    priority
-                />
-            </motion.div>
+        <div className={`relative overflow-hidden bg-transparent rounded-3xl ${className}`}>
+            <Image src={src} alt={alt} fill className="object-cover" priority />
         </div>
     )
 }
@@ -92,13 +59,9 @@ export default function ChallengeSection() {
                 </div>
             </section>
 
-            {/* Parallax Grid Section */}
-            <section
-                className="relative -mt-36 md:-mt-72 h-[1400px] lg:h-[1800px] w-full"
-            >
-                <div className="container mx-auto px-6 h-full flex items-center">
-                    
-                    {/* ✅ SỬA ĐỔI: Quay lại grid 2 cột [3fr_2fr] trên desktop */}
+            {/* Image Grid Section */}
+            <section className="container mx-auto px-6 pb-16">
+                <div>
                     <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 lg:gap-6">
 
                         <ParallaxStrong

@@ -1,42 +1,11 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Image from "next/image"
 
-// Component ParallaxImage độc lập (giữ nguyên)
-function ParallaxStrong({
-    src,
-    alt,
-    className,
-}: {
-    src: string
-    alt: string
-    className?: string
-}) {
-    const ref = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    })
-
-    // biên độ mạnh
-    const y = useTransform(scrollYProgress, [0, 1], ["-25%", "25%"])
-
+function ParallaxStrong({ src, alt, className }: { src: string; alt: string; className?: string }) {
     return (
-        <div ref={ref} className={`relative overflow-hidden bg-transparent rounded-3xl ${className}`}>
-            <motion.div
-                style={{ y }}
-                className="relative w-full h-[150%] -top-[25%] will-change-transform"
-            >
-                <Image
-                    src={src}
-                    alt={alt}
-                    fill
-                    className="object-cover"
-                    priority
-                />
-            </motion.div>
+        <div className={`relative overflow-hidden bg-transparent rounded-3xl ${className}`}>
+            <Image src={src} alt={alt} fill className="object-cover" priority />
         </div>
     )
 }
@@ -86,9 +55,9 @@ export default function ChallengeSection() {
                 </div>
             </section>
 
-            {/* Parallax Grid Section */}
-            <section className="relative -mt-72 lg:-mt-72 h-[1400px] lg:h-[1800px] w-full">
-                <div className="container mx-auto px-6 h-full flex items-center">
+            {/* Image Grid Section */}
+            <section className="container mx-auto px-6 pb-16">
+                <div>
                     <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 lg:gap-6">
 
                         <ParallaxStrong

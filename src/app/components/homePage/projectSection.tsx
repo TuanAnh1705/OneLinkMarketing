@@ -1,18 +1,12 @@
 "use client"
 
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion"
-import { useRef, useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function SectionProjects() {
   const section4Ref = useRef<HTMLDivElement>(null)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  // Đã điều chỉnh stiffness và damping để di chuyển nhanh hơn
-  const smoothX = useSpring(mouseX, { stiffness: 350, damping: 20 }) // Tăng stiffness, giảm damping
-  const smoothY = useSpring(mouseY, { stiffness: 350, damping: 20 }) // Tăng stiffness, giảm damping
 
   const { scrollYProgress } = useScroll({ target: section4Ref, offset: ["start end", "center start"] })
   const buttonOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1])
@@ -20,48 +14,24 @@ export default function SectionProjects() {
 
   return (
     <motion.section
-  ref={section4Ref}
-  className="relative justify-center bg-white py-10 px-4 md:px-16 lg:px-24 md:-mt-15"
-  onMouseMove={(e) => {
-    mouseX.set(e.clientX)
-    mouseY.set(e.clientY)
-  }}
->
-      {/* Custom cursor */}
-      <motion.div
-        className="generalsans-regular fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center rounded-4xl bg-[#FFFFFF] border-none text-[#444444] text-sm shadow-lg px-5 py-3"
-        style={{
-          x: smoothX,
-          y: smoothY,
-          translateX: "-50%",
-          translateY: "-50%",
-          scale: hoveredIndex !== null ? 1.1 : 0,
-        }}
-        // Bạn cũng có thể điều chỉnh transition cho scale ở đây nếu muốn nó xuất hiện/biến mất nhanh hơn
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      >
-        View Project
-      </motion.div>
-
+      ref={section4Ref}
+      className="relative justify-center bg-white py-10 px-4 md:px-16 lg:px-24 md:-mt-15"
+    >
       {/* grid ảnh */}
       <div className="max-w-7xl mx-auto flex flex-col gap-20">
         {[
           [
-            { src: "/assets/tag1.png", title: "Tag. Fitness",year:"2025", href: "/case-studies/tag" },
-            { src: "/assets/steel.png", title: "Steel Works Seattle",year:"2025", href: "/case-studies/steel" },
-            { src: "/assets/cns1.png", title: "China Sourcing Co",year:"2025", href: "/case-studies/china-sourcing-co" },
-            { src: "/assets/vns1.png", title: "Vietnam Sourcing Co",year:"2023", href: "/case-studies/vietnam-sourcing-co" },
+            { src: "/assets/tag1.png", title: "Tag. Fitness", year: "2025", href: "/case-studies/tag" },
+            { src: "/assets/steel.png", title: "Steel Works Seattle", year: "2025", href: "/case-studies/steel" },
+            { src: "/assets/cns1.png", title: "China Sourcing Co", year: "2025", href: "/case-studies/china-sourcing-co" },
+            { src: "/assets/vns1.png", title: "Vietnam Sourcing Co", year: "2023", href: "/case-studies/vietnam-sourcing-co" },
           ],
         ].map((row, rowIndex) => (
           <div key={rowIndex} className="grid md:grid-cols-2 gap-16">
             {row.map((item, i) => (
-              // 💡 (1) BỌC BẰNG LINK VÀ DÙNG item.href
               <Link key={i} href={item.href}>
                 <motion.div
-                  // 💡 (2) KEY ĐÃ CHUYỂN LÊN <Link>
-                  onMouseEnter={() => setHoveredIndex(rowIndex * 2 + i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className={`text-left ${hoveredIndex === rowIndex * 2 + i ? "cursor-none" : ""}`} // 👈 Xóa 'cursor-pointer' vì Link đã xử lý
+                  className="text-left cursor-pointer"
                   initial={{ scale: 0.9, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{
@@ -72,7 +42,13 @@ export default function SectionProjects() {
                   viewport={{ once: false, amount: 0.4 }}
                 >
                   <div className="relative w-full aspect-4/3 rounded-sm overflow-hidden border border-[#e5e5e5] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
-                    <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
+                    <motion.div
+                      className="w-full h-full"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                    >
+                      <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
+                    </motion.div>
                   </div>
                   <h3 className="mt-7 archivo-expanded font-medium text-xl text-[#000A1D]">{item.title}</h3>
                   <p className="text-sm generalsans-regular text-[#444444]">{item.year}</p>
