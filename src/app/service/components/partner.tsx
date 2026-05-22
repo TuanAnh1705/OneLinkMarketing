@@ -83,7 +83,7 @@ export function PartnerSection() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
 
           {/* Ảnh */}
-          <div className="relative h-[280px] md:h-[550px] overflow-hidden bg-white shadow-[0_8px_40px_rgba(0,0,0,0.10)]">
+          <div className="relative h-[280px] md:h-[500px] bg-none p-4">
             <Image
               src="/assets/6.png"
               alt="Team"
@@ -157,7 +157,7 @@ function MetricColumn({ value, label }: { value: string; label: string }) {
 
   return (
     <div
-      className="flex flex-col justify-between p-6 md:p-8 bg-white shadow-[0_8px_40px_rgba(0,0,0,0.10)] h-[200px] md:h-[550px] cursor-default"
+      className="flex flex-col justify-between p-6 md:p-8 bg-white shadow-[0_8px_40px_rgba(0,0,0,0.10)] h-[200px] md:h-[500px] cursor-default"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

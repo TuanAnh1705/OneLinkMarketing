@@ -186,7 +186,7 @@ export default function Navbar() {
             className="hidden lg:flex fixed top-4 left-0 right-0 z-50 justify-center px-4 pointer-events-none"
           >
             <div
-              className="w-full max-w-xs rounded-xl overflow-hidden pointer-events-auto"
+              className="w-full max-w-sm rounded-xl overflow-hidden pointer-events-auto"
               style={{
                 background: "rgba(255, 255, 255, 0.22)",
                 backdropFilter: "blur(24px) saturate(160%)",
@@ -195,7 +195,7 @@ export default function Navbar() {
               }}
             >
               {/* Top bar */}
-              <div className="flex items-center justify-between px-5 py-3">
+              <div className="flex items-center justify-between gap-5 px-5 py-3">
                 <Link href="/" onClick={() => setMenuOpen(false)}>
                   <Image
                     src={isDarkBg ? "/assets/logoWhite.png" : "/assets/logo.png"}
@@ -205,6 +205,28 @@ export default function Navbar() {
                     className="h-10 w-auto transition-opacity duration-200"
                     priority
                   />
+                </Link>
+
+                <Link href="/contact" onClick={() => setMenuOpen(false)}>
+                  <button className={`relative overflow-hidden px-6 py-2 rounded-xl generalsans-regular text-sm transition-colors duration-300 group ${
+                    isDarkBg
+                      ? "bg-white text-[#162660]"
+                      : "bg-linear-to-r from-[#0074E5] to-[#162660] text-white"
+                  }`}>
+                    <span className={`relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 ${
+                      isDarkBg ? "group-hover:text-white" : "group-hover:text-[#162660]"
+                    }`}>
+                      Let&apos;s Talk
+                    </span>
+                    <span className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] rounded-xl z-10 ${
+                      isDarkBg
+                        ? "bg-linear-to-r from-[#0074E5] to-[#162660]"
+                        : "bg-white"
+                    }`} />
+                    <span className={`absolute inset-0 rounded-xl border border-transparent transition-colors duration-300 z-10 pointer-events-none ${
+                      isDarkBg ? "group-hover:border-[#0074E5]" : "group-hover:border-[#444444]"
+                    }`} />
+                  </button>
                 </Link>
 
                 <button
