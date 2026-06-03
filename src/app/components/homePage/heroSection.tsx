@@ -5,9 +5,9 @@ import Image from "next/image"
 
 export default function SectionHero() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 pt-20 relative z-10 overflow-hidden">
+    <section className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 pt-0 sm:pt-20 relative z-10 overflow-hidden">
       {/* Logo trắng góc trái — chỉ hiện trên mobile */}
-      <div className="lg:hidden absolute top-6 left-5 z-20">
+      <div className="lg:hidden absolute top-12 left-5 z-20">
         <Image
           src="/assets/logoWhite.png"
           alt="Onelink Marketing"
@@ -61,7 +61,7 @@ export default function SectionHero() {
       </motion.div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10">
+      <div className="absolute bottom-14 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10">
         <span className="generalsans-regular text-white/50 text-xs tracking-widest uppercase">
           scroll to explore
         </span>

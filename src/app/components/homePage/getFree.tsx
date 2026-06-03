@@ -56,7 +56,7 @@ export default function GetAFree() {
     // Đã xóa các biến marqueeItems vì không cần dùng vòng lặp nữa
 
     return (
-        <section className="relative flex flex-col items-center justify-center py-20 md:py-42 space-y-16 overflow-hidden">
+        <section className="relative flex flex-col items-center justify-center md:translate-y-0 -translate-y-25 py-35 md:py-42 space-y-16 overflow-hidden">
             
             {/* ======= Main Button ======= */}
             <Link href="/contact">

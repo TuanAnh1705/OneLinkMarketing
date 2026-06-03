@@ -91,6 +91,26 @@ export default function Page() {
                 </div>
             </div>
 
+            {/* Mobile only: static list, no animation */}
+            <div className="lg:hidden pb-12 pt-8">
+                {timelineItems.map((item, index) => (
+                    <div key={index} className="flex items-start gap-4 py-5">
+                        <span className="w-3 h-3 bg-[#0074E5] shrink-0 mt-2" />
+                        <span className="text-sm font-medium pt-0.5 shrink-0 w-6 text-[#000A1D]">
+                            {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                            <h3 className="generalsans-light text-2xl font-semibold text-[#000A1D] mb-2">
+                                {item.title}
+                            </h3>
+                            <p className="generalsans-regular text-sm leading-relaxed text-[#444444]">
+                                {item.description}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             {/*
              * Wrapper cao totalItems * 100vh → tạo scroll space để section pin bên trong.
              * Khi user scroll qua wrapper, section sticky ở top:0 và activeIndex
@@ -99,7 +119,7 @@ export default function Page() {
             <div
                 ref={wrapperRef}
                 style={{ height: `${(totalItems + 1) * SCROLL_PER_ITEM_VH}vh` }}
-                className="relative"
+                className="relative hidden lg:block"
             >
                 <section className="sticky top-0 h-screen">
                     <div className="mx-auto max-w-7xl h-full flex items-center px-4 md:px-8 lg:px-16">

@@ -371,7 +371,7 @@ export default function Navbar() {
       {/* ══════════════════════════════════════════
           MOBILE: hamburger button — fixed top-right, always visible
       ══════════════════════════════════════════ */}
-      <div className="lg:hidden fixed top-4 right-4 z-50">
+      <div className="lg:hidden fixed top-10 right-4 z-50">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" className="relative p-0.5 rounded-full bg-white border-none shadow-sm hover:shadow-md transition-all">
