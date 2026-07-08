@@ -4,13 +4,15 @@ import { useState, useEffect, useRef } from "react"
 import { motion, useMotionValue, useAnimationFrame, useVelocity } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
+import type { OurStorySection } from "@vns-core/core/types/about"
 
 interface GalleryImage {
     src: string
     alt: string
 }
 
-const galleryImageData: GalleryImage[] = [
+const FALLBACK_GALLERY: GalleryImage[] = [
     { src: "/assets/ab1.jpg", alt: "Image 1" },
     { src: "/assets/ab2.png", alt: "Image 2" },
     { src: "/assets/ab3.jpg", alt: "Image 3" },
@@ -140,9 +142,10 @@ function CarouselRow({
                             src={image.src}
                             alt={image.alt}
                             fill
+                            sizes="(max-width: 768px) 300px, 500px"
                             className="object-cover pointer-events-none"
                             draggable={false}
-                            priority={index < 8}
+                            loading="lazy"
                         />
                     </div>
                 ))}
@@ -151,7 +154,16 @@ function CarouselRow({
     )
 }
 
-export function StorySection() {
+export function StorySection({ data }: { data?: OurStorySection | null }) {
+    const heading = data?.heading || "Our Story and History"
+    const paragraph = data?.paragraph ||
+        "Traditional marketing teams are costly, inefficient, and difficult to scale. OneLink replaces this with a streamlined model combining a Vietnam based delivery team, native English speaking account management, and structured processes to deliver more output at significantly lower cost without sacrificing quality."
+    const buttonLabel = data?.buttonLabel || "Explore Services"
+    const buttonHref = data?.buttonHref || "/service"
+    const galleryImageData: GalleryImage[] = data?.gallery?.length
+        ? data.gallery.map((img) => ({ src: getMediaUrl(img.url), alt: img.alternativeText || img.name }))
+        : FALLBACK_GALLERY
+
     const topRowImages = galleryImageData.filter((_, i) => i % 2 === 0)
     const bottomRowImages = galleryImageData.filter((_, i) => i % 2 === 1)
 
@@ -161,22 +173,22 @@ export function StorySection() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                     <div className="flex items-start">
                         <h2 className="archivo-expanded text-3xl md:text-5xl font-medium text-[#000A1D] leading-tight">
-                            Our Story <br /> and History
+                            {heading}
                         </h2>
                     </div>
                     <div className="generalsans-regular text-[#444444] text-sm md:text-lg leading-relaxed space-y-6">
                         <p>
-                            Traditional marketing teams are costly, inefficient, and difficult to scale. OneLink replaces this with a streamlined model combining a Vietnam based delivery team, native English speaking account management, and structured processes to deliver more output at significantly lower cost without sacrificing quality.
+                            {paragraph}
                         </p>
 
                         <motion.div
                             transition={{ type: "spring", stiffness: 300 }}
                             className="inline-block mt-4"
                         >
-                            <Link href="/service">
+                            <Link href={buttonHref}>
                                 <button className="relative overflow-hidden px-4 py-3 rounded-full font-medium text-sm group border border-slate-400">
                                     <span className="generalsans-regular relative z-30 text-white group-hover:text-slate-700 transition-colors duration-300">
-                                        Explore Services
+                                        {buttonLabel}
                                     </span>
                                     <span
                                         className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] rounded-full z-20"

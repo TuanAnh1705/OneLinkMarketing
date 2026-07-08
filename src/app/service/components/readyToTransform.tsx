@@ -4,6 +4,7 @@
 import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link" // 👈 1. IMPORT LINK
+import type { ReadyToTransformSection } from "@vns-core/core/types/service"
 
 // ===================================================================
 // BẮT ĐẦU CODE RESPONSIVE (Copy từ code mẫu của bạn)
@@ -60,26 +61,32 @@ function useMediaQuery(query: string): boolean {
 // ===================================================================
 
 
-export default function ReadyToTransform() {
+export default function ReadyToTransform({ data }: { data?: ReadyToTransformSection | null }) {
     const containerRef = useRef<HTMLDivElement>(null)
 
     // 3. 🚀 SỬ DỤNG HOOK
     const isMobile = useMediaQuery("(max-width: 767px)")
 
+    const title = data?.title || "Ready to Transform Your Brand?"
+    const subtitle = data?.subtitle || "Start your transformation journey with us today."
+    const lineOne = data?.lineOne || "GET A FREE CONSULTATION"
+    const lineTwo = data?.lineTwo || "GO"
+    const buttonHref = data?.buttonHref || "/contact"
+
     return (
         <section className="relative flex flex-col items-center justify-center min-h-fit py-24 md:h-screen -mt-10 md:-mt-[20vh] space-y-5 overflow-hidden bg-white/0 md:-mb-35">
             <div className="mb-16">
                 <h1 className="archivo-expanded text-3xl md:text-6xl font-medium text-center tracking-wider text-[#000A1D] mb-2">
-                    Ready to Transform Your Brand?
+                    {title}
                 </h1>
                 <p className="generalsans-regular text-[#000A1D] text-center text-md md:text-2xl max-w-3xl mx-auto leading-relaxed py-8">
-                    Start your transformation journey with us today.
+                    {subtitle}
                 </p>
             </div>
 
             {/* ======= Main Button ======= */}
             {/* 👇 2. BỌC TOÀN BỘ NÚT BẰNG LINK TỚI /CONTACT 👇 */}
-            <Link href="/contact">
+            <Link href={buttonHref}>
                 <motion.div
                     ref={containerRef}
                     className="inline-flex flex-col items-center gap-4 cursor-pointer -translate-y-24 md:-translate-y-8"
@@ -102,11 +109,11 @@ export default function ReadyToTransform() {
                         >
                             {/* 5. 🚀 THAY ĐỔI: Cỡ chữ (text-xl) và line-height responsive */}
                             <div className="archivo-expanded text-xl md:text-6xl font-bold bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent leading-20 md:leading-30 whitespace-nowrap">
-                                GET A FREE CONSULTATION
+                                {lineOne}
                             </div>
                             {/* 6. 🚀 THAY ĐỔI: Cỡ chữ (text-4xl) và line-height responsive */}
                             <div className="archivo-expanded text-4xl md:text-7xl font-bold bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent leading-20 md:leading-30">
-                                GO
+                                {lineTwo}
                             </div>
                         </motion.div>
                     </div>

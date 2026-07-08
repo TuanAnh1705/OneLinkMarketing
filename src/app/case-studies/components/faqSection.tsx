@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import type { CspFaqSection } from "@vns-core/core/types/case-study-page"
 
 // 🔹 Gradient line
 function GradientLine() {
@@ -13,7 +14,7 @@ function GradientLine() {
   )
 }
 
-// 🔹 Dữ liệu FAQ
+// 🔹 Dữ liệu FAQ mặc định (fallback khi Strapi null)
 const faqData = [
   {
     id: "01",
@@ -46,9 +47,19 @@ const faqData = [
   },
 ]
 
-export default function FaqAccordion() {
+export default function FaqAccordion({ data }: { data?: CspFaqSection | null }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const toggleItem = (index: number) => setOpenIndex(openIndex === index ? null : index)
+
+  const heading = data?.heading ?? "FAQ’s"
+  const items =
+    data?.items && data.items.length > 0
+      ? data.items.map((it, i) => ({
+          id: String(i + 1).padStart(2, "0"),
+          question: it.question,
+          answer: it.answer,
+        }))
+      : faqData
 
   return (
     <div className="relative w-full z-20">
@@ -57,14 +68,14 @@ export default function FaqAccordion() {
         <div className="relative mb-12">
           <GradientLine />
           <h1 className="archivo-expanded py-12 text-center font-serif text-4xl font-medium tracking-wide text-[#000A1D] md:text-5xl">
-            FAQ’s
+            {heading}
           </h1>
           <GradientLine />
         </div>
 
         {/* --- FAQ LIST --- */}
         <div className="divide-y divide-transparent">
-          {faqData.map((item, index) => (
+          {items.map((item, index) => (
             <div key={item.id} className="relative">
               {/* Nút câu hỏi */}
               <button
@@ -120,7 +131,7 @@ export default function FaqAccordion() {
                 )}
               </AnimatePresence>
 
-              {index < faqData.length - 1 && <GradientLine />}
+              {index < items.length - 1 && <GradientLine />}
             </div>
           ))}
         </div>

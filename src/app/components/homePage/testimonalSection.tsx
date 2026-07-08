@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import { motion, PanInfo, useMotionValue, useAnimationFrame } from "framer-motion"
 import { FaQuoteLeft, FaArrowLeft, FaArrowRight } from "react-icons/fa"
 import Image from "next/image"
+import type { TestimonialsSection } from "@vns-core/core/types/homepage"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
 
 // ===================================================================
 // TYPESCRIPT TYPES & DATA
@@ -22,7 +24,7 @@ type Logo = {
     src: string
 }
 
-const testimonials: Testimonial[] = [
+const FALLBACK_TESTIMONIALS: Testimonial[] = [
     {
         text: "Partnering with OneLink Marketing was the best decision we made for our launch. We came to them with an idea, and they built our entire D2C platform from scratch. The results are phenomenal—our conversion rates are 110% above the industry benchmark, and our site is exceptionally fast. They didn't just build a website; they built the foundation of our business.",
         author: "Elliot Dyke",
@@ -53,7 +55,7 @@ const testimonials: Testimonial[] = [
     },
 ]
 
-const logos: Logo[] = [
+const FALLBACK_LOGOS: Logo[] = [
     { name: "Google Analytics", src: "/assets/google-analytics.svg" },
     { name: "Figma", src: "/assets/figma.svg" },
     { name: "WordPress", src: "/assets/wordpress.svg" },
@@ -102,7 +104,28 @@ const cardVariants = {
     },
 }
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ data }: { data?: TestimonialsSection | null }) {
+    const headingLine1 = data?.headingLine1 || "What Our Clients Say"
+    const headingHighlight = data?.headingHighlight || "About Our Work"
+    // Text/author/role come from Strapi; avatar + card style fall back to the design
+    // (Strapi avatars aren't uploaded yet and isSquare isn't set for visual intent).
+    const testimonials: Testimonial[] = data?.items?.length
+        ? data.items.map((it, i) => ({
+              text: it.text,
+              author: it.author,
+              role: it.role,
+              isSquare: FALLBACK_TESTIMONIALS[i]?.isSquare ?? it.isSquare,
+              avatarSrc: it.avatar?.url ? getMediaUrl(it.avatar.url) : (FALLBACK_TESTIMONIALS[i]?.avatarSrc ?? "/assets/avatar-1.png"),
+          }))
+        : FALLBACK_TESTIMONIALS
+
+    // Logos marquee from Strapi; fall back to the built-in set if Strapi has no logos
+    // (or their images aren't populated yet), so the marquee is never empty.
+    const strapiLogos: Logo[] = (data?.logos ?? [])
+        .map((l) => ({ name: l.name, src: l.image?.url ? getMediaUrl(l.image.url) : "" }))
+        .filter((l) => l.src)
+    const logos: Logo[] = strapiLogos.length ? strapiLogos : FALLBACK_LOGOS
+
     const [currentIndex, setCurrentIndex] = useState(0)
 
     const handleNext = () => {
@@ -191,7 +214,7 @@ export default function TestimonialsSection() {
         <section className="relative bg-[#000A1D] text-white w-full overflow-hidden py-20 md:py-28 z-10 flex flex-col items-center justify-center">
             <div className="container mx-auto px-6 lg:px-8 flex flex-col items-center justify-center">
                 <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium generalsans-regular text-center text-white leading-tight mb-16 sm:mb-24 max-w-4xl mx-auto">
-                    What Our Clients Say <br /> <span className="italic font-bold">About Our Work</span>
+                    {headingLine1} <br /> <span className="italic font-bold">{headingHighlight}</span>
                 </h2>
 
                 <div className="relative w-full max-w-5xl h-112.5 sm:h-100 flex items-center justify-center">
@@ -239,6 +262,7 @@ export default function TestimonialsSection() {
                                                 src={testimonial.avatarSrc}
                                                 alt={testimonial.author}
                                                 fill
+                                                sizes="48px"
                                                 className="object-cover"
                                             />
                                         </div>
@@ -315,6 +339,7 @@ export default function TestimonialsSection() {
                                         alt={logo.name}
                                         width={70}
                                         height={70}
+                                        unoptimized
                                         className="object-contain w-full h-full pointer-events-none"
                                         draggable={false}
                                         style={{ filter: 'brightness(0) invert(1)' }}

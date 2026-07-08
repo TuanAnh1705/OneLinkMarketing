@@ -2,35 +2,47 @@
 
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import type { ServicesSection } from "@vns-core/core/types/homepage"
 
-export default function ServiceSection() {
-    const services = [
-        {
-            title: "Strategy Consulting",
-            desc: "Laying the strategic foundation with brand audits and market research.",
-            href: "/service/strategy-consulting"
-        },
-        {
-            title: "Digital Asset Development",
-            desc: "Building your core brand identity and creating SEO/UX-optimized websites.",
-            href: "/service/digital-asset-development"
-        },
-        {
-            title: "Search Engine Optimization",
-            desc: "Driving organic traffic and sustainable growth with on-page and off-page SEO.",
-            href: "/service/seo-services"
-        },
-        {
-            title: "Paid Media & Advertising",
-            desc: "Optimizing multi-channel ad campaigns for maximum ROI and lead generation.",
-            href: "/service/paid-media-advertising"
-        },
-        {
-            title: "Social Media Management",
-            desc: "Building and engaging your community with consistent and high-quality content.",
-            href: "/service/social-media-management"
-        },
-    ]
+const FALLBACK_SERVICES = [
+    {
+        title: "Strategy Consulting",
+        desc: "Laying the strategic foundation with brand audits and market research.",
+        href: "/strategy-consulting"
+    },
+    {
+        title: "Digital Asset Development",
+        desc: "Building your core brand identity and creating SEO/UX-optimized websites.",
+        href: "/digital-asset-development"
+    },
+    {
+        title: "Search Engine Optimization",
+        desc: "Driving organic traffic and sustainable growth with on-page and off-page SEO.",
+        href: "/search-engine-optimization"
+    },
+    {
+        title: "Paid Media & Advertising",
+        desc: "Optimizing multi-channel ad campaigns for maximum ROI and lead generation.",
+        href: "/paid-media-&-advertising"
+    },
+    {
+        title: "Social Media Management",
+        desc: "Building and engaging your community with consistent and high-quality content.",
+        href: "/social-media-management"
+    },
+]
+
+export default function ServiceSection({ data }: { data?: ServicesSection | null }) {
+    const services = data?.items?.length
+        ? data.items.map((it) => ({ title: (it.title || "").trim(), desc: it.description, href: it.href }))
+        : FALLBACK_SERVICES
+    const titlePlain1 = data?.titlePlain1 || "From"
+    const titleHighlight1 = data?.titleHighlight1 || "Strategy"
+    const titlePlain2 = data?.titlePlain2 || "to"
+    const titleHighlight2 = data?.titleHighlight2 || "Performance Growth"
+    const sectionLabel = data?.sectionLabel || "Our Services"
+    const ctaLabel = data?.ctaLabel || "Discover"
+    const [labelHead, ...labelRest] = sectionLabel.split(" ")
 
     return (
         <section className="bg-white py-16 md:py-10 -mt-10 md:-mt-10 px-4 sm:px-8 md:px-16 lg:px-24">
@@ -41,17 +53,17 @@ export default function ServiceSection() {
                     style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}
                 >
                     <span className="text-[#0074E5]">
-                        From
+                        {titlePlain1}
                     </span>
                     <span className="text-[#000A1D] font-bold italic">
-                        Strategy
+                        {titleHighlight1}
                     </span>
                     <span className="text-[#0074E5]">
-                        {" "}to
+                        {" "}{titlePlain2}
                     </span>
                     <br />
                     <span className="text-[#000A1D] font-bold italic ">
-                        Performance Growth
+                        {titleHighlight2}
                     </span>
                 </h2>
             </div>
@@ -66,7 +78,7 @@ export default function ServiceSection() {
                             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-[#000A1D] leading-tight text-center lg:text-left"
                             style={{ fontFamily: "'Archivo Expanded', sans-serif" }}
                         >
-                            Our <span className="lg:block">Services</span>
+                            {labelHead} <span className="lg:block">{labelRest.join(" ")}</span>
                         </h3>
                     </div>
 
@@ -104,7 +116,7 @@ export default function ServiceSection() {
                             <div className=" w-fit mt-auto select-none">
                                 <div className="flex items-center gap-2">
                                     <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
-                                        Discover
+                                        {ctaLabel}
                                     </span>
                                     <div className="relative">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
@@ -156,7 +168,7 @@ export default function ServiceSection() {
                             <div className="w-fit mt-auto select-none">
                                 <div className="flex items-center gap-2">
                                     <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
-                                        Discover
+                                        {ctaLabel}
                                     </span>
                                     <div className="relative">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
@@ -209,7 +221,7 @@ export default function ServiceSection() {
                             <div className="w-fit mt-auto select-none">
                                 <div className="flex items-center gap-2">
                                     <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
-                                        Discover
+                                        {ctaLabel}
                                     </span>
                                     <div className="relative">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
@@ -261,7 +273,7 @@ export default function ServiceSection() {
                             <div className="w-fit mt-auto select-none">
                                 <div className="flex items-center gap-2">
                                     <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
-                                        Discover
+                                        {ctaLabel}
                                     </span>
                                     <div className="relative">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">
@@ -313,7 +325,7 @@ export default function ServiceSection() {
                             <div className="w-fit mt-auto select-none">
                                 <div className="flex items-center gap-2">
                                     <span className="font-medium bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent" style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}>
-                                        Discover
+                                        {ctaLabel}
                                     </span>
                                     <div className="relative">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="absolute inset-0 pointer-events-none">

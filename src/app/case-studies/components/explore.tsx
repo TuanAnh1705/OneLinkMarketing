@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link" // 🚀 1. IMPORT LINK TỪ NEXT/LINK
+import type { CspExploreSection } from "@vns-core/core/types/case-study-page"
 
 // ===================================================================
 // ... (Hook useMediaQuery của bạn không thay đổi)
@@ -58,22 +59,27 @@ const lineVariantsMobile = {
 }
 
 
-export default function ExploreSection() {
+export default function ExploreSection({ data }: { data?: CspExploreSection | null }) {
     const containerRef = useRef<HTMLDivElement>(null)
 
     const isMobile = useMediaQuery("(max-width: 767px)")
+
+    const heading = data?.heading ?? "Ready to Take the Next Step?"
+    const ctaLine1 = data?.ctaLine1 ?? "CONTACT US TODAY"
+    const ctaLine2 = data?.ctaLine2 ?? "GO"
+    const href = data?.href ?? "/contact"
 
     return (
         <section className="relative flex flex-col items-center justify-center h-screen -mt-80 -mb-50 md:-mb-50 md:-mt-80 space-y-5 overflow-hidden bg-white/0">
             <div className="mb-0">
                 <h1 className="archivo-expanded text-4xl md:text-6xl font-medium text-center tracking-wider text-[#000A1D] mb-2 px-4">
-                    Ready to Take the Next Step?
+                    {heading}
                 </h1>
             </div>
 
             {/* ======= Main Button ======= */}
             {/* 🚀 2. BỌC TOÀN BỘ NÚT BẰNG <Link> */}
-            <Link href="/contact">
+            <Link href={href}>
                 <motion.div
                     ref={containerRef}
                     className="inline-flex flex-col items-center gap-4 cursor-pointer mt-5"
@@ -92,10 +98,10 @@ export default function ExploreSection() {
                             transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
                         >
                             <div className="archivo-expanded text-2xl md:text-6xl font-bold bg-gradient-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent leading-[5rem] md:leading-[7.5rem] whitespace-nowrap">
-                                CONTACT US TODAY
+                                {ctaLine1}
                             </div>
                             <div className="archivo-expanded text-4xl md:text-7xl font-bold bg-gradient-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent leading-[5rem] md:leading-[7.5rem]">
-                                GO
+                                {ctaLine2}
                             </div>
                         </motion.div>
                     </div>

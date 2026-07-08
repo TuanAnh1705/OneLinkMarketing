@@ -1,8 +1,28 @@
 "use client"
 
 import Link from "next/link"
+import type { WorkSection as WorkSectionData } from "@vns-core/core/types/homepage"
 
-export default function SectionWork() {
+// Flatten Strapi Blocks rich-text into plain paragraph text.
+function blocksToText(blocks: unknown): string {
+    if (!Array.isArray(blocks)) return ""
+    return blocks
+        .map((b) => {
+            const children = (b as { children?: { text?: string }[] })?.children
+            return Array.isArray(children) ? children.map((c) => c?.text ?? "").join("") : ""
+        })
+        .join("\n\n")
+        .trim()
+}
+
+export default function SectionWork({ data }: { data?: WorkSectionData | null }) {
+    const title = data?.title || "OUR WORK"
+    const description =
+        blocksToText(data?.description) ||
+        "We are Onelink Marketing – uniting strategy, creativity, and technical execution to transform bold ideas into lasting impact. Our experienced international team delivers global quality with a superior price/performance ratio."
+    const buttonLabel = data?.buttonLabel || "Learn More About Us"
+    const buttonHref = data?.buttonHref || "/about"
+
     return (
         <section className="relative px-4 sm:px-8 md:px-16 lg:px-24 py-16 md:py-24">
             <div className="flex flex-col items-center justify-center gap-10 md:gap-12">
@@ -13,7 +33,7 @@ export default function SectionWork() {
                     className="text-center"
                 >
                     <h2 className="text-3xl md:text-6xl lg:text-7xl font-bold text-[#000A1D] leading-none tracking-tight">
-                        OUR WORK
+                        {title}
                     </h2>
                 </div>
 
@@ -25,7 +45,7 @@ export default function SectionWork() {
                         className="text-center w-full"
                     >
                         <p className="text-lg leading-relaxed text-[#444444]">
-                            We are <span className="font-bold">Onelink Marketing</span> – uniting strategy, creativity, and technical execution to transform bold ideas into lasting impact. Our experienced international team delivers global quality with a superior price/performance ratio.
+                            {description}
                         </p>
                     </div>
 
@@ -34,10 +54,10 @@ export default function SectionWork() {
                         style={{ fontFamily: "'GeneralSans Regular', sans-serif" }}
                         className="shrink-0"
                     >
-                        <Link href="/about">
+                        <Link href={buttonHref}>
                             <button className="relative overflow-hidden px-5 py-3.5 rounded-full text-xs md:text-sm text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                                 <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
-                                    Learn More About Us
+                                    {buttonLabel}
                                 </span>
                                 <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] rounded-full z-10"></span>
                                 <span className="absolute inset-0 rounded-full border border-transparent group-hover:border-[#444444] transition-colors duration-300 z-10 pointer-events-none"></span>

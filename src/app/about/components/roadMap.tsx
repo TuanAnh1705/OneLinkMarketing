@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import type { RoadmapSection as RoadmapSectionData } from "@vns-core/core/types/about"
 
 // --- Components Mũi tên ---
 function GradientArrowHorizontal() {
@@ -35,7 +36,7 @@ function GradientArrowVertical() {
     )
 }
 
-const roadmapData = [
+const FALLBACK_STEPS = [
     {
         title: "Strategic Foundation",
         subtitle: "Insight before action.",
@@ -58,12 +59,15 @@ const roadmapData = [
     },
 ]
 
-export function RoadmapSection() {
+export function RoadmapSection({ data }: { data?: RoadmapSectionData | null }) {
+    const heading = data?.heading || "Our 4-Step Roadmap to Sustainable Growth"
+    const roadmapData = data?.steps?.length ? data.steps : FALLBACK_STEPS
+
     return (
         <section className="bg-white py-20 md:py-32 px-8 md:-translate-y-30">
             <div className="max-w-7xl mx-auto">
                 <h2 className="archivo-expanded text-2xl md:text-5xl font-medium text-[#000A1D] text-center max-w-4xl mx-auto leading-tight mb-24">
-                    Our 4-Step Roadmap to <br/> Sustainable Growth
+                    {heading}
                 </h2>
 
                 {/* - lg:gap-x-12: Tạo khoảng cách ngang giữa Title và Mũi tên.

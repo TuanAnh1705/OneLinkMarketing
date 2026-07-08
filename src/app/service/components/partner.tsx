@@ -3,6 +3,8 @@
 import { useRef, useState } from "react"
 import { motion, useScroll, useInView } from "framer-motion"
 import Image from "next/image"
+import type { PartnerSection as PartnerSectionData } from "@vns-core/core/types/service"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
 
 // --- TYPES ---
 interface Feature {
@@ -11,12 +13,26 @@ interface Feature {
   description: string
 }
 
+interface Metric {
+  value: string
+  label: string
+}
+
 interface FeatureItemProps extends Feature {
   index: number
 }
 
-export function PartnerSection() {
+export function PartnerSection({ data }: { data?: PartnerSectionData | null }) {
   const whyWeAreRef = useRef<HTMLDivElement>(null)
+
+  const features: Feature[] = data?.features?.length
+    ? data.features.map((f) => ({ number: f.number, title: f.title, description: f.description }))
+    : FALLBACK_FEATURES
+  const metrics: Metric[] = data?.metrics?.length
+    ? data.metrics.map((m) => ({ value: m.value, label: m.label }))
+    : FALLBACK_METRICS
+  const imageSrc = data?.image?.url ? getMediaUrl(data.image.url) : "/assets/6.png"
+  const title = data?.title
 
   const { scrollYProgress: lineScrollProgress } = useScroll({
     target: whyWeAreRef,
@@ -36,7 +52,7 @@ export function PartnerSection() {
               {/* Left Column - Title */}
               <div className="lg:col-span-4">
                 <h2 className="archivo-expanded text-3xl md:text-4xl lg:text-5xl text-white font-medium leading-tight">
-                  Why We Are Your<br/> Ideal Partner?
+                  {title ? title : <>Why We Are Your<br/> Ideal Partner?</>}
                 </h2>
               </div>
 
@@ -85,7 +101,7 @@ export function PartnerSection() {
           {/* Ảnh */}
           <div className="relative h-[280px] md:h-[500px] bg-none p-4">
             <Image
-              src="/assets/6.png"
+              src={imageSrc}
               alt="Team"
               fill
               className="object-cover"
@@ -94,22 +110,28 @@ export function PartnerSection() {
           </div>
 
           {/* Metric columns */}
-          <MetricColumn value="327%+" label="Improvement in website traffic" />
-          <MetricColumn value="54%+"  label="Increase in lead conversion rates" />
-          <MetricColumn value="22%+"  label="Reduction in bounce rate" />
+          {metrics.map((metric, i) => (
+            <MetricColumn key={i} value={metric.value} label={metric.label} />
+          ))}
         </div>
       </div>
     </>
   )
 }
 
-// ================== DATA ==================
-const features: Feature[] = [
+// ================== FALLBACK DATA (build-safe when Strapi is unavailable) ==================
+const FALLBACK_FEATURES: Feature[] = [
   { number: "01", title: "Unified Marketing Strategy", description: "All channels and activities are aligned under one clear strategy, ensuring your marketing works together to drive stronger results and measurable growth." },
   { number: "02", title: "International Standard Delivery", description: "Our globally experienced team delivers marketing built for US, UK, and Australian markets, combining local understanding with international best practice." },
   { number: "03", title: "High Value Marketing Execution", description: "By operating from our Vietnam office, we deliver exceptional marketing output and expertise at a significantly more efficient cost." },
   { number: "04", title: "Evidence Led Decision Making", description: "Every recommendation is grounded in data, market insight, and performance analysis to ensure decisions are strategic, not speculative." },
   { number: "05", title: "Full Lifecycle Partnership", description: "From brand foundations to performance scaling, we work alongside you at every stage of growth as a long term marketing partner." },
+]
+
+const FALLBACK_METRICS: Metric[] = [
+  { value: "327%+", label: "Improvement in website traffic" },
+  { value: "54%+", label: "Increase in lead conversion rates" },
+  { value: "22%+", label: "Reduction in bounce rate" },
 ]
 
 // ================== SUB-COMPONENTS ==================

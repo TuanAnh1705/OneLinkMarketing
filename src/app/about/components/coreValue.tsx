@@ -1,33 +1,37 @@
 "use client"
 
 import Image from "next/image"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
+import type { CoreValuesSection as CoreValuesSectionData } from "@vns-core/core/types/about"
 
-const coreValuesData = [
+const FALLBACK_ITEMS = [
     {
         title: "Vision",
         description: "To be the trusted end-to-end partner for global brands seeking sustainable growth.",
-        imageUrl: "/assets/core1.png",
     },
     {
         title: "Mission",
         description:
             "To help every brand achieve a strong identity and superior performance, solving the problem of fragmented and ineffective solutions.",
-        imageUrl: "/assets/core2.png",
     },
     {
         title: "Value",
         description: "Excellence, Integrity, Partnership, and Innovation.",
-        imageUrl: "/assets/core3.png",
     },
 ]
 
-export function CoreValuesSection() {
+export function CoreValuesSection({ data }: { data?: CoreValuesSectionData | null }) {
+    const heading = data?.heading || "Our Core Values"
+    const coreValuesData = data?.items?.length ? data.items : FALLBACK_ITEMS
+    const cardBg = data?.cardBackground?.url ? getMediaUrl(data.cardBackground.url) : "/assets/core.png"
+    const bigImage = data?.image?.url ? getMediaUrl(data.image.url) : "/assets/ab8.png"
+
     return (
         <section className="bg-[#050B18] text-white py-20 md:py-32 px-6 md:px-8 overflow-hidden md:-translate-y-20">
             <div className="max-w-7xl mx-auto">
                 {/* ==================== CORE VALUES ==================== */}
                 <div className="text-center mb-20">
-                    <h2 className="archivo-expanded text-4xl sm:text-5xl md:text-7xl text-white font-medium">Our Core Values</h2>
+                    <h2 className="archivo-expanded text-4xl sm:text-5xl md:text-7xl text-white font-medium">{heading}</h2>
                 </div>
 
                 {/* --- 3 CARD --- */}
@@ -39,9 +43,10 @@ export function CoreValuesSection() {
                         >
                             <div className="absolute inset-0">
                                 <Image
-                                    src="/assets/core.png"
+                                    src={cardBg}
                                     alt="background"
                                     fill
+                                    sizes="(max-width: 768px) 100vw, 33vw"
                                     className="object-fill"
                                 />
                             </div>
@@ -58,11 +63,12 @@ export function CoreValuesSection() {
                 <div className="flex justify-center overflow-hidden -mt-16 lg:mt-0">
                     <div className="relative h-60 sm:h-137.5 lg:h-225 w-full max-w-7xl overflow-hidden">
                         <Image
-                            src="/assets/ab8.png"
+                            src={bigImage}
                             alt="Abstract background"
                             fill
+                            sizes="100vw"
                             className="object-cover object-[45%_center]"
-                            priority
+                            loading="lazy"
                         />
                     </div>
                 </div>

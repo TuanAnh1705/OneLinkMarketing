@@ -1,12 +1,15 @@
 "use client"
 
 import Image from "next/image"
+import type { BannerSection } from "@vns-core/core/types/homepage"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
 
-export default function AnimatedText() {
+export default function AnimatedText({ data }: { data?: BannerSection | null }) {
+    const bannerSrc = data?.image?.url ? getMediaUrl(data.image.url) : "/assets/banner.png"
     return (
         <section className="w-full relative -mt-40 -mb-40">
             <Image
-                src="/assets/banner.png"
+                src={bannerSrc}
                 alt="Banner"
                 width={1920}
                 height={600}

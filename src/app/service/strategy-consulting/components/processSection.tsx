@@ -2,6 +2,8 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import type { SdAdvantageSection } from "@vns-core/core/types/service-detail"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
 
 const UspItem = ({
     item,
@@ -33,34 +35,40 @@ const UspItem = ({
 }
 
 // --- COMPONENT CHÍNH ---
-export default function ProcessSection() {
+const FALLBACK_ITEMS = [
+    {
+        number: "01",
+        title: "Data-Driven Foundation",
+        description:
+            "Project timelines vary based on scope and complexity, but we always provide a clear timeline upfront.",
+    },
+    {
+        number: "02",
+        title: "Global Market Insight",
+        description:
+            "We understand the nuances of US, UK, and AU markets to give you a competitive edge.",
+    },
+    {
+        number: "03",
+        title: "Actionable Roadmaps",
+        description:
+            "We don't just provide reports; we deliver clear, step-by-step roadmaps that align with your business goals.",
+    },
+    {
+        number: "04",
+        title: "Holistic Perspective",
+        description:
+            "Our strategic approach considers every aspect of your brand and marketing ecosystem.",
+    },
+]
 
-    const uspItems = [
-        {
-            number: "01",
-            title: "Data-Driven Foundation",
-            description:
-                "Project timelines vary based on scope and complexity, but we always provide a clear timeline upfront.",
-        },
-        {
-            number: "02",
-            title: "Global Market Insight",
-            description:
-                "We understand the nuances of US, UK, and AU markets to give you a competitive edge.",
-        },
-        {
-            number: "03",
-            title: "Actionable Roadmaps",
-            description:
-                "We don't just provide reports; we deliver clear, step-by-step roadmaps that align with your business goals.",
-        },
-        {
-            number: "04",
-            title: "Holistic Perspective",
-            description:
-                "Our strategic approach considers every aspect of your brand and marketing ecosystem.",
-        },
-    ]
+export default function ProcessSection({ data }: { data?: SdAdvantageSection | null }) {
+
+    const uspItems = data?.items?.length ? data.items : FALLBACK_ITEMS
+    const heading = data?.heading || "Gain Your Strategic Advantage"
+    const imageSrc = data?.image?.url ? getMediaUrl(data.image.url) : "/assets/sv6.png"
+    const ctaLabel = data?.ctaLabel || "Contact Us"
+    const ctaHref = data?.ctaHref || "/contact"
 
     return (
         <section
@@ -68,15 +76,15 @@ export default function ProcessSection() {
         >
             <div className="max-w-7xl mx-auto">
                 <h2 className="archivo-expanded text-2xl md:text-5xl lg:text-6xl font-medium leading-tight mb-12 text-[#000A1D]">
-                    Gain Your Strategic Advantage
+                    {heading}
                 </h2>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
                     {/* Cột trái - Hình ảnh */}
                     <div className="lg:col-span-1">
                         <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px] ">
                             <Image
-                                src="/assets/sv6.png"
-                                alt="Strategic Advantage"
+                                src={imageSrc}
+                                alt={heading}
                                 fill
                                 className="object-contain"
                                 priority
@@ -106,11 +114,11 @@ export default function ProcessSection() {
 
                 {/* Nút CTA */}
                 <div className="flex justify-center mt-0 mb-10 md:-mb-10 md:mt-20">
-                    <Link href="/contact">
+                    <Link href={ctaHref}>
                         <button className="relative overflow-hidden px-5 py-3.5 rounded-full generalsans-regular text-sm text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                             {/* Lớp chữ trên cùng */}
                             <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
-                                Contact Us
+                                {ctaLabel}
                             </span>
 
                             {/* Nền trắng trượt lên */}

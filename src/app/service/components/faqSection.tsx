@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import type { FaqSection } from "@vns-core/core/types/service"
 
 // 🔹 Gradient line (mỏng, đều, di chuyển theo layout)
 function GradientLine() {
@@ -12,8 +13,8 @@ function GradientLine() {
   )
 }
 
-// 🔹 Dữ liệu FAQ
-const faqData = [
+// 🔹 Dữ liệu FAQ (fallback khi Strapi chưa có data)
+const FALLBACK_FAQ = [
   {
     id: "01",
     question: "How long does a typical project take?",
@@ -46,10 +47,15 @@ const faqData = [
   },
 ]
 
-export default function FaqAccordion() {
+export default function FaqAccordion({ data }: { data?: FaqSection | null }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const toggleItem = (index: number) =>
     setOpenIndex(openIndex === index ? null : index)
+
+  const faqData = data?.items?.length
+    ? data.items.map((it) => ({ id: it.number, question: it.question, answer: it.answer }))
+    : FALLBACK_FAQ
+  const title = data?.title || "Frequently Asked Questions"
 
   return (
     <div className="relative w-full z-20 mb-20 md:-mt-35 -mt-35">
@@ -58,7 +64,7 @@ export default function FaqAccordion() {
         <div className="relative mb-12">
           <GradientLine />
           <h1 className="archivo-expanded py-12 text-center font-serif text-2xl font-medium tracking-wide text-[#000A1D] md:text-5xl lg:text-6xl">
-            Frequently Asked Questions
+            {title}
           </h1>
           <GradientLine />
         </div>

@@ -2,8 +2,12 @@
 
 import { motion } from "framer-motion"
 import WhatsIncluded from "./whatsIncluded"
+import type { SdHeroSection, SdWhatsIncludedSection } from "@vns-core/core/types/service-detail"
 
-export default function HeroSection() {
+export default function HeroSection({ hero, whatsIncluded }: { hero?: SdHeroSection | null; whatsIncluded?: SdWhatsIncludedSection | null }) {
+  const titleLine1 = hero?.titleLine1 || "STRATEGY"
+  const titleLine2 = hero?.titleLine2 ?? "CONSULTING"
+  const description = hero?.description || "Craft data-driven, actionable roadmaps that navigate market complexities and position your brand for sustainable, long-term growth."
   return (
     <div className="relative overflow-hidden">
       {/* Curtain Animation */}
@@ -38,12 +42,16 @@ export default function HeroSection() {
           <div className="mb-12 md:mb-16">
             <h1 className="text-center text-4xl md:text-8xl font-bold tracking-wider mb-8">
               <span className="archivo-expanded bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
-                STRATEGY
+                {titleLine1}
               </span>
-              <br />
-              <span className="archivo-expanded bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
-                CONSULTING
-              </span>
+              {titleLine2 && (
+                <>
+                  <br />
+                  <span className="archivo-expanded bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent">
+                    {titleLine2}
+                  </span>
+                </>
+              )}
             </h1>
             <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
           </div>
@@ -53,9 +61,7 @@ export default function HeroSection() {
             <div className="flex items-start justify-center">
               <div className="max-w-3xl text-center">
                 <p className="generalsans-regular text-sm md:text-xl text-[#444444] leading-relaxed">
-                  Craft data-driven, actionable roadmaps that navigate market
-                  complexities and position your brand for sustainable,
-                  long-term growth.
+                  {description}
                 </p>
               </div>
             </div>
@@ -64,7 +70,7 @@ export default function HeroSection() {
       </div>
 
       {/* What's Included */}
-      <WhatsIncluded />
+      <WhatsIncluded data={whatsIncluded} />
     </div>
   )
 }

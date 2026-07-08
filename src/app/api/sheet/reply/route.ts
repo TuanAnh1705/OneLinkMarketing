@@ -1,39 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { google } from "googleapis";
+import { sheetController } from "@vns-core/core";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { name, email, message } = body;
+    const { name, email, message } = await req.json();
 
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-      },
-      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-    });
+    const result = await sheetController.submitReply({ name, email, message });
 
-    const sheets = google.sheets({ version: "v4", auth });
-
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "reply!A:D", // Sheet tên "reply" với 4 cột
-      valueInputOption: "USER_ENTERED",
-      requestBody: {
-        values: [[
-          name,
-          email,
-          message,
-          new Date().toLocaleString("vi-VN"),
-        ]],
-      },
-    });
+    if (!result.success) {
+      return NextResponse.json({ error: result.error }, { status: 500 });
+    }
 
     return NextResponse.json({ message: "Reply sent successfully!" });
-  } catch (err: any) {
+  } catch (err) {
     console.error("Failed to send reply", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    const message = err instanceof Error ? err.message : "Failed to send reply";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -4,6 +4,7 @@ import { motion, useInView, useAnimationControls } from "framer-motion"
 // 🚀 THÊM: Thêm 'useState'
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link" // 👈 1. IMPORT LINK
+import type { SdCtaSection } from "@vns-core/core/types/service-detail"
 
 
 // ===================================================================
@@ -61,7 +62,11 @@ function useMediaQuery(query: string): boolean {
 // ===================================================================
 
 
-export default function TestimonialsForSocial() {
+export default function TestimonialsForSocial({ data }: { data?: SdCtaSection | null }) {
+    const heading = data?.heading || "Manage My Social Media"
+    const lineOne = data?.lineOne || "GET A FREE CONSULTATION"
+    const lineTwo = data?.lineTwo || "GO"
+    const buttonHref = data?.buttonHref || "/contact"
     const containerRef = useRef<HTMLDivElement>(null)
     const sectionRef = useRef<HTMLElement>(null)
     const titleRef = useRef<HTMLHeadingElement>(null)
@@ -90,7 +95,7 @@ export default function TestimonialsForSocial() {
 
             <div className="mt-0">
                 {/* THAY ĐỔI: Cỡ chữ responsive */}
-                <p className="text-center text-[#000A1D] mb-12 text-2xl md:text-5xl archivo-expanded font-medium">Manage My Social Media</p>
+                <p className="text-center text-[#000A1D] mb-12 text-2xl md:text-5xl archivo-expanded font-medium">{heading}</p>
                 <div className="relative w-full overflow-hidden">
                     <motion.div
                         className="flex gap-16"
@@ -112,7 +117,7 @@ export default function TestimonialsForSocial() {
             <div className="flex flex-col items-center justify-center w-full -mt-10">
                 
                 {/* 👇 2. BỌC NÚT BẰNG LINK TỚI /CONTACT 👇 */}
-                <Link href="/contact">
+                <Link href={buttonHref}>
                     <motion.div
                         ref={containerRef}
                         className="inline-flex flex-col items-center gap-4 cursor-pointer"
@@ -135,11 +140,11 @@ export default function TestimonialsForSocial() {
                             >
                                 {/* 5. 🚀 THAY ĐỔI: Cỡ chữ (text-xl) và line-height responsive */}
                                 <div className="archivo-expanded text-xl md:text-6xl font-bold bg-gradient-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent leading-[5rem] md:leading-[7.5rem] whitespace-nowrap">
-                                    GET A FREE CONSULTATION
+                                    {lineOne}
                                 </div>
                                 {/* 6. 🚀 THAY ĐỔI: Cỡ chữ (text-4xl) và line-height responsive */}
                                 <div className="archivo-expanded text-4xl md:text-7xl font-bold bg-gradient-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent leading-[5rem] md:leading-[7.5rem]">
-                                    GO
+                                    {lineTwo}
                                 </div>
                             </motion.div>
                         </div>

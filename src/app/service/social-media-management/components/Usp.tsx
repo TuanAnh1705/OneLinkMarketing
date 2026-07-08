@@ -2,6 +2,8 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import type { SdAdvantageSection } from "@vns-core/core/types/service-detail"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
 
 const UspItem = ({
     item,
@@ -33,34 +35,40 @@ const UspItem = ({
 }
 
 // --- COMPONENT CHÍNH ---
-export default function UspSectionForSocial() {
+const FALLBACK_ITEMS = [
+    {
+        number: "01",
+        title: "Community Building Focus",
+        description:
+            "We go beyond simple posts to foster a loyal community that champions your brand.",
+    },
+    {
+        number: "02",
+        title: "Content That Converts",
+        description:
+            "Our content is not just engaging; it's strategically designed to drive real business outcomes.",
+    },
+    {
+        number: "03",
+        title: "Consistent Brand Voice",
+        description:
+            "We ensure your brand voice and visual identity are consistent across all social platforms for recognition.",
+    },
+    {
+        number: "04",
+        title: "Data-Driven Engagement",
+        description:
+            "We use analytics to understand what content performs best, allowing us to optimize for maximum impact.",
+    },
+]
 
-    const uspItems = [
-        {
-            number: "01",
-            title: "Community Building Focus",
-            description:
-                "We go beyond simple posts to foster a loyal community that champions your brand.",
-        },
-        {
-            number: "02",
-            title: "Content That Converts",
-            description:
-                "Our content is not just engaging; it's strategically designed to drive real business outcomes.",
-        },
-        {
-            number: "03",
-            title: "Consistent Brand Voice",
-            description:
-                "We ensure your brand voice and visual identity are consistent across all social platforms for recognition.",
-        },
-        {
-            number: "04",
-            title: "Data-Driven Engagement",
-            description:
-                "We use analytics to understand what content performs best, allowing us to optimize for maximum impact.",
-        },
-    ]
+export default function UspSectionForSocial({ data }: { data?: SdAdvantageSection | null }) {
+
+    const uspItems = data?.items?.length ? data.items : FALLBACK_ITEMS
+    const heading = data?.heading || "Building Communities, Not Just Followings"
+    const imageSrc = data?.image?.url ? getMediaUrl(data.image.url) : "/assets/sv10.png"
+    const ctaLabel = data?.ctaLabel || "Contact Us"
+    const ctaHref = data?.ctaHref || "/contact"
 
     return (
         <section
@@ -68,15 +76,15 @@ export default function UspSectionForSocial() {
         >
             <div className="max-w-7xl mx-auto">
                 <h2 className="archivo-expanded text-2xl md:text-5xl lg:text-6xl font-medium leading-tight mb-12 text-[#000A1D]">
-                    Building Communities, <br/> Not Just Followings
+                    {heading}
                 </h2>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
                     {/* Cột trái */}
                     <div className="lg:col-span-1">
                         <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px]">
                             <Image
-                                src="/assets/sv10.png"
-                                alt="Strategic Advantage"
+                                src={imageSrc}
+                                alt={heading}
                                 fill
                                 className="object-contain"
                                 priority
@@ -107,11 +115,11 @@ export default function UspSectionForSocial() {
 
                 {/* Nút CTA */}
                 <div className="flex justify-center mt-0 mb-10 md:-mb-10 md:mt-20">
-                    <Link href="/contact">
+                    <Link href={ctaHref}>
                         <button className="relative overflow-hidden px-5 py-3.5 rounded-full generalsans-regular text-sm text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                             {/* Lớp chữ trên cùng */}
                             <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
-                                Contact Us
+                                {ctaLabel}
                             </span>
 
                             {/* Nền trắng trượt lên */}

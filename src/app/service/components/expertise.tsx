@@ -6,45 +6,56 @@ import { SplitText } from "gsap/SplitText"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Link from "next/link"
 import Image from "next/image"
+import type { ExpertiseSection as ExpertiseSectionData } from "@vns-core/core/types/service"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
 
 gsap.registerPlugin(SplitText, ScrollTrigger)
 
-// --- DATA ---
-const expertiseData = [
+// --- TYPES ---
+interface ExpertiseCard {
+    number: string
+    title: string
+    services: string[]
+    image: string
+    slug: string
+}
+
+// --- FALLBACK DATA (build-safe when Strapi is unavailable) ---
+const FALLBACK_EXPERTISE: ExpertiseCard[] = [
     {
         number: "01",
         title: "Strategy\nConsulting",
         services: ["Brand Audit & Insight Analysis", "Market & Competitor Research", "Key Messaging Framework", "Measurement, Data & Optimisation"],
         image: "/assets/7.png",
-        slug: "/service/strategy-consulting",
+        slug: "/strategy-consulting",
     },
     {
         number: "02",
         title: "Digital Asset\nDevelopment",
         services: ["Brand Identity", "Website Design", "Landing Page", "Digital Collateral"],
         image: "/assets/8.png",
-        slug: "/service/digital-asset-development",
+        slug: "/digital-asset-development",
     },
     {
         number: "03",
         title: "Search Engine\nOptimization",
         services: ["Keyword Research & Planning", "On-page Optimization", "Off-page Optimization", "Content Strategy & Production"],
         image: "/assets/9.png",
-        slug: "/service/search-engine-optimization",
+        slug: "/search-engine-optimization",
     },
     {
         number: "04",
         title: "Paid Media &\nAdvertising",
         services: ["Multi-channel Strategy", "Cost & Conversion Rate Optimization", "A/B Testing & Funnel Optimization", "Performance Reporting & Daily Insights"],
         image: "/assets/10.png",
-        slug: "/service/paid-media-&-advertising",
+        slug: "/paid-media-&-advertising",
     },
     {
         number: "05",
         title: "Social Media\nManagement",
         services: ["Platform Setup", "Research & Content Strategy", "Content Production", "Reporting & Community Engagement"],
         image: "/assets/11.png",
-        slug: "/service/social-media-management",
+        slug: "/social-media-management",
     },
 ]
 
@@ -55,7 +66,7 @@ function GradientBorder() {
 }
 
 const ExpertiseItem = memo(({ item, index }: {
-    item: (typeof expertiseData)[0]
+    item: ExpertiseCard
     index: number
 }) => {
     const sectionRef = useRef<HTMLDivElement>(null)
@@ -160,7 +171,20 @@ const ExpertiseItem = memo(({ item, index }: {
 ExpertiseItem.displayName = "ExpertiseItem"
 
 // --- MAIN SECTION ---
-export default function ExpertiseSection() {
+export default function ExpertiseSection({ data }: { data?: ExpertiseSectionData | null }) {
+    const items: ExpertiseCard[] = data?.items?.length
+        ? data.items.map((it) => ({
+            number: it.number,
+            title: (it.title || "").trim(),
+            services: Array.isArray(it.services) ? it.services : [],
+            image: it.image?.url ? getMediaUrl(it.image.url) : "/assets/7.png",
+            slug: it.slug || "/",
+        }))
+        : FALLBACK_EXPERTISE
+
+    const heading = data?.heading || "SERVICES"
+    const subheading = data?.subheading
+
     return (
         <section className="relative py-20 px-6 md:px-12 lg:px-20 overflow-hidden bg-white">
             <div className="max-w-8xl mx-auto relative">
@@ -168,20 +192,26 @@ export default function ExpertiseSection() {
                 {/* Header */}
                 <div className="mb-16">
                     <h1 className="archivo-expanded text-5xl md:text-9xl font-bold text-center tracking-tighter bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent mb-8">
-                        SERVICES
+                        {heading}
                     </h1>
                     <GradientBorder />
                     <p className="generalsans-regular font-medium text-[#000A1D] text-center text-xl md:text-4xl lg:text-5xl max-w-5xl mx-auto leading-tight py-12">
-                        We provide a single, <br className="hidden md:block" />
-                        integrated roadmap to solve <br className="hidden md:block" />
-                        all your marketing challenges.
+                        {subheading ? (
+                            subheading
+                        ) : (
+                            <>
+                                We provide a single, <br className="hidden md:block" />
+                                integrated roadmap to solve <br className="hidden md:block" />
+                                all your marketing challenges.
+                            </>
+                        )}
                     </p>
                     <GradientBorder />
                 </div>
 
                 {/* List */}
                 <div className="mt-8">
-                    {expertiseData.map((item, i) => (
+                    {items.map((item, i) => (
                         <ExpertiseItem
                             key={item.number}
                             item={item}

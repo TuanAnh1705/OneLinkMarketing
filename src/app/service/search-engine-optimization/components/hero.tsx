@@ -2,8 +2,12 @@
 
 import { motion } from "framer-motion"
 import WhatsIncluded from "./whatsIncluded"
+import type { SdHeroSection, SdWhatsIncludedSection } from "@vns-core/core/types/service-detail"
 
-export default function HeroSection() {
+export default function HeroSection({ hero, whatsIncluded }: { hero?: SdHeroSection | null; whatsIncluded?: SdWhatsIncludedSection | null }) {
+  const titleLine1 = hero?.titleLine1 || "Search Engine Optimization"
+  const titleLine2 = hero?.titleLine2 ?? ""
+  const description = hero?.description || "Achieve top rankings and capture high-intent organic traffic with our comprehensive SEO strategies, engineered for long-term visibility and authority."
   return (
     <div className="relative overflow-hidden">
       <motion.div initial={{ x: 0 }} animate={{ x: "-100%" }} transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }} className="fixed top-0 left-0 w-1/2 h-full bg-white z-9999" />
@@ -22,7 +26,13 @@ export default function HeroSection() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 md:mb-16">
             <h1 className="text-center text-3xl md:text-8xl font-bold tracking-wider mb-8">
-              <span className="archivo-expanded bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent uppercase">Search Engine Optimization</span>
+              <span className="archivo-expanded bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent uppercase">{titleLine1}</span>
+              {titleLine2 && (
+                <>
+                  <br />
+                  <span className="archivo-expanded bg-linear-to-r from-[#0074E5] to-[#162660] bg-clip-text text-transparent uppercase">{titleLine2}</span>
+                </>
+              )}
             </h1>
             <div className="h-px w-full bg-linear-to-r from-[#0074E5] to-[#162660]" />
           </div>
@@ -31,7 +41,7 @@ export default function HeroSection() {
             <div className="flex items-start justify-center">
               <div className="max-w-4xl text-center">
                 <p className="generalsans-regular text-sm md:text-xl text-[#444444] leading-relaxed">
-                  Achieve top rankings and capture high-intent organic traffic with our comprehensive SEO strategies, engineered for long-term visibility and authority.
+                  {description}
                 </p>
               </div>
             </div>
@@ -39,7 +49,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <WhatsIncluded />
+      <WhatsIncluded data={whatsIncluded} />
     </div>
   )
 }

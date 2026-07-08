@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import type { SdFaqSection } from "@vns-core/core/types/service-detail"
 
 // 🔹 Gradient line (mỏng, đều, di chuyển theo layout)
 function GradientLine() {
@@ -12,8 +13,8 @@ function GradientLine() {
   )
 }
 
-// 🔹 Dữ liệu FAQ
-const faqData = [
+// 🔹 Dữ liệu FAQ (fallback)
+const FALLBACK_FAQ = [
   {
     id: "01",
     question: "How does a brand audit identify growth opportunities?",
@@ -46,10 +47,15 @@ const faqData = [
   },
 ]
 
-export default function FaqAccordion() {
+export default function FaqAccordion({ data }: { data?: SdFaqSection | null }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const toggleItem = (index: number) =>
     setOpenIndex(openIndex === index ? null : index)
+
+  const faqData = data?.items?.length
+    ? data.items.map((it) => ({ id: it.number, question: it.question, answer: it.answer }))
+    : FALLBACK_FAQ
+  const heading = data?.heading || "FAQ’s"
 
   return (
     <div className="relative w-full z-20 -top-50  md:-top-20">
@@ -58,7 +64,7 @@ export default function FaqAccordion() {
         <div className="relative mb-12">
           <GradientLine />
           <h1 className="archivo-expanded py-12 text-center font-serif text-4xl font-medium tracking-wide text-[#000A1D] md:text-5xl">
-            FAQ’s
+            {heading}
           </h1>
           <GradientLine />
         </div>

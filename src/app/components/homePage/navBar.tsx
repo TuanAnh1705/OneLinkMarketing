@@ -19,6 +19,8 @@ import {
 import { ChevronDown } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { motion, AnimatePresence } from "framer-motion"
+import type { NavbarData } from "@vns-core/core/types/navbar"
+import { getMediaUrl } from "@vns-core/core/api/media-url"
 
 /* ── Icons ──────────────────────────────────────────── */
 
@@ -119,25 +121,37 @@ function bgIsDark(x: number, y: number, skip: Element | null): boolean {
   return false
 }
 
-/* ── Data ───────────────────────────────────────────── */
-const servicesItems = [
-  "All Services",
-  "Strategy Consulting",
-  "Digital Asset Development",
-  "Search Engine Optimization",
-  "Paid Media & Advertising",
-  "Social Media Management",
-]
+/* ── Data (fallbacks — used only when Strapi navbar is empty/unreachable) ── */
+type NavItem = { label: string; href: string }
 
-const compactNavLinks = [
+const FALLBACK_NAV_LINKS: NavItem[] = [
   { label: "Home",     href: "/" },
   { label: "Services", href: "/service" },
   { label: "About Us", href: "/about" },
   { label: "Case Studies", href: "/case-studies" },
 ]
 
+// Flat service hrefs (middleware rewrites /<slug> → /service/<slug>).
+const FALLBACK_SERVICE_LINKS: NavItem[] = [
+  { label: "All Services", href: "/service" },
+  { label: "Strategy Consulting", href: "/strategy-consulting" },
+  { label: "Digital Asset Development", href: "/digital-asset-development" },
+  { label: "Search Engine Optimization", href: "/search-engine-optimization" },
+  { label: "Paid Media & Advertising", href: "/paid-media-&-advertising" },
+  { label: "Social Media Management", href: "/social-media-management" },
+]
+
 /* ── Component ──────────────────────────────────────── */
-export default function Navbar() {
+export default function Navbar({ data }: { data?: NavbarData | null }) {
+  // Strapi-backed values with safe fallbacks so the navbar always renders.
+  const whiteLogo = data?.logoLight?.url ? getMediaUrl(data.logoLight.url) : "/assets/logoWhite.png"
+  const colorLogo = data?.logoDark?.url  ? getMediaUrl(data.logoDark.url)  : "/assets/logo.png"
+  const navLinks: NavItem[]     = data?.navLinks?.length     ? data.navLinks     : FALLBACK_NAV_LINKS
+  const serviceLinks: NavItem[] = data?.serviceLinks?.length ? data.serviceLinks : FALLBACK_SERVICE_LINKS
+  const ctaLabel    = data?.ctaLabel    || "Let's Talk"
+  const ctaHref     = data?.ctaHref     || "/contact"
+  const contactEmail = data?.contactEmail || "neil@onelinkmarketing.com"
+  const isAll = (link: NavItem) => link.href === "/service" || link.label.trim() === "All Services"
   const pathname = usePathname()
   const isHome   = pathname === "/"
 
@@ -198,7 +212,7 @@ export default function Navbar() {
               <div className="flex items-center justify-between gap-5 px-5 py-3">
                 <Link href="/" onClick={() => setMenuOpen(false)}>
                   <Image
-                    src={isDarkBg ? "/assets/logoWhite.png" : "/assets/logo.png"}
+                    src={isDarkBg ? whiteLogo : colorLogo}
                     alt="Onelink Marketing"
                     width={180}
                     height={50}
@@ -207,7 +221,7 @@ export default function Navbar() {
                   />
                 </Link>
 
-                <Link href="/contact" onClick={() => setMenuOpen(false)}>
+                <Link href={ctaHref} onClick={() => setMenuOpen(false)}>
                   <button className={`relative overflow-hidden px-6 py-2 rounded-xl generalsans-regular text-sm transition-colors duration-300 group ${
                     isDarkBg
                       ? "bg-white text-[#162660]"
@@ -216,7 +230,7 @@ export default function Navbar() {
                     <span className={`relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 ${
                       isDarkBg ? "group-hover:text-white" : "group-hover:text-[#162660]"
                     }`}>
-                      Let&apos;s Talk
+                      {ctaLabel}
                     </span>
                     <span className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] rounded-xl z-10 ${
                       isDarkBg
@@ -279,7 +293,7 @@ export default function Navbar() {
                         Menu
                       </p>
                       <nav className="flex flex-col">
-                        {compactNavLinks.map((item) => {
+                        {navLinks.map((item) => {
                           if (item.label === "Services") {
                             return (
                               <div key="services-compact">
@@ -306,25 +320,21 @@ export default function Navbar() {
                                       className="overflow-hidden"
                                     >
                                       <div className="flex flex-col pl-2 py-1 gap-0.5">
-                                        {servicesItems.map((svc) => {
-                                          const isAll = svc === "All Services"
-                                          const href  = isAll ? "/service" : `/service/${svc.toLowerCase().replace(/\s+/g, "-")}`
-                                          return (
-                                            <Link
-                                              key={svc}
-                                              href={href}
-                                              onClick={() => { setMenuOpen(false); setCompactServicesOpen(false) }}
-                                              className={`group flex items-center overflow-hidden generalsans-regular text-base py-1.5 transition-colors ${
-                                                isDarkBg ? "text-white/70 hover:text-white" : "text-[#444444] hover:text-[#0074E5]"
-                                              }`}
-                                            >
-                                              {!isAll && (
-                                                <div className="shrink-0 w-0 h-2.5 bg-[#0074E5] opacity-0 group-hover:w-2.5 group-hover:opacity-100 group-hover:mr-2 transition-all duration-300 ease-out" />
-                                              )}
-                                              {svc}
-                                            </Link>
-                                          )
-                                        })}
+                                        {serviceLinks.map((svc) => (
+                                          <Link
+                                            key={svc.href}
+                                            href={svc.href}
+                                            onClick={() => { setMenuOpen(false); setCompactServicesOpen(false) }}
+                                            className={`group flex items-center overflow-hidden generalsans-regular text-base py-1.5 transition-colors ${
+                                              isDarkBg ? "text-white/70 hover:text-white" : "text-[#444444] hover:text-[#0074E5]"
+                                            }`}
+                                          >
+                                            {!isAll(svc) && (
+                                              <div className="shrink-0 w-0 h-2.5 bg-[#0074E5] opacity-0 group-hover:w-2.5 group-hover:opacity-100 group-hover:mr-2 transition-all duration-300 ease-out" />
+                                            )}
+                                            {svc.label}
+                                          </Link>
+                                        ))}
                                       </div>
                                     </motion.div>
                                   )}
@@ -353,10 +363,10 @@ export default function Navbar() {
                           Work With Us
                         </p>
                         <a
-                          href="mailto:neil@onelinkmarketing.com"
+                          href={`mailto:${contactEmail}`}
                           className={`generalsans-regular text-sm hover:underline ${isDarkBg ? "text-white/80" : "text-[#0a0a1a]"}`}
                         >
-                          neil@onelinkmarketing.com
+                          {contactEmail}
                         </a>
                       </div>
                     </div>
@@ -385,47 +395,42 @@ export default function Navbar() {
             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
             <div className="pb-4 border-b border-gray-200">
               <Link href="/" onClick={closeSheet}>
-                <Image src="/assets/logo.png" alt="Onelink Marketing" width={160} height={45} className="h-10 w-auto" />
+                <Image src={colorLogo} alt="Onelink Marketing" width={160} height={45} className="h-10 w-auto" />
               </Link>
             </div>
 
             <div className="grow mt-6 flex flex-col gap-2">
-              <Link href="/" className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3" onClick={closeSheet}>
-                Home
-              </Link>
-
-              <Collapsible open={servicesOpen} onOpenChange={setServicesOpen}>
-                <CollapsibleTrigger className="flex items-center justify-between w-full generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3">
-                  <span>Services</span>
-                  <ChevronDown className={`h-5 w-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
-                </CollapsibleTrigger>
-                <CollapsibleContent className="flex flex-col gap-1 pl-6 pt-2 pb-2">
-                  {servicesItems.map((item) => {
-                    const isAll = item === "All Services"
-                    const href  = isAll ? "/service" : `/service/${item.toLowerCase().replace(/\s+/g, "-")}`
-                    return (
-                      <Link key={item} href={href} className="generalsans-regular text-[#444444] hover:text-[#0066FF] transition-colors py-2 text-base" onClick={closeSheet}>
-                        {item}
-                      </Link>
-                    )
-                  })}
-                </CollapsibleContent>
-              </Collapsible>
-
-              <Link href="/about" className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3" onClick={closeSheet}>
-                About Us
-              </Link>
-
-              <Link href="/case-studies" className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3" onClick={closeSheet}>
-                Case Studies
-              </Link>
+              {navLinks.map((item) => {
+                if (item.label === "Services") {
+                  return (
+                    <Collapsible key="services-mobile" open={servicesOpen} onOpenChange={setServicesOpen}>
+                      <CollapsibleTrigger className="flex items-center justify-between w-full generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3">
+                        <span>Services</span>
+                        <ChevronDown className={`h-5 w-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="flex flex-col gap-1 pl-6 pt-2 pb-2">
+                        {serviceLinks.map((svc) => (
+                          <Link key={svc.href} href={svc.href} className="generalsans-regular text-[#444444] hover:text-[#0066FF] transition-colors py-2 text-base" onClick={closeSheet}>
+                            {svc.label}
+                          </Link>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+                  )
+                }
+                return (
+                  <Link key={item.label} href={item.href} className="generalsans-regular text-[#000a1d] hover:text-[#0066FF] transition-colors font-semibold text-xl py-3" onClick={closeSheet}>
+                    {item.label}
+                  </Link>
+                )
+              })}
             </div>
 
             <div className="mt-8 mb-4">
-              <Link href="/contact" onClick={closeSheet} className="block">
+              <Link href={ctaHref} onClick={closeSheet} className="block">
                 <button className="relative overflow-hidden w-full px-6 py-3 rounded-full generalsans-regular text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                   <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
-                    Let&apos;s Talk
+                    {ctaLabel}
                   </span>
                   <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] rounded-full z-10" />
                   <span className="absolute inset-0 rounded-full border border-transparent group-hover:border-[#444444] transition-colors duration-300 z-10 pointer-events-none" />
@@ -448,7 +453,7 @@ export default function Navbar() {
         >
           <Link href="/">
             <Image
-              src="/assets/logo.png"
+              src={colorLogo}
               alt="Onelink Marketing"
               width={140}
               height={40}
@@ -474,7 +479,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex shrink-0">
               <Image
-                src={isHome ? "/assets/logoWhite.png" : "/assets/logo.png"}
+                src={isHome ? whiteLogo : colorLogo}
                 alt="Onelink Marketing"
                 width={180}
                 height={50}
@@ -485,79 +490,63 @@ export default function Navbar() {
 
             {/* Desktop links */}
             <div className="flex items-center gap-8">
-              <Link
-                href="/"
-                className={`generalsans-regular transition-colors font-medium ${
-                  isHome ? "text-white hover:text-white/75" : "text-[#0a0a1a] hover:text-[#0074E5]"
-                }`}
-              >
-                Home
-              </Link>
-
-              <DropdownMenu open={desktopServicesOpen} onOpenChange={setDesktopServicesOpen}>
-                <DropdownMenuTrigger
-                  className={`generalsans-regular flex items-center gap-1.5 transition-colors font-medium outline-none ${
-                    isHome ? "text-white hover:text-white/75" : "text-[#0a0a1a] hover:text-[#0074E5]"
-                  }`}
-                >
-                  Services
-                  <span className={`transition-transform duration-300 ${desktopServicesOpen ? "rotate-180" : ""}`}>
-                    <GradientChevronDown uid="services" />
-                  </span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className={`w-64 border-none p-4 ${isHome ? "bg-[#000a1d]" : "bg-white shadow-lg"}`}>
-                  {servicesItems.map((item) => {
-                    const isAll = item === "All Services"
-                    return (
-                      <DropdownMenuItem
-                        key={item}
-                        className={`group generalsans-regular cursor-pointer py-2.5 px-3 rounded-sm transition-all ${
-                          isHome
-                            ? `text-white ${isAll ? "hover:bg-white/10" : "hover:bg-white/10"}`
-                            : `text-[#0a0a1a] ${isAll ? "hover:bg-gray-100" : "hover:bg-gray-100"}`
+              {navLinks.map((item) => {
+                if (item.label === "Services") {
+                  return (
+                    <DropdownMenu key="services-desktop" open={desktopServicesOpen} onOpenChange={setDesktopServicesOpen}>
+                      <DropdownMenuTrigger
+                        className={`generalsans-regular flex items-center gap-1.5 transition-colors font-medium outline-none ${
+                          isHome ? "text-white hover:text-white/75" : "text-[#0a0a1a] hover:text-[#0074E5]"
                         }`}
                       >
-                        <div className="flex items-center overflow-hidden">
-                          {!isAll && (
-                            <div className="shrink-0 w-0 h-3 bg-[#0074E5] opacity-0 group-hover:w-3 group-hover:opacity-100 group-hover:mr-2 transition-all duration-300 ease-out" />
-                          )}
-                          <Link
-                            href={isAll ? "/service" : `/service/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                            className="block w-full"
+                        Services
+                        <span className={`transition-transform duration-300 ${desktopServicesOpen ? "rotate-180" : ""}`}>
+                          <GradientChevronDown uid="services" />
+                        </span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className={`w-64 border-none p-4 ${isHome ? "bg-[#000a1d]" : "bg-white shadow-lg"}`}>
+                        {serviceLinks.map((svc) => (
+                          <DropdownMenuItem
+                            key={svc.href}
+                            className={`group generalsans-regular cursor-pointer py-2.5 px-3 rounded-sm transition-all ${
+                              isHome
+                                ? "text-white focus:text-white hover:bg-white/10 focus:bg-white/10"
+                                : "text-[#0a0a1a] focus:text-[#0a0a1a] hover:bg-gray-100 focus:bg-gray-100"
+                            }`}
                           >
-                            {item}
-                          </Link>
-                        </div>
-                      </DropdownMenuItem>
-                    )
-                  })}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              <Link
-                href="/about"
-                className={`generalsans-regular transition-colors font-medium ${
-                  isHome ? "text-white hover:text-white/75" : "text-[#0a0a1a] hover:text-[#0074E5]"
-                }`}
-              >
-                About Us
-              </Link>
-
-              <Link
-                href="/case-studies"
-                className={`generalsans-regular transition-colors font-medium ${
-                  isHome ? "text-white hover:text-white/75" : "text-[#0a0a1a] hover:text-[#0074E5]"
-                }`}
-              >
-                Case Studies
-              </Link>
+                            <div className="flex items-center overflow-hidden">
+                              {!isAll(svc) && (
+                                <div className="shrink-0 w-0 h-3 bg-[#0074E5] opacity-0 group-hover:w-3 group-hover:opacity-100 group-hover:mr-2 transition-all duration-300 ease-out" />
+                              )}
+                              <Link href={svc.href} className="block w-full">
+                                {svc.label}
+                              </Link>
+                            </div>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )
+                }
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={`generalsans-regular transition-colors font-medium ${
+                      isHome ? "text-white hover:text-white/75" : "text-[#0a0a1a] hover:text-[#0074E5]"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
             </div>
 
             {/* CTA */}
-            <Link href="/contact">
+            <Link href={ctaHref}>
               <button className="relative overflow-hidden px-6 py-2 rounded-full generalsans-regular text-white bg-linear-to-r from-[#0074E5] to-[#162660] transition-colors duration-300 group">
                 <span className="relative z-20 flex items-center justify-center w-full h-full transition-colors duration-500 group-hover:text-[#162660]">
-                  Let&apos;s Talk
+                  {ctaLabel}
                 </span>
                 <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] rounded-full z-10" />
                 <span className="absolute inset-0 rounded-full border border-transparent group-hover:border-[#444444] transition-colors duration-300 z-10 pointer-events-none" />

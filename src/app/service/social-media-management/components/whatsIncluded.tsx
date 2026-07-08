@@ -2,8 +2,15 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import type { SdWhatsIncludedSection } from "@vns-core/core/types/service-detail"
 
-const items = [
+interface IncludedCard {
+  title: string
+  description: string
+  link: string
+}
+
+const FALLBACK_ITEMS: IncludedCard[] = [
   {
     title: "Social Media Strategy & Planning",
     description: "Defining your audience, content pillars, and platform-specific goals to build a cohesive brand voice.",
@@ -26,7 +33,7 @@ const items = [
   },
 ]
 
-function IncludedItem({ item, index }: { item: (typeof items)[0]; index: number }) {
+function IncludedItem({ item, index }: { item: IncludedCard; index: number }) {
   const [hovered, setHovered] = useState(false)
   const lineDir = index % 2 === 0 ? "origin-right group-hover:origin-left" : "origin-left group-hover:origin-right"
 
@@ -55,14 +62,19 @@ function IncludedItem({ item, index }: { item: (typeof items)[0]; index: number 
   )
 }
 
-export default function WhatsIncluded() {
+export default function WhatsIncluded({ data }: { data?: SdWhatsIncludedSection | null }) {
+  const items: IncludedCard[] = data?.items?.length
+    ? data.items.map((it) => ({ title: it.title, description: it.description, link: it.link || "/case-studies" }))
+    : FALLBACK_ITEMS
+  const heading = data?.heading || "What's Included"
+
   return (
     <section className="bg-white px-6 md:px-16 pt-6 pb-16 md:pt-8 md:pb-24">
       <div className="max-w-8xl mx-auto">
         <div className="flex items-center gap-3 mb-12 md:mb-16">
           <div className="w-4 h-4 bg-[#0074E5] shrink-0" />
           <h2 className="generalsans-light text-2xl md:text-3xl xl:text-4xl uppercase text-[#000A1D]">
-            What&apos;s Included
+            {heading}
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">

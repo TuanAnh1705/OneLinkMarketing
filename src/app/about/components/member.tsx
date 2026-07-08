@@ -4,6 +4,8 @@
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import { getMediaUrl } from "@vns-core/core/api/media-url";
+import type { TeamSection as TeamSectionData } from "@vns-core/core/types/about";
 
 // ==================== INTERFACE ====================
 interface TeamMember {
@@ -26,8 +28,16 @@ const STATIC_TEAM_MEMBERS: TeamMember[] = [
 ];
 
 // ==================== COMPONENT ====================
-export function TeamSection() {
-  const teamMembers: TeamMember[] = STATIC_TEAM_MEMBERS;
+export function TeamSection({ data }: { data?: TeamSectionData | null }) {
+  const heading = data?.heading || "Meet The Team";
+  const teamMembers: TeamMember[] = data?.members?.length
+    ? data.members.map((m) => ({
+        id: m.id,
+        name: m.name,
+        position: m.position,
+        imageUrl: m.image?.url ? getMediaUrl(m.image.url) : "",
+      }))
+    : STATIC_TEAM_MEMBERS;
 
   const [emblaRef] = useEmblaCarousel(
     {
@@ -51,7 +61,7 @@ export function TeamSection() {
         {/* --- Tiêu đề --- */}
         <div className="text-center mb-16">
           <h2 className="archivo-expanded text-5xl md:text-6xl font-medium text-[#000A1D]">
-            Meet The Team
+            {heading}
           </h2>
         </div>
       </div>
@@ -73,6 +83,7 @@ export function TeamSection() {
                       src={member.imageUrl}
                       alt={`Photo of ${member.name}`}
                       fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover w-full h-full transition-transform duration-300 ease-in-out group-hover:scale-110"
                     />
                   </div>
