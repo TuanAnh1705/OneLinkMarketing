@@ -2,13 +2,23 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const [isAnimating, setIsAnimating] = useState(true)
+  // Start with NO curtain: on the very first load there is no previous page to wipe
+  // from, and rendering the white curtains here (they're in the SSR HTML) would cover
+  // the transparent home navbar + dark hero with white until hydration — the "white
+  // navbar on first visit" bug. Curtains only play on subsequent client-side routes.
+  const [isAnimating, setIsAnimating] = useState(false)
+  const isFirstLoad = useRef(true)
 
   useEffect(() => {
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false
+      return // skip the wipe on initial mount
+    }
+
     // Trigger animation khi route thay đổi
     setIsAnimating(true)
 
@@ -60,4 +70,3 @@ export default function PageTransition({ children }: { children: React.ReactNode
     </>
   )
 }
-

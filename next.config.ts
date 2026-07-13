@@ -44,7 +44,10 @@ const nextConfig: NextConfig = {
 
   images: {
     formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 86400,
+    // 1 year: keep optimized Strapi images in Next's image cache so any image a visitor
+    // has already loaded keeps serving even if Strapi (the origin) goes down. Cloudflare
+    // in front adds origin-down coverage for images not yet in the local optimizer cache.
+    minimumCacheTTL: 31536000,
     // Client logos in Strapi are SVGs; allow the optimizer to serve them.
     // Safe here because sources are our own trusted CMS, and attachment disposition
     // + the site CSP prevent inline script execution from the SVG.

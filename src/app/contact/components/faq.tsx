@@ -46,10 +46,31 @@ const faqData = [
   },
 ]
 
-export default function Faq() {
+interface FaqItem {
+  id: number
+  question: string
+  answer: string
+}
+
+interface FaqProps {
+  heading?: string | null
+  items?: FaqItem[] | null
+}
+
+export default function Faq({ heading, items }: FaqProps = {}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const toggleItem = (index: number) =>
     setOpenIndex(openIndex === index ? null : index)
+
+  // Normalise CMS items to the same shape the list expects, padding the index label.
+  const list =
+    items && items.length > 0
+      ? items.map((item, i) => ({
+          id: String(i + 1).padStart(2, "0"),
+          question: item.question,
+          answer: item.answer,
+        }))
+      : faqData
 
   return (
     <div className="relative w-full z-20 mb-40">
@@ -58,14 +79,14 @@ export default function Faq() {
         <div className="relative mb-12">
           <GradientLine />
           <h1 className="archivo-expanded py-12 text-center font-serif text-4xl font-medium tracking-wide text-[#000A1D] md:text-5xl">
-            Frequently Asked Questions
+            {heading ?? "Frequently Asked Questions"}
           </h1>
           <GradientLine />
         </div>
 
         {/* --- FAQ LIST --- */}
         <div className="divide-y divide-transparent">
-          {faqData.map((item, index) => (
+          {list.map((item, index) => (
             <div key={item.id} className="relative">
               {/* Nút câu hỏi */}
               <button
@@ -128,7 +149,7 @@ export default function Faq() {
               </AnimatePresence>
 
               {/* 🔹 Line chia cách — bỏ ở item cuối cùng */}
-              {index < faqData.length - 1 && <GradientLine />}
+              {index < list.length - 1 && <GradientLine />}
             </div>
           ))}
         </div>

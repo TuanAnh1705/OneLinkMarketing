@@ -111,7 +111,39 @@ function FormField({
 // ============================================================================
 // 🔹 Component ContactFormSection chính
 // ============================================================================
-export function ContactFormSection() {
+interface ContactSocial {
+    id: number
+    label: string
+    url: string
+}
+
+interface ContactFormSectionProps {
+    formHeading?: string | null
+    getInTouchHeading?: string | null
+    getInTouchText?: string | null
+    contactEmail?: string | null
+    followHeading?: string | null
+    socials?: ContactSocial[] | null
+}
+
+const DEFAULT_SOCIALS: ContactSocial[] = [
+    { id: 1, label: "Facebook", url: "https://www.facebook.com/profile.php?id=61582703650572" },
+    { id: 2, label: "Linkedin", url: "https://www.linkedin.com/company/onelink-marketing/" },
+    { id: 3, label: "Instagram", url: "https://www.instagram.com/onelink_marketing/" },
+    { id: 4, label: "Behance", url: "https://www.behance.net/onelinkmarketi" },
+]
+
+export function ContactFormSection({
+    formHeading,
+    getInTouchHeading,
+    getInTouchText,
+    contactEmail,
+    followHeading,
+    socials,
+}: ContactFormSectionProps = {}) {
+    const email = contactEmail ?? "neil@onelinkmarketing.com"
+    const socialLinks = socials && socials.length > 0 ? socials : DEFAULT_SOCIALS
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -218,29 +250,28 @@ export function ContactFormSection() {
             </AnimatePresence>
 
             <div className="max-w-7xl mx-auto">
-                <h2 className="generalsans-regular font-medium text-3xl md:text-5xl text-[#000A1D] text-center max-w-5xl mx-auto leading-tight">
-                    Drop Us A Line To <br /> Get Your Project Started
+                <h2 className="generalsans-regular font-medium text-3xl md:text-5xl text-[#000A1D] text-center max-w-5xl mx-auto leading-tight whitespace-pre-line">
+                    {formHeading ?? "Drop Us A Line To\nGet Your Project Started"}
                 </h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 mt-20">
                     {/* Cột trái */}
                     <div className="lg:col-span-1 space-y-12">
                         <div>
-                            <h3 className="archivo-expanded text-lg font-medium text-[#444444] mb-4">Get in touch</h3>
+                            <h3 className="archivo-expanded text-lg font-medium text-[#444444] mb-4">{getInTouchHeading ?? "Get in touch"}</h3>
                             <p className="text-[#000A1D] generalsans-regular leading-relaxed mb-4">
-                                 Let’s start something together.
+                                 {getInTouchText ?? "Let’s start something together."}
                             </p>
-                            <a href="mailto:neil@onelinkmarketing.com" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">
-                                neil@onelinkmarketing.com
+                            <a href={`mailto:${email}`} className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">
+                                {email}
                             </a>
                         </div>
                         <div>
-                            <h3 className="archivo-expanded text-lg font-medium text-[#444444] mb-4">Follow</h3>
+                            <h3 className="archivo-expanded text-lg font-medium text-[#444444] mb-4">{followHeading ?? "Follow"}</h3>
                             <div className="flex flex-col items-start space-y-2">
-                                <a href="https://www.facebook.com/profile.php?id=61582703650572" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">Facebook</a>
-                                <a href="https://www.linkedin.com/company/onelink-marketing/" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">Linkedin</a>
-                                <a href="https://www.instagram.com/onelink_marketing/" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">Instagram</a>
-                                <a href="https://www.behance.net/onelinkmarketi" className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">Behance</a>
+                                {socialLinks.map((s) => (
+                                    <a key={s.id} href={s.url} className="underline generalsans-regular text-[#000A1D] hover:text-[#0074E5] transition-colors">{s.label}</a>
+                                ))}
                             </div>
                         </div>
                     </div>
